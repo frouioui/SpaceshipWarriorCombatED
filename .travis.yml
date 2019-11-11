@@ -1,0 +1,41 @@
+language: cpp
+
+compile: g++-8
+
+sudo: require
+
+service:
+  - docker
+
+git:
+  depth: false
+  quiet: true
+
+notifications:
+  email:
+    recipients:
+    - florent.poinsard@epitech.eu
+    - julien.ferrier@epitech.eu
+    - cecile.cadoul@epitech.eu
+    - nicolas.gardes@epitech.eu
+    on_success: change
+    on_failure: always
+
+jobs:
+  include:
+    - stage: build
+      script:
+        - echo "building on linux"
+    - stage: deploy
+      script:
+        - chmod +x ./ci/deploy.sh
+      deploy:
+        provider: script
+        script: bash ci/deploy.sh
+        on:
+          branch: master
+
+stages:
+  - build
+  - name: deploy
+    if: branch = master
