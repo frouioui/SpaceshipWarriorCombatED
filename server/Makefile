@@ -6,19 +6,19 @@
 ##
 
 
-SRC =	Server.cpp \
+SRC =	./src/Server.cpp \
 
 UT_SRC = 	
 
 UT  =   unit_tests
 
-MAIN = ./main.cpp
+MAIN = ./src/Main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-INCLUDE = -I./
+INCLUDE = -I./include
 
-CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
+CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror -g3
 
 NAME = 	r-type_server
 

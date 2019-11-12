@@ -6,6 +6,7 @@ class Server
 public:
 	Server();
 	~Server();
+
 	int run();
 
 protected:
