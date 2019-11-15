@@ -18,8 +18,8 @@ using namespace ECS;
 
 class ComponentManager {
 	public:
-		ComponentManager();
-		~ComponentManager();
+		ComponentManager() {};
+		~ComponentManager() {};
 
 		template<typename T>
 		void insertComponent() {

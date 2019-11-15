@@ -11,6 +11,10 @@
 #include <set>
 #include "ECS.hpp"
 
+class GameEngine;
+
+extern GameEngine gameEngine;
+
 class ASystem {
 	public:
 		ASystem();

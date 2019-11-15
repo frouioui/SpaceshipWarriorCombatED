@@ -18,7 +18,7 @@ template<typename T>
 class ComponentArray : public IComponentArray {
 	public:
 		ComponentArray() : _component(), _entityToIndex(), _indexToEntity(), _size(0){};
-		~ComponentArray();
+		~ComponentArray() {};
 		void insert(Entity id, T component) {
 			if (_entityToIndex.find(id) != _entityToIndex.end()) {
 				_entityToIndex[id] = _size;

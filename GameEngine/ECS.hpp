@@ -15,6 +15,6 @@ namespace ECS {
     const Entity MAX_ENTITY = 1000;
     const ComponentID MAX_COMPONENT = 50;
     using Signature = std::bitset<MAX_COMPONENT>;
-};
+}
 
 #endif /* !ECS_HPP_ */

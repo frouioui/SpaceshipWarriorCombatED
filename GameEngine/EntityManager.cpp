@@ -47,7 +47,7 @@ void EntityManager::setSignature(Entity id, Signature sign)
 
 Signature EntityManager::getSignature(Entity id)
 {
-    if (id >= MAX_ENTITY) {
+    if (id >= MAX_ENTITY)
         throw std::exception();
     return _SignatureList[id];
 }

@@ -17,8 +17,8 @@ using namespace ECS;
 
 class SystemManager {
 	public:
-		SystemManager();
-		~SystemManager();
+		SystemManager() {};
+		~SystemManager() {};
 
         template<typename T>
         void insertSystem() {
