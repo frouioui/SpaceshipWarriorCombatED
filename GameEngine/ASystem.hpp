@@ -12,14 +12,18 @@
 #include "ECS.hpp"
 
 class GameEngine;
-
 extern GameEngine gameEngine;
 
 class ASystem {
 	public:
-		ASystem();
-		~ASystem();
+		ASystem() : _entities(), _signature() {};
+		~ASystem() {};
+		void setSignature(Signature sign) { _signature =  sign;};
+		void update() {};
+		ECS::Signature getSignature() { return _signature;};
         std::set<ECS::Entity> _entities;
+	private:
+		ECS::Signature _signature;
 };
 
 #endif /* !ASYSTEM_HPP_ */

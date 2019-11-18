@@ -13,9 +13,9 @@
 struct rendering
 {
     /* rectangle have to be change with sprite, good luck Cécile */
-    sf::RectangleShape shape;
-    sf::Vector2f pos;
-    sf::Vector2f size;
+    
+    std::vector<int> pos;
+    std::vector<int> size;
 };
 
 

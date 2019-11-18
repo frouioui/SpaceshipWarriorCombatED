@@ -47,17 +47,8 @@ class ComponentManager {
 		void removeToArray(Entity id) { GetComponentArray<T>()->remove(id);}
 
 		template<typename T>
-		T& getToArray(Entity id) { GetComponentArray<T>()->getComponent(id);}
+		T& getToArray(Entity id) { return GetComponentArray<T>()->getComponent(id);}
 
-		void destroyEntity(Entity id) {
-			for (auto const& x : _component)
-				x.second->destroyEntity(id);
-		}
-	private:
-        std::unordered_map<std::string, std::shared_ptr<IComponentArray>>  _component;
-        std::unordered_map<std::string, ComponentID>  _componentID;
-        ComponentID _nextID;
-		
 		template<typename T>
 		std::shared_ptr<ComponentArray<T>> GetComponentArray()
 		{
@@ -66,6 +57,15 @@ class ComponentManager {
 				throw std::exception();
 			return std::static_pointer_cast<ComponentArray<T>>(_component[name]);
 		}
+
+		void destroyEntity(Entity id) {
+			for (auto const& x : _component)
+				x.second->destroyEntity(id);
+		}
+	private:
+        std::unordered_map<std::string, std::shared_ptr<IComponentArray>>  _component;
+        std::unordered_map<std::string, ComponentID>  _componentID;
+        ComponentID _nextID;		
 };
 
 #endif /* !COMPONENTMANAGER_HPP_ */
