@@ -7,7 +7,7 @@ public:
 	Server();
 	~Server();
 
-	int run();
+	int run() throw();
 
 protected:
 private:
