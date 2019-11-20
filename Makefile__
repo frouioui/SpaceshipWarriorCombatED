@@ -12,7 +12,7 @@ SRC =	GameEngine/EntityManager.cpp \
 		Rtype/Rtype.cpp \
 		Sfml/Sfml.cpp \
 
-UT_SRC = 	
+UT_SRC =
 
 UT  =   unit_tests
 
@@ -22,7 +22,7 @@ OBJ = $(SRC:.cpp=.o)
 
 INCLUDE = -I./ -I./GameEngine -I./GameEngine/Component -I./GameEngine/System -I./Rtype
 
-CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
+CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror -std=c++14
 
 NAME = 	r-type
 
@@ -37,7 +37,7 @@ debug: $(OBJ) $(MAIN:.cpp=.o)
 
 clean:
 		rm -f $(OBJ)
-		rm -f $(MAIN:.cpp=.o) 
+		rm -f $(MAIN:.cpp=.o)
 		rm -f *.gc*
 		rm -f vgcore.*
 
@@ -48,5 +48,5 @@ fclean:		clean
 re:		fclean all
 
 tests_run:
-		g++ -o $(UT) $(UT_SRC) $(INCLUDE) $(SRC) $(CXXFLAGS) $(LDFLAGS) 
+		g++ -o $(UT) $(UT_SRC) $(INCLUDE) $(SRC) $(CXXFLAGS) $(LDFLAGS)
 		./$(UT) --always-succeed

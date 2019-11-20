@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "GameEngine.hpp"
-#include "Sfml/Sfml.hpp"
+#include "Sfml.hpp"
 #include "Component/rendering.hpp"
 
 class Render : public ASystem {
@@ -23,7 +23,7 @@ class Render : public ASystem {
 		void update();
 	protected:
 	private:
-		
+
 
 };
 

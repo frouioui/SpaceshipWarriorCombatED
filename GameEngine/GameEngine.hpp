@@ -12,7 +12,7 @@
 #include "EntityManager.hpp"
 #include "SystemManager.hpp"
 #include "ComponentManager.hpp"
-#include "Sfml/Sfml.hpp"
+#include "Sfml.hpp"
 
 class GameEngine {
 	public:
@@ -23,7 +23,7 @@ class GameEngine {
 
                 template<typename T>
                 void insertSystem() { _systems->insertSystem<T>();};
-                
+
                 template<typename T>
                 void insertComponent() { _components->insertComponent<T>();};
 
@@ -35,7 +35,7 @@ class GameEngine {
 
                 template<typename T>
                 T& getComponent(Entity id) { return _components->getToArray<T>(id);};
-                
+
                 template<typename T>
                 ComponentID getComponentID() { return _components->getComponentID<T>();};
 
