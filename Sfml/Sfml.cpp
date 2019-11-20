@@ -15,8 +15,8 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
 	box1.setOutlineColor(sf::Color::Green);
 	box1.setFillColor(sf::Color::Transparent);
 	_box.push_back(box1);
-	// if (!_font.loadFromFile("./ressources/CaviarDreams.ttf"))
-	// 	throw std::exception();
+	if (!_font.loadFromFile("./ressources/CaviarDreams.ttf"))
+		throw std::exception();
 
 	/* POSITION MENU */
 
@@ -68,13 +68,13 @@ void Sfml::drawObject(std::string name, std::vector<int> pos)
 	(void)name;
 	sf::Sprite sprite;
 	sf::Texture texture;
-	// if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
-	// 	sprite.setTexture(texture);
-	// 	sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
-	// 	_window.draw(sprite);
-	// }
-	// else
-	// 	throw std::exception();
+	if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
+		sprite.setTexture(texture);
+		sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
+		_window.draw(sprite);
+	}
+	else
+		throw std::exception();
 }
   
 void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur)
@@ -83,20 +83,20 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
 	(void)pos;
 	(void)fontSize;
 	(void)str;
-	// static sf::Text *text = new sf::Text();
-	// sf::Color color(9, 106, 9);
-    // text->setFont(_font);
-    // text->setString(str);
-    // text->setCharacterSize(fontSize);
+	static sf::Text *text = new sf::Text();
+	sf::Color color(9, 106, 9);
+    text->setFont(_font);
+    text->setString(str);
+    text->setCharacterSize(fontSize);
 	// TODO: Fix problems with sfml version
-	// if (couleur =="green")
-	//     text->setFillColor(sf::Color::Green);
-	// if (couleur == "selected")
-	// 	text->setFillColor(color);
-	// if (couleur =="yellow")
-	//     text->setFillColor(sf::Color::Yellow);
-    // text->setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
-	// _window.draw(*text);
+	if (couleur =="green")
+	    text->setFillColor(sf::Color::Green);
+	if (couleur == "selected")
+		text->setFillColor(color);
+	if (couleur =="yellow")
+	    text->setFillColor(sf::Color::Yellow);
+    text->setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
+	_window.draw(*text);
 }
 
 
@@ -116,8 +116,8 @@ input Sfml::getEvent()
 				return input::KEYLEFT;
 			if (event.key.code == sf::Keyboard::Down)
 				return input::KEYDOWN;
-			// if (event.key.code == sf::Keyboard::Enter)
-			// 	return input::ENTER;
+			if (event.key.code == sf::Keyboard::Enter)
+				return input::ENTER;
 			if (event.key.code == sf::Keyboard::Space)
 				return input::SPACE;
 			if (event.key.code == sf::Keyboard::L)
@@ -160,9 +160,9 @@ std::string Sfml::getString(std::vector<int> pos)
     		}
 		}
 		// TODO: Nedd to see what's keyboard enter
-		// if (event.type == sf::Event::KeyPressed)
-		// 	if (event.key.code == sf::Keyboard::Enter && str != "")
-		// 		break;
+		if (event.type == sf::Event::KeyPressed)
+			if (event.key.code == sf::Keyboard::Enter && str != "")
+				break;
 	}
 	return str;
 }
@@ -203,49 +203,49 @@ void Sfml::loadAsset(const std::string &name)
 	int i = 0;
 	(void)i;
 	(void)name;
-	// while (std::ifstream("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png")) {
-	// 	texture.loadFromFile("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png");
-	// 	_texture.push_back(sf::Texture(texture));
-	// 	sprite.setTexture(_texture.back());
-	// 	sprite.setScale(0.5f, 0.5f);
-	// 	_character.push_back(sf::Sprite(sprite));
-	// 	i++;
-	// }
-	// i = 0;
-	// if (_character.size() > 0)
-	// 	_Objmap.emplace("character", _character);
-	// while (std::ifstream("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png")) {
-	// 	texture.loadFromFile("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png");
-	// 	_texture.push_back(sf::Texture(texture));
-	// 	sprite.setTexture(_texture.back());
-	// 	sprite.setScale(0.5f, 0.5f);
-	// 	_objet.push_back(sf::Sprite(sprite));
-	// 	i++;
-	// }
-	// i = 0;
-	// if (_objet.size() > 0)
-	// 	_Objmap.emplace("objet", _objet);
-	// while (std::ifstream("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png")) {
-	// 	texture.loadFromFile("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png");
-	// 	_texture.push_back(sf::Texture(texture));
-	// 	sprite.setTexture(_texture.back());
-	// 	sprite.setScale(0.5f, 0.5f);
-	// 	_wall.push_back(sf::Sprite(sprite));
-	// 	i++;
-	// }
-	// i = 0;
-	// if (_wall.size() > 0)
-	// 	_Objmap.emplace("wall", _wall);
-	// while (std::ifstream("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png")) {
-	// 	texture.loadFromFile("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png");
-	// 	_texture.push_back(sf::Texture(texture));
-	// 	sprite.setTexture(_texture.back());
-	// 	sprite.setScale(0.5f, 0.5f);
-	// 	_enemy.push_back(sf::Sprite(sprite));
-	// 	i++;
-	// }
-	// if (_enemy.size() > 0)
-	// 	_Objmap.emplace("enemy", _enemy);
+	while (std::ifstream("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png")) {
+		texture.loadFromFile("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png");
+		_texture.push_back(sf::Texture(texture));
+		sprite.setTexture(_texture.back());
+		sprite.setScale(0.5f, 0.5f);
+		_character.push_back(sf::Sprite(sprite));
+		i++;
+	}
+	i = 0;
+	if (_character.size() > 0)
+		_Objmap.emplace("character", _character);
+	while (std::ifstream("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png")) {
+		texture.loadFromFile("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png");
+		_texture.push_back(sf::Texture(texture));
+		sprite.setTexture(_texture.back());
+		sprite.setScale(0.5f, 0.5f);
+		_objet.push_back(sf::Sprite(sprite));
+		i++;
+	}
+	i = 0;
+	if (_objet.size() > 0)
+		_Objmap.emplace("objet", _objet);
+	while (std::ifstream("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png")) {
+		texture.loadFromFile("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png");
+		_texture.push_back(sf::Texture(texture));
+		sprite.setTexture(_texture.back());
+		sprite.setScale(0.5f, 0.5f);
+		_wall.push_back(sf::Sprite(sprite));
+		i++;
+	}
+	i = 0;
+	if (_wall.size() > 0)
+		_Objmap.emplace("wall", _wall);
+	while (std::ifstream("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png")) {
+		texture.loadFromFile("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png");
+		_texture.push_back(sf::Texture(texture));
+		sprite.setTexture(_texture.back());
+		sprite.setScale(0.5f, 0.5f);
+		_enemy.push_back(sf::Sprite(sprite));
+		i++;
+	}
+	if (_enemy.size() > 0)
+		_Objmap.emplace("enemy", _enemy);
 }
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)

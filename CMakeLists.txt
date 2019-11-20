@@ -13,6 +13,7 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
+
 # Server sources (except main)
 set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp

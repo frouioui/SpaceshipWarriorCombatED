@@ -12,7 +12,6 @@
 #include "EntityManager.hpp"
 #include "SystemManager.hpp"
 #include "ComponentManager.hpp"
-#include "Sfml.hpp"
 
 class GameEngine {
 	public:
@@ -41,13 +40,10 @@ class GameEngine {
 
                 template<typename T>
                 std::shared_ptr<ASystem> getSystem() {return _systems->getSystem<T>();};
-
-                std::unique_ptr<Sfml>& getSfml() { return _sfml;};
         private:
                 std::unique_ptr<EntityManager> _entities;
                 std::unique_ptr<SystemManager> _systems;
                 std::unique_ptr<ComponentManager> _components;
-                std::unique_ptr<Sfml> _sfml;
 };
 
 #endif /* !GAMEENGINE_HPP_ */

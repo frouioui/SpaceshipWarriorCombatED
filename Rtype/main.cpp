@@ -6,14 +6,13 @@
 */
 
 #include "Rtype.hpp"
-
+#include "Sfml.hpp"
 
 int main()
 {
     Rtype game;
-    game.initServer();
-    game.initClient();
-    game.run();
-    game.closeClient();
+    Sfml sfml;
+    sfml.openWindow();
+    sfml.closeWindow();
     return 0;
 }
