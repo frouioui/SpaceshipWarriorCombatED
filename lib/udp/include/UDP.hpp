@@ -18,12 +18,11 @@ public:
 	void receive();
 	void send();
 
+	const std::unordered_map<std::string, std::string> &stringToMap(std::string string) const;
+
 protected:
 
 private:
-
-	std::unordered_map<std::string, std::string>  stringToMap(std::string string);
-
 	short _port;
 	udp::socket _socket;
 	udp::endpoint _receive_endpoint;

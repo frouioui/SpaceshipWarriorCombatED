@@ -7,7 +7,6 @@
 
 
 SRC =	./src/Server.cpp \
-		./src/UDP.cpp \
 
 UT_SRC = 	
 
@@ -17,7 +16,7 @@ MAIN = ./src/Main.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
-INCLUDE = -I./include
+INCLUDE = -I./include -I ../lib/udp/include
 
 CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
 
@@ -28,7 +27,7 @@ LDFLAGS =   -lcriterion -lgcov --coverage
 all: $(NAME)
 
 $(NAME): $(OBJ) $(MAIN:.cpp=.o)
-		g++ -o $(NAME) $(OBJ) $(MAIN:.cpp=.o) $(CXXFLAGS)
+		g++ -o $(NAME) $(OBJ) $(MAIN:.cpp=.o) $(CXXFLAGS) -L../lib/udp -ludp
 
 debug: $(OBJ) $(MAIN:.cpp=.o)
 		g++ -o $(NAME) $(OBJ) $(MAIN:.cpp=.o) $(CXXFLAGS) -g3

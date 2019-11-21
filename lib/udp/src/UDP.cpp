@@ -23,18 +23,18 @@ void UDP::send()
     std::cout << "titi" << std::endl;
 }
 
-std::unordered_map<std::string, std::string> UDP::stringToMap(std::string string)
+const std::unordered_map<std::string, std::string> &UDP::stringToMap(std::string str) const
 {
     std::unordered_map<std::string, std::string> map;
 
     size_t posSecond = 0;
-    while ((posSecond = string.find(":")) != std::string::npos) {
-        std::string second = string.substr(0, posSecond);
+    while ((posSecond = str.find(":")) != std::string::npos) {
+        std::string second = str.substr(0, posSecond);
         size_t posFirst = second.find("=");
         std::string first = second.substr(0, posFirst);
         second.erase(0, posFirst + 1);
         map[first] = second;
-        string.erase(0, posSecond + 1);
+        str.erase(0, posSecond + 1);
     }
     return (map);
 }
