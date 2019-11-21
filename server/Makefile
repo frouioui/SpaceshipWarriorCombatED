@@ -7,6 +7,7 @@
 
 
 SRC =	./src/Server.cpp \
+		./src/UDP.cpp \
 
 UT_SRC = 	
 
@@ -18,7 +19,7 @@ OBJ = $(SRC:.cpp=.o)
 
 INCLUDE = -I./include
 
-CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror -g3
+CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
 
 NAME = 	r-type_server
 

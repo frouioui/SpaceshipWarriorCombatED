@@ -2,7 +2,6 @@
 #define GAMES_HPP
 
 #include <string>
-#include "Connection.hpp"
 
 class Games
 {
@@ -14,10 +13,6 @@ public:
 
 protected:
 private:
-    std::string _name;
-    int _port;
-  
-    std::unique_ptr<Connection::Connections> _connection;
 
 };
 
