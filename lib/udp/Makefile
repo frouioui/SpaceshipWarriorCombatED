@@ -1,5 +1,5 @@
 ## ------------- COMPLILATION ------------- ##
-CXX	=	g++ $(INCLUDE)
+CXX	=	g++ $(INCLUDE) -g3
 
 ## ------------- UNIT TESTS ------------- ##
 UT_DIR	=	./tests

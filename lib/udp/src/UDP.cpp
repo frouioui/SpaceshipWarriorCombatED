@@ -12,18 +12,26 @@ UDP::~UDP()
 void UDP::receive()
 {
     std::string archive_data(1024, 0);
-    _socket.receive_from(boost::asio::buffer(archive_data), _receive_endpoint);
+    _socket.receive_from(boost::asio::buffer(archive_data), _endpoint);
+    std::cout << "begin" << std::endl;
+    std::cout << archive_data << std::endl;
+    std::cout << "end" << std::endl;
     std::unordered_map<std::string, std::string> map = stringToMap(archive_data);
-    map["ip"] = _receive_endpoint.address().to_string();
-    map["port"] = std::to_string(_receive_endpoint.port());
+    map["ip"] = _endpoint.address().to_string();
+    map["port"] = std::to_string(_endpoint.port());
 }
 
-void UDP::send()
+void UDP::send(const std::string &data, const std::string &ip, short port)
 {
-    std::cout << "titi" << std::endl;
+    std::cout << "poop" << std::endl;
+    _endpoint.address(boost::asio::ip::address::from_string(ip));
+    std::cout << "poop" << std::endl;
+    _endpoint.port(port);
+    _socket.send_to(boost::asio::buffer(data), _endpoint);
+    std::cout << "sent to: " << _endpoint.address().to_string() << " on port: " << _endpoint.port() << std::endl;
 }
 
-const std::unordered_map<std::string, std::string> &UDP::stringToMap(std::string str) const
+std::unordered_map<std::string, std::string> UDP::stringToMap(std::string str) const
 {
     std::unordered_map<std::string, std::string> map;
 

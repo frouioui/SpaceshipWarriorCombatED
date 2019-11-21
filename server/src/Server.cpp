@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Server.hpp"
 
-Server::Server(boost::asio::io_context& io_context, short port) : _udp_server(io_context, port)
+Server::Server(UDPInfo &info) : _udp_server(info)
 {
 	_running = true;
 }

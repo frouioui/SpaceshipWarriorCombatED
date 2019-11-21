@@ -6,7 +6,7 @@
 class Server
 {
 public:
-	Server(boost::asio::io_context& io_context, short port);
+	Server(UDPInfo &info);
 	~Server();
 
 	int run() throw();
