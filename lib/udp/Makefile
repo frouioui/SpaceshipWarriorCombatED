@@ -1,5 +1,5 @@
 ## ------------- COMPLILATION ------------- ##
-CXX	=	g++ $(INCLUDE) -g3
+CXX	=	g++ $(INCLUDE) --std=c++14
 
 ## ------------- UNIT TESTS ------------- ##
 UT_DIR	=	./tests
@@ -11,7 +11,8 @@ UT_SRC	=	$(UT_DIR)/udp_tests.cpp
 ## ------------- LIB ------------- ##
 LIB_DIR	=	./src
 
-LIB_SRC	=	$(LIB_DIR)/UDP.cpp	\
+LIB_SRC	=	$(LIB_DIR)/UDP.cpp		\
+			$(LIB_DIR)/Packet.cpp	\
 
 LIB_NAME	=	libudp.a
 

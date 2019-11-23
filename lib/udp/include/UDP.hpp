@@ -3,15 +3,10 @@
 
 #include <map>
 #include <unordered_map>
-
 #include <boost/asio.hpp>
 
-using boost::asio::ip::udp;
-
-struct UDPInfo {
-	boost::asio::io_context& io_context;
-	short port;
-};
+#include "Basic.hpp"
+#include "Packet.hpp"
 
 class UDP
 {
@@ -20,7 +15,7 @@ public:
 	~UDP();
 
 	void receive();
-	void send(const std::string &data, const std::string &ip, short port);
+	void send(Packet packet);
 
 protected:
 
@@ -29,7 +24,8 @@ private:
 	udp::socket _socket;
 	udp::endpoint _endpoint;
 
-	std::unordered_map<std::string, std::string> stringToMap(std::string string) const;
+	dataPacket stringToMap(std::string string) const;
+	std::string mapToString(const dataPacket &map) const;
 
 };
 

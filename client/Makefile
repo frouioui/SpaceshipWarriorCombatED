@@ -7,7 +7,8 @@
 
 
 SRC =	./src/Client.cpp \
-		./src/network/NetworkManager.cpp
+		./src/network/NetworkManager.cpp \
+		./src/network/NetworkConfig.cpp
 
 UT_SRC = 	
 
@@ -18,6 +19,8 @@ MAIN = ./src/Main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 INCLUDE = -I./include -I ../lib/udp/include
+
+CXX	=	g++ --std=c++14
 
 CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror -g3
 

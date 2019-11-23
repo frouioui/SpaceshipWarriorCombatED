@@ -18,6 +18,8 @@ OBJ = $(SRC:.cpp=.o)
 
 INCLUDE = -I./include -I ../lib/udp/include
 
+CXX	=	g++ --std=c++14
+
 CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
 
 NAME = 	r-type_server

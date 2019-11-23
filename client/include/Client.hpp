@@ -6,6 +6,8 @@
 class Client {
 public:
 	Client(UDPInfo &info);
+	Client(UDPInfo &info, const std::string &server_ip, short server_port);
+
 	~Client();
 
 	int run() throw();
