@@ -23,7 +23,9 @@ private:
 	UDP _udp; // UDP - Network communication
 	NetworkConfig _config;
 
+	bool _running;
 	bool _connected; // Tells wether or not the client is connected to the server
+	std::string _auth_token; // The auth token sent by the server
 
 	std::vector<Packet> _queue_send; // The queue of packet to send
 	std::vector<Packet> _queue_received; // The queue of packet that have been received
@@ -31,6 +33,7 @@ private:
 	std::mutex _mutex; // Main mutex of the network manager
 
 	void authToServer(); // Loop that will authentificate the client to the server
+	void receive();
 };
 
 #endif /* !NETWORKMANAGER_HPP */

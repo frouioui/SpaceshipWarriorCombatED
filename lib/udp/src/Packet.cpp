@@ -83,3 +83,27 @@ void Packet::setData(const std::string &key, const std::string &value)
 {
     _data[key] = value;
 }
+
+void Packet::setAction(PRTL::Actions action)
+{
+    _data["act"] = std::to_string(static_cast<unsigned int>(action));
+}
+
+PRTL::Actions Packet::getAction() const
+{
+    if (_data.find("act") != _data.end())
+        return (static_cast<PRTL::Actions>(std::stoi(_data.at("act"))));
+    return (PRTL::Actions::UNKNOWN);
+}
+
+void Packet::setResponse(PRTL::Responses resp)
+{
+    _data["rsp"] = std::to_string(static_cast<unsigned int>(resp));
+}
+
+PRTL::Responses Packet::getResponse() const
+{
+    if (_data.find("rsp") != _data.end())
+        return (static_cast<PRTL::Responses>(std::stoi(_data.at("rsp"))));
+    return (PRTL::Responses::UNKNOWN);
+}

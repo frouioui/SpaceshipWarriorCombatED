@@ -1,10 +1,19 @@
 #if !defined(PROTOCOL_HPP)
 #define PROTOCOL_HPP
 
-#define P_ACTION "ac"
-#define P_ACTION_LOGIN "login"
+namespace PRTL
+{
+    enum class Actions {
+        AUTH,
+        UNKNOWN
+    };
 
-#define P_USER "usr"
-#define P_PASSWORD "pwd"
+    enum class Responses {
+        SUCCESS,
+        FAILURE,
+        UNKNOWN
+    };
+}; // namespace PRTL
+
 
 #endif // PROTOCOL_HPP

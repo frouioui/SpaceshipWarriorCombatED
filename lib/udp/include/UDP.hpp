@@ -14,7 +14,7 @@ public:
 	UDP(UDPInfo &info) : _socket(info.io_context, udp::endpoint(udp::v4(), info.port)) {_port = info.port;}
 	~UDP();
 
-	void receive();
+	Packet receive();
 	void send(Packet packet);
 
 protected:
