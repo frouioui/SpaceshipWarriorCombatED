@@ -3,14 +3,19 @@
 
 namespace PRTL
 {
+    const std::string USER = "usr";
+    const std::string PASSWORD = "pwd";
+
     enum class Actions {
         AUTH,
+        PING,
         UNKNOWN
     };
 
     enum class Responses {
         SUCCESS,
         FAILURE,
+        PING,
         UNKNOWN
     };
 }; // namespace PRTL

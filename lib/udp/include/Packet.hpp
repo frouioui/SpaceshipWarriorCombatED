@@ -21,6 +21,7 @@ public:
     void setData(const std::string &key, const std::string &value);
     void setAction(PRTL::Actions action);
     void setResponse(PRTL::Responses resp);
+    void setToken(const std::string &token);
     void set(dataPacket &data);
     void set(const std::string &ip);
     void set(short port);
@@ -28,6 +29,7 @@ public:
     dataPacket getData() const;
     PRTL::Actions getAction() const;
     PRTL::Responses getResponse() const;
+    const std::string &getToken();
     const std::string &getData(const std::string &key);
     std::string getIp() const;
     short getPort() const;

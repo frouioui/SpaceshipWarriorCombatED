@@ -7,6 +7,8 @@
 
 
 SRC =	./src/Server.cpp \
+		./src/client/Client.cpp \
+		./src/client/ClientManager.cpp \
 
 UT_SRC = 	
 

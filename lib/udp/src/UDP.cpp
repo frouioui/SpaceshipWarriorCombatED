@@ -32,7 +32,7 @@ void UDP::send(Packet packet)
     _endpoint.address(packet.getIpAddress());
     _endpoint.port(packet.getPort());
     _socket.send_to(boost::asio::buffer(mapToString(packet.getData())), _endpoint);
-    std::cout << "sent to: " << _endpoint.address().to_string() << " on port: " << _endpoint.port() << std::endl;
+    std::cout << " sent to: " << _endpoint.address().to_string() << " on port: " << _endpoint.port() << std::endl;
 }
 
 dataPacket UDP::stringToMap(std::string str) const

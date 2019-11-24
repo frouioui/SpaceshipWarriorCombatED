@@ -34,6 +34,7 @@ private:
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();
+	void pingLoop();
 };
 
 #endif /* !NETWORKMANAGER_HPP */

@@ -107,3 +107,13 @@ PRTL::Responses Packet::getResponse() const
         return (static_cast<PRTL::Responses>(std::stoi(_data.at("rsp"))));
     return (PRTL::Responses::UNKNOWN);
 }
+
+void Packet::setToken(const std::string &token)
+{
+    _data["token"] = token;
+}
+
+const std::string &Packet::getToken()
+{
+    return _data["token"];
+}

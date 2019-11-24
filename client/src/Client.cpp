@@ -22,7 +22,7 @@ int Client::run() throw()
 
     std::cout << "now about to run" << std::endl;
     while (_running) {
-        
+
     }
     return 0;
 }
