@@ -9,12 +9,22 @@
 #define EVENT_HPP_
 
 enum input {
-    UP,
-    DOWN,
-    RIGTH,
-    LEFT,
+    KEYUP,
+    KEYDOWN,
+    KEYRIGTH,
+    KEYLEFT,
     SPACE,
     ENTER,
+    CLOSE,
+    ECHAP,
+    BUTTON1,
+    BUTTON2,
+    NOTHING,
+    CHEAT1,
+    CHEAT2,
+    CHEAT3,
+    CHEAT4,
+    CHEAT5,
 };
 
 struct Event

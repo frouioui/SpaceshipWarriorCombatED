@@ -41,12 +41,9 @@ class ComponentArray : public IComponentArray {
 			}
 		}
 		T& getComponent(Entity id) {
-			T& result;
-			if (_entityToIndex.find(id) != _entityToIndex.end()) {
-				result = _component[_entityToIndex[id]];
-			} else
-				throw std::exception();	
-			return result;
+			if (_entityToIndex.find(id) == _entityToIndex.end())
+				throw std::exception();
+			return _component[_entityToIndex[id]];
 		}
 		void destroyEntity(Entity id) override {
 			remove(id);

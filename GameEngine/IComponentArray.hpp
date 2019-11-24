@@ -13,7 +13,7 @@
 
 class IComponentArray {
 	public:
-		virtual ~IComponentArray();
+		virtual ~IComponentArray() = default;
         virtual void destroyEntity(ECS::Entity id) = 0;
 };
 

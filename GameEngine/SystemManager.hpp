@@ -30,17 +30,16 @@ class SystemManager {
         }
 
         template<typename T>
-        void setSignature(Signature sign) {
+        std::shared_ptr<ASystem> getSystem() {
             std::string name = typeid(T).name();
-            if (_systems.find(name) != _systems.end()) {
-                _signatures.insert({name, sign});
-            } else
+            if (_systems.find(name) == _systems.end())
                 throw std::exception();
+            return _systems[name];
         }
 
         void changeSignatureFromEntity(Entity id, Signature sign) {
             for (auto const& x : _systems) {
-                if ((sign & _signatures[x.first]) == _signatures[x.first])
+                if ((sign & x.second->getSignature()) == x.second->getSignature())
                     x.second->_entities.insert(id);
                 else
                     x.second->_entities.erase(id);
@@ -52,7 +51,6 @@ class SystemManager {
                 x.second->_entities.erase(id);                
         }
 	private:
-        std::unordered_map<std::string, Signature> _signatures;
         std::unordered_map<std::string, std::shared_ptr<ASystem>> _systems;
 };
 

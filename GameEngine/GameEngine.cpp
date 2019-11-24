@@ -7,11 +7,11 @@
 
 #include "GameEngine.hpp"
 
-GameEngine::GameEngine() :
-_entities(std::make_unique<EntityManager>()),
-_systems(std::make_unique<SystemManager>()),
-_components(std::make_unique<ComponentManager>())
+GameEngine::GameEngine()
 {
+    _entities= std::make_unique<EntityManager>();
+    _systems= std::make_unique<SystemManager>();
+    _components= std::make_unique<ComponentManager>();
 }
 
 GameEngine::~GameEngine()

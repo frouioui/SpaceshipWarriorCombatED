@@ -17,30 +17,33 @@ class GameEngine {
 	public:
 		GameEngine();
 		~GameEngine();
-        Entity createEntity();
-        void destroyEntity(Entity id);
+                Entity createEntity();
+                void destroyEntity(Entity id);
 
-        template<typename T>
-        void insertSystem() { _systems->insertSystem<T>();}
-        
-        template<typename T>
-        void SignatureToSystem(Signature sign) { _systems->setSignature<T>(sign);}
+                template<typename T>
+                void insertSystem() { _systems->insertSystem<T>();};
 
-        template<typename T>
-        void insertComponent() { _components->insertComponent<T>();}
+                template<typename T>
+                void insertComponent() { _components->insertComponent<T>();};
 
-        template<typename T>
-        void removeComponent(Entity id) { _components->removeToArray<T>(id);}
+                template<typename T>
+                void removeComponent(Entity id) { _components->removeToArray<T>(id);};
 
-        template<typename T>
-        void addComponent(Entity id) { _components->addToArray<T>(id);}
+                template<typename T>
+                void addComponent(Entity id) { _components->addToArray<T>(id);};
 
-        template<typename T>
-        T& getComponent(Entity id) { _components->getComponentID<T>();}
-	private:
-        std::unique_ptr<EntityManager> _entities;
-        std::unique_ptr<SystemManager> _systems;
-        std::unique_ptr<ComponentManager> _components;
+                template<typename T>
+                T& getComponent(Entity id) { return _components->getToArray<T>(id);};
+
+                template<typename T>
+                ComponentID getComponentID() { return _components->getComponentID<T>();};
+
+                template<typename T>
+                std::shared_ptr<ASystem> getSystem() {return _systems->getSystem<T>();};
+        private:
+                std::unique_ptr<EntityManager> _entities;
+                std::unique_ptr<SystemManager> _systems;
+                std::unique_ptr<ComponentManager> _components;
 };
 
 #endif /* !GAMEENGINE_HPP_ */
