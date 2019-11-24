@@ -23,9 +23,18 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
 # Server main
 set(SERVER_SRC_MAIN ./Game/Rtype/main.cpp ${SERVER_SRC})
 
+# Client sources (except main)
+set(CLIENT_SRC  client/Client.cpp
+                Sfml/Sfml.cpp)
+
+# Client main
+set(CLIENT_SRC_MAIN client/main.cpp ${CLIENT_SRC})
+
 # Executable
 add_executable(r-type_server ${SERVER_SRC_MAIN})
-# add_executable(r-type_client ${CLIENT_SRC_MAIN})
+add_executable(r-type_client ${CLIENT_SRC_MAIN})
+
 target_link_libraries(r-type_server ${CONAN_LIBS})
+target_link_libraries(r-type_client ${CONAN_LIBS})
 
 # mkdir build && cd build && conan install .. --build=missing && cmake .. -G "Unix Makefiles" && cmake --build .

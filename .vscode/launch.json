@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Lancer",
+            "name": "debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/r-type",
+            "program": "${workspaceFolder}/debug/bin/r-type_client",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -17,11 +17,13 @@
             "MIMode": "gdb",
             "setupCommands": [
                 {
-                    "description": "Activer l'impression en mode Pretty pour gdb",
+                    "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
-            ]
-        }
+            ],
+            "preLaunchTask": "debug",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },
     ]
 }

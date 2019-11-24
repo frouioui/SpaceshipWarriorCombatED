@@ -9,6 +9,7 @@
 #define SFML_HPP_
 
 #include <fstream>
+#include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
@@ -31,7 +32,7 @@ class Sfml {
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
         input getEvent();
         std::string getString(std::vector<int> pos);
-		void loadAsset(const std::string &name);
+		void loadAsset();
 		void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
 		void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
 		std::string getName() const {return "sfml";};
@@ -40,25 +41,30 @@ class Sfml {
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
-	private:
+        void loadBackground();
+        void updateParallax();
+
+    private:
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
         sf::Sprite _title;
+        std::unordered_map<std::string, sf::Sprite> _backgnd;
+        // sf::Sprite _backgnd;
         sf::Font _font;
         sf::Event _event;
-		std::vector<sf::Texture> _texture;
+		// std::vector<sf::Texture> _texture;
+		std::unordered_map<std::string, sf::Texture> _texture;
         std::vector<sf::Sprite> _enemy;
         std::vector<sf::Sprite> _wall;
-        std::vector<sf::Sprite> _objet;
+        // std::vector<sf::Sprite> _objet;
+        std::unordered_map<std::string, sf::Sprite> _objet;
         std::vector<sf::Sprite> _character;
 		std::map<std::string, std::vector<int>> _posMenu;
 		std::map<std::string, std::vector<sf::Sprite>> _Objmap;
 		void drawObjMap(const std::string &type, int id, std::vector<int> pos);
         sf::Clock _clock;
         std::map<std::string, sf::Sprite> _spriteList;
+        std::string _assetsPath;
 };
 
 #endif /* !SFML_HPP_ */
-
-
-
