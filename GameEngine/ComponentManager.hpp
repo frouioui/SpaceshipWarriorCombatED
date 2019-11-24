@@ -18,7 +18,7 @@ using namespace ECS;
 
 class ComponentManager {
 	public:
-		ComponentManager() : _component(),_componentID(), _nextID(1) {};
+		ComponentManager() : _component(),_componentID(), _nextID(0) {};
 		~ComponentManager() {};
 
 		template<typename T>

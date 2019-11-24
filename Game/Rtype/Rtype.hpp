@@ -17,9 +17,11 @@ class Rtype : public AGame {
 	public:
 		Rtype();
 		~Rtype();
+		void initGame(int nbPlayer, int stage = 0);
 		void update();
-	protected:
 	private:
+		int _player;
+		int _stage;
 };
 
 #endif /* !RTYPE_HPP_ */

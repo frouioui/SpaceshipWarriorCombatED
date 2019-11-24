@@ -9,14 +9,18 @@
 #define AGAME_HPP_
 
 #include "IGame.hpp"
+#include "IEnemy.hpp"
 
 class AGame : public IGame {
 	public:
 		AGame();
 		~AGame();
-        
+        void addEvent(Event event);
+        void loadEnnemy();
+
 	protected:
-	private:
+        std::queue<Event> _event;
+        std::vector<IEnemy> _enemy;
 };
 
 #endif /* !AGAME_HPP_ */

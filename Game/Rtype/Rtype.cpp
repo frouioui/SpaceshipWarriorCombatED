@@ -7,8 +7,6 @@
 
 #include "Rtype.hpp"
 
-GameEngine gameEngine;
-
 Rtype::Rtype() : AGame()
 {
     gameEngine.insertComponent<rendering>();

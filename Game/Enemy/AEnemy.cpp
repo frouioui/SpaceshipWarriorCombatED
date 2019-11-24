@@ -2,17 +2,15 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** AGame
+** AEnemy
 */
 
-#include "AGame.hpp"
+#include "AEnemy.hpp"
 
-GameEngine gameEngine;
-
-AGame::AGame()
+AEnemy::AEnemy()
 {
 }
 
-AGame::~AGame()
+AEnemy::~AEnemy()
 {
 }
