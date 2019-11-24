@@ -1,10 +1,17 @@
+#include <iostream>
 #include "Client.hpp"
+#include "Sfml.hpp"
 
 int main(int ac, char **argv)
 {
     (void)ac;
     (void)argv;
     Client client;
-    client.run();
+    Sfml sfml;
+
+    sfml.loadBackground();
+    sfml.openWindow();
+    sfml.updateWindow();
+    // client.run();
     return 0;
 }

@@ -40,10 +40,14 @@ class Sfml {
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
-	private:
+        void loadBackground();
+        void updateParallax();
+
+    private:
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
         sf::Sprite _title;
+        sf::Sprite _backgnd;
         sf::Font _font;
         sf::Event _event;
 		std::vector<sf::Texture> _texture;
@@ -56,9 +60,7 @@ class Sfml {
 		void drawObjMap(const std::string &type, int id, std::vector<int> pos);
         sf::Clock _clock;
         std::map<std::string, sf::Sprite> _spriteList;
+        std::string _assetsPath;
 };
 
 #endif /* !SFML_HPP_ */
-
-
-
