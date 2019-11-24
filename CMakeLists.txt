@@ -8,7 +8,8 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/GameEngine/Component
                     ${r-type_SOURCE_DIR}/GameEngine/System
                     ${r-type_SOURCE_DIR}/Sfml
-                    ${r-type_SOURCE_DIR}/Rtype)
+                    ${r-type_SOURCE_DIR}/Game/Rtype
+                    ${r-type_SOURCE_DIR}/Game)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
@@ -17,11 +18,10 @@ conan_basic_setup()
 set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp
                 GameEngine/System/Render.cpp
-                Rtype/Rtype.cpp
-                Sfml/Sfml.cpp)
+                Game/Rtype/Rtype.cpp)
 
 # Server main
-set(SERVER_SRC_MAIN ./Rtype/main.cpp ${SERVER_SRC})
+set(SERVER_SRC_MAIN ./Game/Rtype/main.cpp ${SERVER_SRC})
 
 # Executable
 add_executable(r-type_server ${SERVER_SRC_MAIN})

@@ -11,15 +11,13 @@
 #include "GameEngine.hpp"
 #include "Component/rendering.hpp"
 #include "System/Render.hpp"
+#include "AGame.hpp"
 
-class Rtype {
+class Rtype : public AGame {
 	public:
 		Rtype();
 		~Rtype();
-		void run();
-		void initServer();
-		void initClient();
-		void closeClient();
+		void update();
 	protected:
 	private:
 };

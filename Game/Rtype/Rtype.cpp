@@ -9,8 +9,7 @@
 
 GameEngine gameEngine;
 
-
-Rtype::Rtype()
+Rtype::Rtype() : AGame()
 {
     gameEngine.insertComponent<rendering>();
     gameEngine.insertSystem<Render>();
@@ -20,20 +19,7 @@ Rtype::~Rtype()
 {
 }
 
-void Rtype::run()
-{
-
-}
-
-void Rtype::initServer()
-{
-}
-
-void Rtype::closeClient()
-{
-}
-
-void Rtype::initClient()
+void Rtype::update()
 {
 
 }
