@@ -10,9 +10,14 @@
 
 int main()
 {
-    Rtype game;
+//    Rtype game;
     Sfml sfml;
     sfml.openWindow();
+    int i = 0;
+    while (i < 500) {
+        i++;
+        sfml.updateWindow();
+    }
     sfml.closeWindow();
     return 0;
 }

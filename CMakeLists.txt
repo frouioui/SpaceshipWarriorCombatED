@@ -13,7 +13,6 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-
 # Server sources (except main)
 set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp
@@ -27,7 +26,6 @@ set(SERVER_SRC_MAIN ./Rtype/main.cpp ${SERVER_SRC})
 # Executable
 add_executable(r-type_server ${SERVER_SRC_MAIN})
 # add_executable(r-type_client ${CLIENT_SRC_MAIN})
-
 target_link_libraries(r-type_server ${CONAN_LIBS})
 
 # mkdir build && cd build && conan install .. --build=missing && cmake .. -G "Unix Makefiles" && cmake --build .

@@ -15,8 +15,9 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
 	box1.setOutlineColor(sf::Color::Green);
 	box1.setFillColor(sf::Color::Transparent);
 	_box.push_back(box1);
-	if (!_font.loadFromFile("./ressources/CaviarDreams.ttf"))
-		throw std::exception();
+	// TODO: path to global
+	// if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
+	// 	throw std::exception();
 
 	/* POSITION MENU */
 
@@ -88,7 +89,6 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
     text->setFont(_font);
     text->setString(str);
     text->setCharacterSize(fontSize);
-	// TODO: Fix problems with sfml version
 	if (couleur =="green")
 	    text->setFillColor(sf::Color::Green);
 	if (couleur == "selected")
@@ -159,7 +159,6 @@ std::string Sfml::getString(std::vector<int> pos)
     		    drawText(pos, 30, str);
     		}
 		}
-		// TODO: Nedd to see what's keyboard enter
 		if (event.type == sf::Event::KeyPressed)
 			if (event.key.code == sf::Keyboard::Enter && str != "")
 				break;
@@ -277,5 +276,25 @@ void Sfml::drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos)
 			x++;
 		}
 		y++;
+	}
+}
+
+void Sfml::addSpriteInList(const std::string& name, const std::string &path)
+{
+	sf::Sprite _obj;
+	sf::Sprite sprite;
+	sf::Texture texture;
+	if(texture.loadFromFile(path)) {
+		sprite.setTexture(texture);
+		_spriteList[name] = sprite;
+	}
+	else
+		throw std::exception();
+}
+
+void Sfml::drawSpriteListe()
+{
+	for (auto x:_spriteList) {
+		_window.draw(x.second);
 	}
 }
