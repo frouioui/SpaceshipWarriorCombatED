@@ -8,14 +8,12 @@ namespace PRTL
 
     enum class Actions {
         AUTH,
-        PING,
         UNKNOWN
     };
 
     enum class Responses {
         SUCCESS,
         FAILURE,
-        PING,
         UNKNOWN
     };
 }; // namespace PRTL

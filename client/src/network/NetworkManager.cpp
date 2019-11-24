@@ -48,13 +48,6 @@ void NetworkManager::authToServer()
     std::cout << "authentification is done" << std::endl;
 }
 
-void NetworkManager::pingLoop()
-{
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
-    }
-}
-
 void NetworkManager::receive()
 {
     while (true) {
