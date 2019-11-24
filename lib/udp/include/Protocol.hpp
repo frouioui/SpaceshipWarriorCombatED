@@ -8,6 +8,8 @@ namespace PRTL
 
     enum class Actions {
         AUTH,
+        JOIN_ROOM,
+        GET_ROOMS,
         UNKNOWN
     };
 

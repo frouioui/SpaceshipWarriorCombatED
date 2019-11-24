@@ -34,6 +34,11 @@ private:
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();
+	void handle();
+
+	void getAvailableRooms();
+	void createAndJoinRoom();
+	void joinRoom();
 };
 
 #endif /* !NETWORKMANAGER_HPP */

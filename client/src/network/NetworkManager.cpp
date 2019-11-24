@@ -68,3 +68,22 @@ void NetworkManager::receive()
         }
     }
 }
+
+void NetworkManager::handle()
+{
+}
+
+void NetworkManager::getAvailableRooms()
+{
+
+}
+
+void NetworkManager::createAndJoinRoom()
+{
+    
+}
+
+void NetworkManager::joinRoom()
+{
+    
+}
