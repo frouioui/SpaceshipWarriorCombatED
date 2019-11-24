@@ -7,12 +7,46 @@
 
 #include "AGame.hpp"
 
-GameEngine gameEngine;
 
-AGame::AGame()
+AGame::AGame() : _event(), _enemy()
 {
 }
 
 AGame::~AGame()
 {
+}
+
+void AGame::initGame(int nbPlayer, int stage)
+{
+
+}
+
+void AGame::addEvent(Event input)
+{
+    _event.push(input);
+}
+
+void AGame::update()
+{
+
+}
+
+std::vector<rendering> AGame::getRendering()
+{
+    return std::vector<rendering>();
+}
+
+void AGame::loadEnnemy()
+{
+
+}
+
+void AGame::deletePlayer(int id)
+{
+
+}
+
+void AGame::addPlayer()
+{
+
 }

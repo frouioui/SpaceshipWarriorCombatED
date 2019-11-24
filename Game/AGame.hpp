@@ -13,11 +13,15 @@
 
 class AGame : public IGame {
 	public:
-		AGame();
+        AGame();
 		~AGame();
-        void addEvent(Event event);
+        void initGame(int nbPlayer, int stage);
+        void addEvent(Event input);
+        void update();
+        std::vector<rendering> getRendering();
         void loadEnnemy();
-
+        void deletePlayer(int id);
+        void addPlayer();
 	protected:
         std::queue<Event> _event;
         std::vector<IEnemy> _enemy;

@@ -10,11 +10,7 @@
 
 class IEnemy {
 	public:
-		IEnemy();
-		~IEnemy();
-
-	protected:
-	private:
+		 virtual ~IEnemy() = default;
 };
 
 #endif /* !IENEMY_HPP_ */

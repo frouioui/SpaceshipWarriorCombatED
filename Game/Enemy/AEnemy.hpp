@@ -7,8 +7,9 @@
 
 #ifndef AENEMY_HPP_
 #define AENEMY_HPP_
+#include "IEnemy.hpp"
 
-class AEnemy {
+class AEnemy : public IEnemy {
 	public:
 		AEnemy();
 		~AEnemy();

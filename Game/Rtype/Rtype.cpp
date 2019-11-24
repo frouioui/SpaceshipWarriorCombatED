@@ -21,3 +21,8 @@ void Rtype::update()
 {
 
 }
+
+void Rtype::initGame(int nbplayer, int stage)
+{
+
+}

@@ -8,8 +8,10 @@
 #include "Rtype.hpp"
 #include "Sfml.hpp"
 
+GameEngine gameEngine;
+
 int main()
 {
-    std::unique_ptr<IGame> game = std::make_unique<IGame>();
+    std::unique_ptr<IGame> game = std::make_unique<Rtype>();
     return 0;
 }
