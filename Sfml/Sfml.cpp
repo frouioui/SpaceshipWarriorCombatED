@@ -17,6 +17,7 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
     if (std::string::npos != last_slash_idx) {
         projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
     }
+        // projectPath = std::string(std::getenv("PWD"));
     _assetsPath = projectPath + "/ressources/";
     // sf::RectangleShape box1 = sf::RectangleShape();
     // box1.setOutlineThickness(1);
@@ -56,6 +57,8 @@ Sfml::~Sfml()
 void Sfml::openWindow()
 {
     _window.create(sf::VideoMode(1920, 1200), "SpaceshipWarriorCombatED");
+    _window.setFramerateLimit(60);
+
 }
 
 void Sfml::closeWindow()
@@ -74,38 +77,54 @@ void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
 void Sfml::loadBackground()
 {
     sf::Texture texture;
+    std::string texturePath1 = _assetsPath + "parallax1.jpg";
+    std::string texturePath2 = _assetsPath + "parallax2.jpg";
 
-    std::string texturePath = _assetsPath + "parallax.jpg";
-    if (!texture.loadFromFile(texturePath)) {
+    if (!texture.loadFromFile(texturePath1)) {
         throw std::exception();
     }
-    _texture.push_back(sf::Texture(texture));
-    _backgnd.setTexture(_texture.back());
+    _texture[texturePath1] = sf::Texture(texture);
+    _backgnd["parallax1"].setTexture(_texture[texturePath1]);
+    if (!texture.loadFromFile(texturePath2)) {
+        throw std::exception();
+    }
+    _texture[texturePath2] = sf::Texture(texture);
+    _backgnd["parallax2"].setTexture(_texture[texturePath2]);
 }
 
 void Sfml::updateParallax()
 {
-    static sf::Vector2f pos;
+    static sf::Vector2f backgnd1Pos(0, 0);
+    static sf::Vector2f backgnd2Pos(5190, 0);
 
-    pos.x += 1;
-    _backgnd.setOrigin(pos);
-    if (pos.x == 5198)
-        pos.x = 0;
+    backgnd1Pos.x -= 1;
+    backgnd2Pos.x -= 1;
+    _backgnd["parallax1"].setPosition(backgnd1Pos);
+    _backgnd["parallax2"].setPosition(backgnd2Pos);
+    if (backgnd1Pos.x == -5190)
+        backgnd1Pos.x = 5190;
+    if (backgnd2Pos.x == -5190)
+        backgnd2Pos.x = 5190;
+    _window.draw(_backgnd["parallax1"]);
+    _window.draw(_backgnd["parallax2"]);
 }
 
 void Sfml::drawObject(std::string name, std::vector<int> pos)
 {
-    (void)pos;
-    (void)name;
-    sf::Sprite sprite;
-    sf::Texture texture;
-    if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
-        sprite.setTexture(texture);
-        sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
-        _window.draw(sprite);
-    }
-    else
-        throw std::exception();
+    // (void)pos;
+    // (void)name;
+    // sf::Sprite sprite;
+    // sf::Texture texture;
+    std::string path = _assetsPath + "r-typesheet" + name + ".gif";
+    // if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
+    //     sprite.setTexture(texture);
+    //     sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
+    //     _window.draw(sprite);
+    // }
+    // else
+    //     throw std::exception();
+    _objet[path].setPosition(1000, 100);
+    _window.draw(_objet[path]);
 }
 
 void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur)
@@ -212,7 +231,10 @@ void Sfml::updateWindow()
 {
     sf::Time time = _clock.getElapsedTime();
     float elapsed = time.asMicroseconds();
+    std::vector<int> pos;
 
+    pos.push_back(1000);
+    pos.push_back(1000);
     while (_window.isOpen()) {
         if (getEvent() == input::CLOSE)
             closeWindow();
@@ -220,69 +242,72 @@ void Sfml::updateWindow()
             elapsed = _clock.getElapsedTime().asMicroseconds();
         }
         _window.clear();
-        _window.draw(_backgnd);
+        updateParallax();
+        drawObject("1", pos);
         _window.display();
         _clock.restart();
-        updateParallax();
     }
 }
 
-void Sfml::loadAsset(const std::string &name)
+void Sfml::loadAsset()
 {
-    _character.clear();
-    _enemy.clear();
-    _objet.clear();
-    _wall.clear();
-    _Objmap.clear();
-    _texture.clear();
+//     _character.clear();
+//     _enemy.clear();
+    // _wall.clear();
+    // _Objmap.clear();
+    // _texture.clear();
+
     sf::Texture texture;
     sf::Sprite sprite;
-    int i = 0;
-    (void)i;
-    (void)name;
-    while (std::ifstream("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png")) {
-        texture.loadFromFile("./lib/sfml/" + name + "/character" + std::to_string(i) + ".png");
-        _texture.push_back(sf::Texture(texture));
-        sprite.setTexture(_texture.back());
-        sprite.setScale(0.5f, 0.5f);
-        _character.push_back(sf::Sprite(sprite));
+    std::string path;
+    int i = 1;
+
+    _objet.clear();
+    while (std::ifstream(_assetsPath + "r-typesheet" + std::to_string(i) + ".gif")) {
+        path = _assetsPath + "r-typesheet" + std::to_string(i) + ".gif";
+        if (!texture.loadFromFile(path))
+            throw std::exception();
+        _texture[path] = sf::Texture(texture);
+        sprite.setTexture(_texture[path]);
+        // sprite.setScale(0.5f, 0.5f);
+        _objet[path] = sf::Sprite(sprite);
         i++;
     }
-    i = 0;
-    if (_character.size() > 0)
-        _Objmap.emplace("character", _character);
-    while (std::ifstream("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png")) {
-        texture.loadFromFile("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png");
-        _texture.push_back(sf::Texture(texture));
-        sprite.setTexture(_texture.back());
-        sprite.setScale(0.5f, 0.5f);
-        _objet.push_back(sf::Sprite(sprite));
-        i++;
-    }
-    i = 0;
-    if (_objet.size() > 0)
-        _Objmap.emplace("objet", _objet);
-    while (std::ifstream("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png")) {
-        texture.loadFromFile("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png");
-        _texture.push_back(sf::Texture(texture));
-        sprite.setTexture(_texture.back());
-        sprite.setScale(0.5f, 0.5f);
-        _wall.push_back(sf::Sprite(sprite));
-        i++;
-    }
-    i = 0;
-    if (_wall.size() > 0)
-        _Objmap.emplace("wall", _wall);
-    while (std::ifstream("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png")) {
-        texture.loadFromFile("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png");
-        _texture.push_back(sf::Texture(texture));
-        sprite.setTexture(_texture.back());
-        sprite.setScale(0.5f, 0.5f);
-        _enemy.push_back(sf::Sprite(sprite));
-        i++;
-    }
-    if (_enemy.size() > 0)
-        _Objmap.emplace("enemy", _enemy);
+    // i = 0;
+    // if (_character.size() > 0)
+    //     _Objmap.emplace("character", _character);
+    // while (std::ifstream("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png")) {
+    //     texture.loadFromFile("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png");
+    //     _texture.push_back(sf::Texture(texture));
+    //     sprite.setTexture(_texture.back());
+    //     sprite.setScale(0.5f, 0.5f);
+    //     _objet.push_back(sf::Sprite(sprite));
+    //     i++;
+    // }
+    // i = 0;
+    // if (_objet.size() > 0)
+    //     _Objmap.emplace("objet", _objet);
+    // while (std::ifstream("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png")) {
+    //     texture.loadFromFile("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png");
+    //     _texture.push_back(sf::Texture(texture));
+    //     sprite.setTexture(_texture.back());
+    //     sprite.setScale(0.5f, 0.5f);
+    //     _wall.push_back(sf::Sprite(sprite));
+    //     i++;
+    // }
+    // i = 0;
+    // if (_wall.size() > 0)
+    //     _Objmap.emplace("wall", _wall);
+    // while (std::ifstream("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png")) {
+    //     texture.loadFromFile("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png");
+    //     _texture.push_back(sf::Texture(texture));
+    //     sprite.setTexture(_texture.back());
+    //     sprite.setScale(0.5f, 0.5f);
+    //     _enemy.push_back(sf::Sprite(sprite));
+    //     i++;
+    // }
+    // if (_enemy.size() > 0)
+    //     _Objmap.emplace("enemy", _enemy);
 }
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)

@@ -10,6 +10,7 @@ int main(int ac, char **argv)
     Sfml sfml;
 
     sfml.loadBackground();
+    sfml.loadAsset();
     sfml.openWindow();
     sfml.updateWindow();
     // client.run();
