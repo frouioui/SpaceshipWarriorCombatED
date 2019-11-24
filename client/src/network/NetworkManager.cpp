@@ -71,6 +71,28 @@ void NetworkManager::receive()
 
 void NetworkManager::handle()
 {
+    Packet packet;
+    auto it = _queue_received.cbegin();
+    while (it != _queue_received.cend()) {
+        switch (it->getAction()) {
+        case PRTL::Actions::JOIN_ROOM:
+            if (it->getResponse() == PRTL::Responses::SUCCESS) {
+                // join room
+            } else {
+                // error
+            }
+            break;
+        
+        case PRTL::Actions::GET_ROOMS:
+            // add rooms
+            break;
+
+        
+
+        default:
+            break;
+        }
+    }
 }
 
 void NetworkManager::getAvailableRooms()
