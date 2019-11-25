@@ -11,9 +11,9 @@ Input::Input() : ASystem()
 {
     Signature sign;
     sign.set(gameEngine.getComponentID<Event>());
-    setSignature(sign);
     sign.set(gameEngine.getComponentID<rendering>());
     sign.set(gameEngine.getComponentID<boundingBox>());
+    setSignature(sign);
 }
 
 Input::~Input()

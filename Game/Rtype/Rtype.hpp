@@ -15,6 +15,7 @@
 #include "Physic.hpp"
 #include "speed.hpp"
 #include "Input.hpp"
+#include "Collision.hpp"
 
 class Rtype : public AGame {
 	public:

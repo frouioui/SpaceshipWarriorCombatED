@@ -11,7 +11,7 @@
 struct speed
 {
     /* data */
-    int speed;
+    float speed;
 };
 
 

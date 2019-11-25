@@ -16,6 +16,7 @@ Rtype::Rtype() : AGame()
     gameEngine.insertComponent<Event>();
     gameEngine.insertSystem<Physic>();
     gameEngine.insertSystem<Input>();
+    gameEngine.insertSystem<Collision>();
 
 }
 
@@ -27,10 +28,11 @@ void Rtype::update()
 {
     addEventToGameEngine();
     gameEngine.getSystem<Input>()->update();
+    gameEngine.getSystem<Collision>()->update();
     gameEngine.getSystem<Physic>()->update();
 }
 
-void Rtype::initGame(int nbplayer, int stage)
+void Rtype::initGame(int nbmissile, int stage)
 {
     Entity player = gameEngine.createEntity();
     _player.push_back(player);
@@ -55,6 +57,25 @@ void Rtype::initGame(int nbplayer, int stage)
         NOTHING
     });
     gameEngine.setEntitySystem(player, sign);
+
+
+    Entity missile = gameEngine.createEntity();
+    Signature signmis;
+    signmis.set(gameEngine.getComponentID<rendering>());
+    signmis.set(gameEngine.getComponentID<boundingBox>());
+    signmis.set(gameEngine.getComponentID<speed>());
+    gameEngine.addComponent(missile,rendering {
+        {55, 70},
+        {10, 10}
+    });
+    gameEngine.addComponent(missile, boundingBox {
+        SQUARE,
+        {{55, 70}, {55, 80}, {65, 70}, {65, 80}}
+    });
+    gameEngine.addComponent(missile, speed {
+        -1
+    });
+    gameEngine.setEntitySystem(missile, signmis);
 }
 
 std::vector<boundingBox> Rtype::getBoundingBox()

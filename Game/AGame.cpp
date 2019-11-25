@@ -44,7 +44,7 @@ void AGame::update()
 
 std::vector<rendering> AGame::getRendering()
 {
-    return std::vector<rendering>();
+    return gameEngine.getComponentArray<rendering>()->listedComponent();
 }
 
 std::vector<boundingBox> AGame::getBoundingBox()
