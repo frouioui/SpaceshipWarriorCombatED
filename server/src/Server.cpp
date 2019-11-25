@@ -122,9 +122,14 @@ void Server::createRoom(Packet received_packet)
 		std::cout << "no token found" << std::endl;
 		return;
 	}
-	_room_manager.addAndRunRoom(client);
-	// The client is now in the new room
-	// and the room is up and running.
+	if (_room_manager.addAndRunRoom(client) == false) {
+		Packet packet;
+		packet.set(client.getIp());
+		packet.set(client.getPort());
+		packet.setAction(PRTL::Actions::CREATE_ROOM);
+		packet.setResponse(PRTL::Responses::FAILURE);
+		respondToClient(packet);
+	}
 }
 
 void Server::joinRoom(Packet received_packet)

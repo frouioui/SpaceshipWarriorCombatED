@@ -16,17 +16,36 @@ UDPInfo RoomManager::getNewUDPInfoForRoom()
     return info;
 }
 
-void RoomManager::addAndRunRoom(Client &client)
+unsigned short RoomManager::getAvailablePort()
 {
-    boost::asio::io_context io_context;
-    UDPInfo info = {io_context, 101};
+    unsigned short port = 0;
+    for (size_t i = 0; i < _LIMIT_ROOM; i++) {
+        std::cout << _AVAILABLE_PORTS[i].used << std::endl;
+        if (_AVAILABLE_PORTS[i].used == false) {
+            port = _AVAILABLE_PORTS[i].port;
+            _AVAILABLE_PORTS[i].used = true;
+            return port;
+        }
+    }
+    return port;
+}
 
+bool RoomManager::addAndRunRoom(Client &client)
+{
+    if (_rooms.size() == _LIMIT_ROOM) {
+        return false;
+    }
+
+    const unsigned short port = getAvailablePort();
+    boost::asio::io_context io_context;
+    UDPInfo info = {io_context, static_cast<short>(port)};
     unsigned short new_id = getNewId();
     _rooms.emplace_back(info, new_id);
     getRoomById(new_id).addClient(client);
 
     // run
     std::thread([&](){getRoomById(new_id).run();}).detach();
+    return true;
 }
 
 std::vector<Room> &RoomManager::getAllRoom()

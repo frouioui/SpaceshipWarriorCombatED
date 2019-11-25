@@ -13,6 +13,7 @@ namespace PRTL
         JOIN_ROOM,
         GET_ROOMS,
         CREATE_ROOM,
+        INFO_ROOM,
         NEWCO,
         UNKNOWN
     };

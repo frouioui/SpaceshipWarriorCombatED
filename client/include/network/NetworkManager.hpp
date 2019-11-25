@@ -6,6 +6,7 @@
 #include "NetworkConfig.hpp"
 #include "UDP.hpp"
 #include "Packet.hpp"
+#include "network/player/Player.hpp"
 
 class NetworkManager {
 public:
@@ -15,13 +16,14 @@ public:
 	~NetworkManager();
 
     void init(); // Init all the threads
-	void update();
 
 	bool isConnected() const; // Tells wether or not the client is connected to the server
 
 	void getAvailableRooms();
 	void createAndJoinRoom();
 	void joinRoom(unsigned short id_room);
+
+
 
 // attributes
 private:
@@ -34,11 +36,13 @@ private:
 
 	std::vector<Packet> _queue_send; // The queue of packet to send
 	std::vector<Packet> _queue_received; // The queue of packet that have been received
+	std::vector<Player> _players;
 
 	std::mutex _mutex; // Main mutex of the network manager
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();
+	void handleRecieve();
 
 };
 

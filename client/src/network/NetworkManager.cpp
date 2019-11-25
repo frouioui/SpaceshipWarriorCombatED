@@ -30,6 +30,7 @@ void NetworkManager::init()
     _running = true;
     std::thread([&](){authToServer();}).detach();
     std::thread([&](){receive();}).detach();
+    std::thread([&](){handleRecieve();}).detach();
 }
 
 void NetworkManager::authToServer()
@@ -43,7 +44,7 @@ void NetworkManager::authToServer()
         packet.setData(PRTL::PASSWORD, "rtype");
         _udp.send(packet);
         _mutex.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
 
@@ -68,31 +69,47 @@ void NetworkManager::receive()
     }
 }
 
-void NetworkManager::update()
+void NetworkManager::handleRecieve()
 {
-    Packet packet;
-    auto it = _queue_received.cbegin();
-    while (it != _queue_received.cend()) {
-        if (it->getAction() == PRTL::Actions::JOIN_ROOM) {
-            if (it->getResponse() == PRTL::Responses::SUCCESS) {
-                std::cout << "joined room" << std::endl;
+    while (true) {
+        auto it = _queue_received.cbegin();
+        while (it != _queue_received.cend()) {
+            if (it->getAction() == PRTL::Actions::JOIN_ROOM) {
+                if (it->getResponse() == PRTL::Responses::SUCCESS) {
+                    std::cout << "joined room" << std::endl;
+                }
+        
+            } else if (it->getAction() == PRTL::Actions::GET_ROOMS) {
+                dataPacket data = it->getData();
+                std::cout << "Number of rooms: " << data[PRTL::NB_ROOM] << std::endl;
+        
+            } else if (it->getAction() == PRTL::Actions::NEWCO) {
+                if (it->getResponse() == PRTL::Responses::SUCCESS) {
+                    _config.setGameServerIp(it->getIp());
+                    _config.setGameServerPort(it->getPort());
+                }
+
+            } else if (it->getAction() == PRTL::Actions::INFO_ROOM) {  
+                dataPacket data = it->getData();
+                std::string username = data[PRTL::USER];
+                Player player;
+                player.setUsername(username);
+                _players.push_back(player);
+
+            } else if (it->getAction() == PRTL::Actions::CREATE_ROOM) {
+                if (it->getResponse() == PRTL::Responses::FAILURE) {
+                    std::cout << "Error when creating the room" << std::endl;
+                }
             }
-    
-        } else if (it->getAction() == PRTL::Actions::GET_ROOMS) {
-            dataPacket data = it->getData();
-            std::cout << "Number of rooms: " << data[PRTL::NB_ROOM] << std::endl;
-    
-        } else if (it->getAction() == PRTL::Actions::NEWCO) {
-            if (it->getResponse() == PRTL::Responses::SUCCESS) {
-                _config.setGameServerIp(it->getIp());
-                _config.setGameServerPort(it->getPort());
-            }
+
+            _mutex.lock();
+            it = _queue_received.erase(_queue_received.begin());
+            if (it != _queue_received.cend())
+                it = std::next(it);
+            _mutex.unlock();
         }
-    
-        it = _queue_received.erase(_queue_received.begin());
-		if (it != _queue_received.cend())
-			it = std::next(it);
-    }
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    } 
 }
 
 void NetworkManager::getAvailableRooms()

@@ -32,7 +32,6 @@ int Client::run() throw()
     _network.getAvailableRooms();
 
     while (_running) {
-        _network.update();
     }
     return 0;
 }
