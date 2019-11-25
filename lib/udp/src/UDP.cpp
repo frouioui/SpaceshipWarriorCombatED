@@ -10,10 +10,18 @@ UDP::UDP(UDPInfo &info) : _context(info.io_context), _socket(info.io_context, ud
 
 UDP::UDP(UDP &source) : _context(source._context), _socket(_context, udp::endpoint(udp::v4(), source._port))
 {
+    std::cout << "copy ctor UDP, port: " << source._port << std::endl;
     _port = source._port;
 }
 
 UDP::~UDP()
+{
+    if (_socket.is_open() == true) {
+        _socket.close();
+    }
+}
+
+void UDP::finish()
 {
     if (_socket.is_open() == true) {
         _socket.close();
@@ -42,7 +50,10 @@ void UDP::send(Packet packet)
     _endpoint.address(packet.getIpAddress());
     _endpoint.port(packet.getPort());
     _socket.send_to(boost::asio::buffer(mapToString(packet.getData())), _endpoint);
-    std::cout << " sent to: " << _endpoint.address().to_string() << " on port: " << _endpoint.port() << std::endl;
+
+    std::cout << "sent: ";
+    std::cout << mapToString(packet.getData()) << " ";
+    std::cout << "to ip: " << packet.getIpAddress() << " / port: " << packet.getPort() << std::endl;
 }
 
 dataPacket UDP::stringToMap(std::string str) const

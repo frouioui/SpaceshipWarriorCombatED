@@ -1,3 +1,4 @@
+#include <iostream>
 #include "room/RoomManager.hpp"
 
 RoomManager::RoomManager()
@@ -11,18 +12,21 @@ RoomManager::~RoomManager()
 UDPInfo RoomManager::getNewUDPInfoForRoom()
 {
     boost::asio::io_context io_context;
-    UDPInfo info = {io_context, 0};
+    UDPInfo info = {io_context, 10001};
     return info;
 }
 
-void RoomManager::addAndRunRoom(Room &room, Client &client)
+void RoomManager::addAndRunRoom(Client &client)
 {
-    room.setRoomId(getNewId());
-    room.addClient(client);
-    _rooms.emplace_back(room);
+    boost::asio::io_context io_context;
+    UDPInfo info = {io_context, 101};
+
+    unsigned short new_id = getNewId();
+    _rooms.emplace_back(info, new_id);
+    getRoomById(new_id).addClient(client);
 
     // run
-    std::thread([&](){getRoomById(room.getRoomId()).run();}).detach();
+    std::thread([&](){getRoomById(new_id).run();}).detach();
 }
 
 std::vector<Room> &RoomManager::getAllRoom()

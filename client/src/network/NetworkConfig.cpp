@@ -27,3 +27,33 @@ short NetworkConfig::getServerPort() const
 {
     return _server_port;
 }
+
+const std::string &NetworkConfig::getGameServerIp() const
+{
+    return _game_server_ip;
+}
+
+short NetworkConfig::getGameServerPort() const
+{
+    return _game_server_port;
+}
+
+void NetworkConfig::setServerIp(const std::string &ip)
+{
+    _server_ip = ip;
+}
+
+void NetworkConfig::setGameServerIp(const std::string &ip)
+{
+    _game_server_ip = ip;
+}
+
+void NetworkConfig::setServerPort(unsigned short port)
+{
+    _server_port = port;
+}
+
+void NetworkConfig::setGameServerPort(unsigned short port)
+{
+    _game_server_port = port;
+}

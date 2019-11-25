@@ -2,7 +2,7 @@
 #include <iostream>
 #include "room/Room.hpp"
 
-Room::Room(UDPInfo info) : _udp_server(info)
+Room::Room(UDPInfo &info) : _udp_server(info)
 {
     _running = false;
 }
@@ -10,11 +10,13 @@ Room::Room(UDPInfo info) : _udp_server(info)
 Room::Room(Room &source) : _udp_server(source._udp_server)
 {
     _running = source.isRunning();
+    _room_id = source._room_id;
 }
 
 Room::Room(Room &&source) : _udp_server(source._udp_server)
 {
     _running = source.isRunning();
+    _room_id = source._room_id;
 }
 
 Room::Room(UDPInfo info, unsigned short room_id) : _udp_server(info)
@@ -25,6 +27,12 @@ Room::Room(UDPInfo info, unsigned short room_id) : _udp_server(info)
 
 Room::~Room()
 {
+    _running = false;
+}
+
+void Room::finishUDP()
+{
+    _udp_server.finish();
     _running = false;
 }
 
@@ -67,8 +75,8 @@ void Room::managePacket(Packet packet)
 {
 	switch (packet.getAction())
 	{
-	// case PRTL::Actions::AUTH:		
-	// 	break;
+	case PRTL::Actions::AUTH:		
+		break;
 
 	default:
 		break;

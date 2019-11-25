@@ -17,6 +17,7 @@ public:
 
 	Packet receive();
 	void send(Packet packet);
+	void finish();
 
 protected:
 

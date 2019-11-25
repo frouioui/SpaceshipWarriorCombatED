@@ -40,6 +40,14 @@ void Server::managePacket(Packet packet)
 		getRooms(packet);
 		break;
 
+	case PRTL::Actions::JOIN_ROOM:
+		joinRoom(packet);
+		break;
+
+	case PRTL::Actions::CREATE_ROOM:
+		createRoom(packet);
+		break;
+
 	default:
 		break;
 	}
@@ -57,14 +65,17 @@ void Server::authClient(Packet received_packet)
 	Packet packet;
 	Client client;
 
+	std::string token = _client_manager.generateToken();
+
 	packet.setAction(PRTL::Actions::AUTH);
 	packet.setResponse(PRTL::Responses::SUCCESS);
-	packet.setToken(_client_manager.generateToken());
+	packet.setToken(token);
 	packet.set(received_packet.getIp());
 	packet.set(received_packet.getPort());
 	client.setIp(received_packet.getIp());
 	client.setPort(received_packet.getPort());
 	client.setUsername(received_packet.getData(PRTL::USER));
+	client.setToken(token);
 	_client_manager.addClient(client);
 	respondToClient(packet);
 }
@@ -84,7 +95,7 @@ void Server::getRooms(Packet received_packet)
 	}
 
 	Packet packet;
-	std::vector<Room> rooms = _room_manager.getAllRoom();
+	std::vector<Room> &rooms = _room_manager.getAllRoom();
 	unsigned int nb_rooms = rooms.size();
 
 	packet.setAction(PRTL::Actions::GET_ROOMS);
@@ -111,19 +122,9 @@ void Server::createRoom(Packet received_packet)
 		std::cout << "no token found" << std::endl;
 		return;
 	}
-	
-	Room room(_room_manager.getNewUDPInfoForRoom());
-	_room_manager.addAndRunRoom(room, client);
-
+	_room_manager.addAndRunRoom(client);
 	// The client is now in the new room
 	// and the room is up and running.
-
-	Packet packet;
-	packet.setAction(PRTL::Actions::CREATE_ROOM);
-	packet.setResponse(PRTL::Responses::SUCCESS);
-	packet.set(received_packet.getIp());
-	packet.set(received_packet.getPort());
-	respondToClient(packet);
 }
 
 void Server::joinRoom(Packet received_packet)

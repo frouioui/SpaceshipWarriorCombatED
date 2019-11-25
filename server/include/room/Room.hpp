@@ -11,7 +11,7 @@
 class Room
 {
 public:
-    Room(UDPInfo info);
+    Room(UDPInfo &info);
     Room(Room &source);
     Room(Room &&source);
     Room(UDPInfo info, unsigned short room_id);
@@ -31,6 +31,8 @@ public:
     void managePacket(Packet packet);
 
     void addClient(Client client);
+
+    void finishUDP();
 
 private:
     ClientManager _client_manager; // All the client in the current room

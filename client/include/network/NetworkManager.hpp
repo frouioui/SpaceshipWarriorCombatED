@@ -15,8 +15,13 @@ public:
 	~NetworkManager();
 
     void init(); // Init all the threads
+	void update();
 
 	bool isConnected() const; // Tells wether or not the client is connected to the server
+
+	void getAvailableRooms();
+	void createAndJoinRoom();
+	void joinRoom(unsigned short id_room);
 
 // attributes
 private:
@@ -34,11 +39,7 @@ private:
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();
-	void handle();
 
-	void getAvailableRooms();
-	void createAndJoinRoom();
-	void joinRoom();
 };
 
 #endif /* !NETWORKMANAGER_HPP */

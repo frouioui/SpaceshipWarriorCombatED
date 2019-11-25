@@ -12,7 +12,7 @@ public:
     RoomManager();
     ~RoomManager();
 
-    void addAndRunRoom(Room &room, Client &client);
+    void addAndRunRoom(Client &client);
     std::vector<Room> &getAllRoom();
     Room &getRoomById(unsigned short id);
     UDPInfo getNewUDPInfoForRoom();

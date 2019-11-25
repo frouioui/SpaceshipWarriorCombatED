@@ -43,9 +43,8 @@ void NetworkManager::authToServer()
         packet.setData(PRTL::PASSWORD, "rtype");
         _udp.send(packet);
         _mutex.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1500));
     }
-    std::cout << "authentification is done" << std::endl;
 }
 
 void NetworkManager::receive()
@@ -69,43 +68,60 @@ void NetworkManager::receive()
     }
 }
 
-void NetworkManager::handle()
+void NetworkManager::update()
 {
     Packet packet;
     auto it = _queue_received.cbegin();
     while (it != _queue_received.cend()) {
-        switch (it->getAction()) {
-        case PRTL::Actions::JOIN_ROOM:
+        if (it->getAction() == PRTL::Actions::JOIN_ROOM) {
             if (it->getResponse() == PRTL::Responses::SUCCESS) {
-                // join room
-            } else {
-                // error
+                std::cout << "joined room" << std::endl;
             }
-            break;
-        
-        case PRTL::Actions::GET_ROOMS:
-            // add rooms
-            break;
-
-        
-
-        default:
-            break;
+    
+        } else if (it->getAction() == PRTL::Actions::GET_ROOMS) {
+            dataPacket data = it->getData();
+            std::cout << "Number of rooms: " << data[PRTL::NB_ROOM] << std::endl;
+    
+        } else if (it->getAction() == PRTL::Actions::NEWCO) {
+            if (it->getResponse() == PRTL::Responses::SUCCESS) {
+                _config.setGameServerIp(it->getIp());
+                _config.setGameServerPort(it->getPort());
+            }
         }
+    
+        it = _queue_received.erase(_queue_received.begin());
+		if (it != _queue_received.cend())
+			it = std::next(it);
     }
 }
 
 void NetworkManager::getAvailableRooms()
 {
-
+    Packet packet(_config.getServerIp(), _config.getServerPort());
+    packet.setToken(_auth_token);
+    packet.setAction(PRTL::Actions::GET_ROOMS);
+    _mutex.lock();
+    _udp.send(packet);
+    _mutex.unlock();
 }
 
 void NetworkManager::createAndJoinRoom()
 {
-    
+    Packet packet(_config.getServerIp(), _config.getServerPort());
+    packet.setToken(_auth_token);
+    packet.setAction(PRTL::Actions::CREATE_ROOM);
+    _mutex.lock();
+    _udp.send(packet);
+    _mutex.unlock();
 }
 
-void NetworkManager::joinRoom()
+void NetworkManager::joinRoom(unsigned short id_room)
 {
-    
+    Packet packet(_config.getServerIp(), _config.getServerPort());
+    packet.setToken(_auth_token);
+    packet.setAction(PRTL::Actions::JOIN_ROOM);
+    packet.setData(PRTL::ID_ROOM, std::to_string(id_room));
+    _mutex.lock();
+    _udp.send(packet);
+    _mutex.unlock();
 }

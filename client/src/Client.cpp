@@ -20,9 +20,19 @@ int Client::run() throw()
 {
     _network.init();
 
-    std::cout << "now about to run" << std::endl;
-    while (_running) {
+    std::cout << "done with init" << std::endl;
+    while (_network.isConnected() == false) {
 
+    }
+    std::cout << "connected" << std::endl;
+
+    _network.createAndJoinRoom();
+    std::cout << "now about to run" << std::endl;
+
+    _network.getAvailableRooms();
+
+    while (_running) {
+        _network.update();
     }
     return 0;
 }
