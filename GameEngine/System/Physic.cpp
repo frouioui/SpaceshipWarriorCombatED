@@ -23,9 +23,7 @@ Physic::~Physic()
 
 void Physic::update()
 {
-    std::cout << "tuat" << std::endl;
     for (auto const & x : _entities) {
-        std::cout << "tutu" << std::endl;
         speed toto = gameEngine.getComponent<speed>(x);
         if (gameEngine.getComponent<boundingBox>(x).type == SQUARE) {
             auto& point = gameEngine.getComponent<boundingBox>(x);

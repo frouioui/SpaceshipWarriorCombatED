@@ -14,6 +14,7 @@
 #include "AGame.hpp"
 #include "Physic.hpp"
 #include "speed.hpp"
+#include "Input.hpp"
 
 class Rtype : public AGame {
 	public:
@@ -23,8 +24,6 @@ class Rtype : public AGame {
 		std::vector<boundingBox> getBoundingBox();
 		void update();
 	private:
-		int _player;
-		int _stage;
 };
 
 #endif /* !RTYPE_HPP_ */

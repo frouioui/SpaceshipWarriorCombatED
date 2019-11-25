@@ -8,6 +8,7 @@
 #include "Rtype.hpp"
 #include "Sfml.hpp"
 #include "Client.hpp"
+#include <iostream>
 
 GameEngine gameEngine;
 

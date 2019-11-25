@@ -21,6 +21,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp
                 GameEngine/System/Render.cpp
                 GameEngine/System/Physic.cpp
+                GameEngine/System/Input.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
                 Game/Rtype/Rtype.cpp

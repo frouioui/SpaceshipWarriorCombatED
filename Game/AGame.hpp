@@ -20,14 +20,17 @@ class AGame : public IGame {
         void initGame(int nbPlayer, int stage);
         void addEvent(Event input);
         void update();
+        void addEventToGameEngine();
         std::vector<rendering> getRendering();
         std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();
         void deletePlayer(int id);
         void addPlayer();
 	protected:
-        std::queue<Event> _event;
+        std::vector<Event> _event;
         std::vector<IEnemy> _enemy;
+        std::vector<Entity> _player;
+		int _stage;
 };
 
 #endif /* !AGAME_HPP_ */

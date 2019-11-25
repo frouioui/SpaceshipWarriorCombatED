@@ -41,6 +41,8 @@ class GameEngine {
                 template<typename T>
                 std::shared_ptr<ASystem> getSystem() {return _systems->getSystem<T>();};
 
+                void setEntitySystem(Entity id, Signature sign) { _systems->changeSignatureFromEntity(id, sign);};
+
                 template<typename T>
                 std::shared_ptr<ComponentArray<T>> getComponentArray() {return _components->GetComponentArray<T>();};
         private:
