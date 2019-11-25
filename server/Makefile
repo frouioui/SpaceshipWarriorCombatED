@@ -6,9 +6,11 @@
 ##
 
 
-SRC =	./src/Client.cpp \
-		./src/network/NetworkManager.cpp \
-		./src/network/NetworkConfig.cpp
+SRC =	./src/Server.cpp \
+		./src/client/Client.cpp \
+		./src/client/ClientManager.cpp \
+		./src/room/Room.cpp \
+		./src/room/RoomManager.cpp \
 
 UT_SRC = 	
 
@@ -22,9 +24,9 @@ INCLUDE = -I./include -I ../lib/udp/include
 
 CXX	=	g++ --std=c++14
 
-CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror -g3
+CXXFLAGS	=	$(INCLUDE) -Wall -Wextra -Werror
 
-NAME = 	r-type_client
+NAME = 	r-type_server
 
 LDFLAGS =   -lcriterion -lgcov --coverage
 
