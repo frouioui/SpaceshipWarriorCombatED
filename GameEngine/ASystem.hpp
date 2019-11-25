@@ -22,7 +22,7 @@ class ASystem {
 		void update() {};
 		ECS::Signature getSignature() { return _signature;};
         std::set<ECS::Entity> _entities;
-	private:
+	protected:
 		ECS::Signature _signature;
 };
 

@@ -14,11 +14,12 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include "Component/event.hpp"
+#include "Component/boundingBox.hpp"
 
 
 #define TRANSCOORD(x, y) (x * y / 100)
-#define TRANSX(x, y) (TRANSCOORD(x, y / 8) * 8)
-#define TRANSY(x, y) (TRANSCOORD(x, y / 16) * 16)
+#define TRANSX(x, y) (TRANSCOORD(x, y))
+#define TRANSY(x, y) (TRANSCOORD(x, y))
 
 class Sfml {
 	public:
@@ -43,6 +44,7 @@ class Sfml {
         void drawSpriteListe();
         void loadBackground();
         void updateParallax();
+        void drawBoundingBox(std::vector<boundingBox>);
 
     private:
         sf::RenderWindow _window;

@@ -11,6 +11,8 @@
 #include "IGame.hpp"
 #include "IEnemy.hpp"
 
+extern GameEngine gameEngine;
+
 class AGame : public IGame {
 	public:
         AGame();
@@ -19,6 +21,7 @@ class AGame : public IGame {
         void addEvent(Event input);
         void update();
         std::vector<rendering> getRendering();
+        std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();
         void deletePlayer(int id);
         void addPlayer();

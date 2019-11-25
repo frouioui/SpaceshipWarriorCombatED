@@ -7,7 +7,7 @@
 
 #include "EntityManager.hpp"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager() : _availableID(), _SignatureList(), _entityNumber(0)
 {
     for (Entity id = 1; id < MAX_ENTITY; id++)
         _availableID.push(id);

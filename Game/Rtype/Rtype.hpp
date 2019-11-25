@@ -12,12 +12,15 @@
 #include "Component/rendering.hpp"
 #include "System/Render.hpp"
 #include "AGame.hpp"
+#include "Physic.hpp"
+#include "speed.hpp"
 
 class Rtype : public AGame {
 	public:
 		Rtype();
 		~Rtype();
 		void initGame(int nbPlayer, int stage = 0);
+		std::vector<boundingBox> getBoundingBox();
 		void update();
 	private:
 		int _player;

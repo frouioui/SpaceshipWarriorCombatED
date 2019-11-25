@@ -18,7 +18,6 @@ AGame::~AGame()
 
 void AGame::initGame(int nbPlayer, int stage)
 {
-
 }
 
 void AGame::addEvent(Event input)
@@ -28,13 +27,18 @@ void AGame::addEvent(Event input)
 
 void AGame::update()
 {
-
 }
 
 std::vector<rendering> AGame::getRendering()
 {
     return std::vector<rendering>();
 }
+
+std::vector<boundingBox> AGame::getBoundingBox()
+{
+    return gameEngine.getComponentArray<boundingBox>()->listedComponent();
+}
+
 
 void AGame::loadEnnemy()
 {

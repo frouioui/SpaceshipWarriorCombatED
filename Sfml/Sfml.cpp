@@ -19,11 +19,11 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
     }
         // projectPath = std::string(std::getenv("PWD"));
     _assetsPath = projectPath + "/ressources/";
-    // sf::RectangleShape box1 = sf::RectangleShape();
-    // box1.setOutlineThickness(1);
-    // box1.setOutlineColor(sf::Color::Green);
-    // box1.setFillColor(sf::Color::Transparent);
-    // _box.push_back(box1);
+    sf::RectangleShape box1 = sf::RectangleShape();
+    box1.setOutlineThickness(1);
+    box1.setOutlineColor(sf::Color::Green);
+    box1.setFillColor(sf::Color::Transparent);
+    _box.push_back(box1);
     // TODO: path to global
     // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
     // 	throw std::exception();
@@ -230,23 +230,25 @@ void Sfml::drawCharacter(std::vector<std::vector<int>> charater, std::vector<int
 void Sfml::updateWindow()
 {
     sf::Time time = _clock.getElapsedTime();
-    float elapsed = time.asMicroseconds();
+    static float elapsed = time.asMicroseconds();
     std::vector<int> pos;
 
-    pos.push_back(1000);
-    pos.push_back(1000);
-    while (_window.isOpen()) {
-        if (getEvent() == input::CLOSE)
-            closeWindow();
-        while (elapsed < 100000) {
-            elapsed = _clock.getElapsedTime().asMicroseconds();
-        }
-        _window.clear();
-        updateParallax();
-        drawObject("1", pos);
-        _window.display();
-        _clock.restart();
-    }
+    // pos.push_back(1000);
+    // pos.push_back(1000);
+    // while (_window.isOpen()) {
+    //     if (getEvent() == input::CLOSE)
+    //         closeWindow();
+	// if (elapsed < 10000) {
+	//     elapsed = _clock.getElapsedTime().asMicroseconds();
+	// 	return;
+	// }
+	// updateParallax();
+
+	// drawObject("1", pos);
+	_window.display();
+	_window.clear();
+	_clock.restart();
+    // }
 }
 
 void Sfml::loadAsset()
@@ -360,4 +362,16 @@ void Sfml::drawSpriteListe()
     for (auto x:_spriteList) {
         _window.draw(x.second);
     }
+}
+
+void Sfml::drawBoundingBox(std::vector<boundingBox> list)
+{
+	for (auto x : list) {
+		if (x.type == SQUARE) {
+			drawBox({x.pos[UPPERLEFT].first, x.pos[UPPERLEFT].second}, 
+					{x.pos[LOWERLEFT].first - x.pos[UPPERLEFT].first,
+					x.pos[UPPERRIGHT].second - x.pos[UPPERLEFT].second
+					});
+		}
+	}
 }

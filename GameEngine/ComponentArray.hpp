@@ -20,7 +20,7 @@ class ComponentArray : public IComponentArray {
 		ComponentArray() : _component(), _entityToIndex(), _indexToEntity(), _size(0){};
 		~ComponentArray() {};
 		void insert(Entity id, T component) {
-			if (_entityToIndex.find(id) != _entityToIndex.end()) {
+			if (_entityToIndex.find(id) == _entityToIndex.end()) {
 				_entityToIndex[id] = _size;
 				_indexToEntity[_size] = id;
 				_component[_size] = component;
@@ -47,6 +47,13 @@ class ComponentArray : public IComponentArray {
 		}
 		void destroyEntity(Entity id) override {
 			remove(id);
+		}
+		std::vector<T> listedComponent()
+		{
+			std::vector<T> result;
+			for (std::size_t i = 0; i < _size; i++)
+				result.push_back(_component[i]);
+			return result;
 		}
 	private:
 		std::array<T, MAX_ENTITY> _component;
