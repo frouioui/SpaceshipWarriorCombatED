@@ -15,8 +15,14 @@ public:
     std::string generateToken() const;
     bool userExists(const std::string &token) const;
 
+    Client &getClientByPlayerId(unsigned short player_id);
+    Client &getClientByToken(const std::string &token);
+
+    unsigned short generatePlayerId() const;
+
 private:
     std::vector<Client> _clients;
+
     std::string generateOneToken() const;
 };
 

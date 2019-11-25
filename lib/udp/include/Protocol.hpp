@@ -5,11 +5,15 @@ namespace PRTL
 {
     const std::string USER = "usr";
     const std::string PASSWORD = "pwd";
+    const std::string NB_ROOM = "nbroom";
+    const std::string ID_ROOM = "id_room";
 
     enum class Actions {
         AUTH,
         JOIN_ROOM,
         GET_ROOMS,
+        CREATE_ROOM,
+        NEWCO,
         UNKNOWN
     };
 

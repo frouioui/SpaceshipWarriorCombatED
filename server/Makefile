@@ -9,6 +9,8 @@
 SRC =	./src/Server.cpp \
 		./src/client/Client.cpp \
 		./src/client/ClientManager.cpp \
+		./src/room/Room.cpp \
+		./src/room/RoomManager.cpp \
 
 UT_SRC = 	
 

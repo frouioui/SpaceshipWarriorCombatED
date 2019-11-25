@@ -47,3 +47,13 @@ const std::string &Client::getUsername() const
 {
     return _username;
 }
+
+void Client::setPlayerId(unsigned short player_id)
+{
+    _player_id = player_id;
+}
+
+unsigned short Client::getPlayerId() const
+{
+    return _player_id;
+}

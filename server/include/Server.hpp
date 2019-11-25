@@ -5,6 +5,7 @@
 
 #include "UDP.hpp"
 #include "client/ClientManager.hpp"
+#include "room/RoomManager.hpp"
 
 class Server
 {
@@ -17,6 +18,7 @@ public:
 private:
 	UDP _udp_server;
 	ClientManager _client_manager;
+	RoomManager _room_manager;
 
 	bool _running;
 
@@ -25,6 +27,9 @@ private:
 	void managePacket(Packet packet);
 	void respondToClient(Packet packet);
 	void authClient(Packet packet);
+	void getRooms(Packet packet);
+	void createRoom(Packet packet);
+	void joinRoom(Packet packet);
 
 };
 

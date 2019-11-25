@@ -16,6 +16,18 @@ void ClientManager::addClient(Client client)
     _clients.emplace_back(client);
 }
 
+unsigned short ClientManager::generatePlayerId() const
+{
+    unsigned short id = 0;
+    for (size_t i = 0; i < _clients.size(); i++) {
+        if (_clients[i].getPlayerId() != id) {
+            return id;
+        }
+        id++;
+    }
+    return id;
+}
+
 std::string ClientManager::generateToken() const
 {
     std::string token = generateOneToken();
@@ -45,4 +57,26 @@ bool ClientManager::userExists(const std::string &token) const
         }    
     }
     return false;
+}
+
+Client &ClientManager::getClientByPlayerId(unsigned short player_id)
+{
+    static Client client;
+    for (auto &&i : _clients) {
+        if (player_id == i.getPlayerId()) {
+            return i;
+        }
+    }
+    return client;
+}
+
+Client &ClientManager::getClientByToken(const std::string &token)
+{
+    static Client client;
+    for (auto &&i : _clients) {
+        if (token == i.getToken()) {
+            return i;
+        }
+    }
+    return client;
 }

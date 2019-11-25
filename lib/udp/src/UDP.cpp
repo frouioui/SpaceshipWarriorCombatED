@@ -3,6 +3,16 @@
 #include "UDP.hpp"
 #include "Packet.hpp"
 
+UDP::UDP(UDPInfo &info) : _context(info.io_context), _socket(info.io_context, udp::endpoint(udp::v4(), info.port))
+{
+    _port = info.port;
+}
+
+UDP::UDP(UDP &source) : _context(source._context), _socket(_context, udp::endpoint(udp::v4(), source._port))
+{
+    _port = source._port;
+}
+
 UDP::~UDP()
 {
     if (_socket.is_open() == true) {

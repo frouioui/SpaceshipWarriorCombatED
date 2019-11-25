@@ -11,7 +11,8 @@
 class UDP
 {
 public:
-	UDP(UDPInfo &info) : _socket(info.io_context, udp::endpoint(udp::v4(), info.port)) {_port = info.port;}
+	UDP(UDPInfo &info);
+	UDP(UDP &source);
 	~UDP();
 
 	Packet receive();
@@ -21,6 +22,8 @@ protected:
 
 private:
 	short _port;
+	boost::asio::io_context& _context;
+
 	udp::socket _socket;
 	udp::endpoint _endpoint;
 

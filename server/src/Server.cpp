@@ -36,6 +36,10 @@ void Server::managePacket(Packet packet)
 		authClient(packet);
 		break;
 
+	case PRTL::Actions::GET_ROOMS:
+		getRooms(packet);
+		break;
+
 	default:
 		break;
 	}
@@ -63,4 +67,81 @@ void Server::authClient(Packet received_packet)
 	client.setUsername(received_packet.getData(PRTL::USER));
 	_client_manager.addClient(client);
 	respondToClient(packet);
+}
+
+void Server::getRooms(Packet received_packet)
+{
+	std::string token_client = received_packet.getToken();
+
+	if (token_client.empty()) {
+		std::cout << "token is empty" << std::endl;
+		return;
+	}
+	Client client = _client_manager.getClientByToken(token_client);
+	if (client.getToken() != token_client) {
+		std::cout << "no token found" << std::endl;
+		return;
+	}
+
+	Packet packet;
+	std::vector<Room> rooms = _room_manager.getAllRoom();
+	unsigned int nb_rooms = rooms.size();
+
+	packet.setAction(PRTL::Actions::GET_ROOMS);
+	packet.set(received_packet.getIp());
+	packet.set(received_packet.getPort());
+	packet.setData(PRTL::NB_ROOM, std::to_string(nb_rooms));
+	for (size_t i = 0; i < nb_rooms; i++) {
+		std::string room_name = PRTL::ID_ROOM + std::to_string(i);
+		packet.setData(room_name, std::to_string(rooms[i].getRoomId()));
+	}
+	respondToClient(packet);
+}
+
+void Server::createRoom(Packet received_packet)
+{
+	std::string token_client = received_packet.getToken();
+
+	if (token_client.empty()) {
+		std::cout << "token is empty" << std::endl;
+		return;
+	}
+	Client client = _client_manager.getClientByToken(token_client);
+	if (client.getToken() != token_client) {
+		std::cout << "no token found" << std::endl;
+		return;
+	}
+	
+	Room room(_room_manager.getNewUDPInfoForRoom());
+	_room_manager.addAndRunRoom(room, client);
+
+	// The client is now in the new room
+	// and the room is up and running.
+
+	Packet packet;
+	packet.setAction(PRTL::Actions::CREATE_ROOM);
+	packet.setResponse(PRTL::Responses::SUCCESS);
+	packet.set(received_packet.getIp());
+	packet.set(received_packet.getPort());
+	respondToClient(packet);
+}
+
+void Server::joinRoom(Packet received_packet)
+{
+	std::string token_client = received_packet.getToken();
+
+	if (token_client.empty()) {
+		std::cout << "token is empty" << std::endl;
+		return;
+	}
+	Client client = _client_manager.getClientByToken(token_client);
+	if (client.getToken() != token_client) {
+		std::cout << "no token found" << std::endl;
+		return;
+	}
+
+	dataPacket data = received_packet.getData();
+	unsigned short requested_room_id = static_cast<unsigned short>(std::atoi(data[PRTL::ID_ROOM].c_str()));
+	
+	_room_manager.getRoomById(requested_room_id).addClient(client);
 }
