@@ -60,7 +60,7 @@ void Rtype::initGame(int nbmissile, int stage)
         NOTHING
     });
     gameEngine.addComponent(player, destroyable {
-        true, false
+        false, false
     });
     gameEngine.setEntitySystem(player, sign);
 

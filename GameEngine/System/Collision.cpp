@@ -96,10 +96,8 @@ void Collision::update()
             if (isCollide(bb1, bb2)) {
                 auto &destroy1 = gameEngine.getComponent<destroyable>(x);
                 auto &destroy2 = gameEngine.getComponent<destroyable>(y);
-                if (destroy1.isDestroyable)
-                    destroy1.isDestroy = true;
-                if (destroy2.isDestroyable)
-                    destroy2.isDestroy = true;
+                destroy1.isDestroy = true;
+                destroy2.isDestroy = true;
             }
         }
     } 

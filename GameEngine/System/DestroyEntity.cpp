@@ -38,7 +38,6 @@ void DestroyEntity::update()
         
     }
     for (auto x : tmp) {
-        std::cout << x << std::endl;
         gameEngine.destroyEntity(x);
     }
 }
