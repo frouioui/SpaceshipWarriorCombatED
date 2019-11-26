@@ -9,8 +9,8 @@ int main(int ac, char **argv)
     Client client;
     Sfml sfml;
 
-    sfml.loadBackground();
-    sfml.loadAsset();
+    // sfml.loadBackground();
+    // sfml.loadAsset();
     sfml.openWindow();
     sfml.updateWindow();
     // client.run();
