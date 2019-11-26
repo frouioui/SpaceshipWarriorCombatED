@@ -21,15 +21,15 @@ int Client::run() throw()
     _network.init();
 
     std::cout << "done with init" << std::endl;
-    while (_network.isConnected() == false) {
+    
+    // wait until connected to server
+    while (_network.isConnected() == false) {}
 
-    }
-    std::cout << "connected" << std::endl;
-
-    _network.createAndJoinRoom();
-    std::cout << "now about to run" << std::endl;
-
-    _network.getAvailableRooms();
+    // TEST
+    // std::cout << "connected" << std::endl;
+    // _network.createAndJoinRoom();
+    // std::cout << "now about to run" << std::endl;
+    // _network.getAvailableRooms();
 
     while (_running) {
     }
