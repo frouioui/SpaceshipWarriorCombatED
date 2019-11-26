@@ -7,7 +7,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/GameEngine/Component
                     ${r-type_SOURCE_DIR}/GameEngine/System
+                    ${r-type_SOURCE_DIR}/Error
                     ${r-type_SOURCE_DIR}/Sfml
+                    ${r-type_SOURCE_DIR}/Sfml/Assets
                     ${r-type_SOURCE_DIR}/Rtype)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -18,14 +20,24 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp
                 GameEngine/System/Render.cpp
                 Rtype/Rtype.cpp
-                Sfml/Sfml.cpp)
+                Sfml/Sfml.cpp
+                Sfml/Assets/AssetsFactory.cpp
+                Error/Error.cpp
+                Sfml/Assets/Player1.cpp
+                Sfml/Assets/AAsset.cpp
+                )
 
 # Server main
 set(SERVER_SRC_MAIN ./Rtype/main.cpp ${SERVER_SRC})
 
 # Client sources (except main)
 set(CLIENT_SRC  client/Client.cpp
-                Sfml/Sfml.cpp)
+                Error/Error.cpp
+                Sfml/Sfml.cpp
+                Sfml/Assets/AAsset.cpp
+                Sfml/Assets/AssetsFactory.cpp
+                Sfml/Assets/Player1.cpp
+                )
 
 # Client main
 set(CLIENT_SRC_MAIN client/main.cpp ${CLIENT_SRC})
