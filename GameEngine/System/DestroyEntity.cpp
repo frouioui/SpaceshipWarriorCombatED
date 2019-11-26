@@ -33,8 +33,6 @@ void DestroyEntity::update()
         auto &dest = gameEngine.getComponent<destroyable>(x);
         if (dest.isDestroyable)
             if (dest.isDestroy || isOutside(bb1)) {
-                std::cout << "pos " << bb1.pos[0].first << " " << bb1.pos[0].second << std::endl;
-                std::cout << "tota " << x << std::endl;
                 tmp.push_back(x);
             }
         
