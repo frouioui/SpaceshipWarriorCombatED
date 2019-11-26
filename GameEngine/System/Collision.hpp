@@ -11,6 +11,7 @@
 #include "GameEngine.hpp"
 #include "Component/boundingBox.hpp"
 #include "Component/destroyable.hpp"
+#include <math.h> 
 
 class Collision : public ASystem {
 	public:
@@ -22,6 +23,8 @@ class Collision : public ASystem {
         bool collideSquare(boundingBox&, boundingBox&);
         bool collideSquareCircle(boundingBox&, boundingBox&);
         bool collideCircle(boundingBox&, boundingBox&);
+        float calculDistance(std::pair<int, int> point_a, std::pair<int, int> point_b);
+        bool checkSideSquare(std::pair<int, int> center, int radius, std::pair<int, int>, std::pair<int, int>);
 };
 
 #endif /* !COLLISION_HPP_ */

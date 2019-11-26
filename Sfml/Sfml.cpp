@@ -87,7 +87,7 @@ void Sfml::drawCircle(std::vector<int> pos, int radius, int type)
 {
     sf::CircleShape box = sf::CircleShape(_circle[type]);
     box.setPosition((float)TRANSX(pos[1], (int)_window.getSize().x), (float)TRANSY(pos[0], (int)_window.getSize().y));
-    box.setRadius((float)TRANSX(radius, (int)_window.getSize().x));
+    box.setRadius((float)TRANSY(radius, (int)_window.getSize().y));
     _window.draw(box);
 }
 

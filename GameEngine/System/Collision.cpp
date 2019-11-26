@@ -58,9 +58,38 @@ bool Collision::collideSquare(boundingBox& bb1, boundingBox& bb2)
     return false;
 }
 
+float Collision::calculDistance(std::pair<int, int> point_a, std::pair<int, int> point_b)
+{
+    return sqrt(pow(point_a.first - point_b.first, 2) + pow(point_a.second - point_b.second, 2));
+}
+
+bool Collision::checkSideSquare(std::pair<int, int> center, int radius, std::pair<int, int> pointA, std::pair<int, int> pointB) 
+{
+    int counter = 0;
+
+    if (pointA.first != pointB.first) {
+        counter = pointA.first > pointB.first ? -1 : 1;
+        for (int i = pointA.first; i != pointB.first; i += counter)
+            if (calculDistance(center, {i, pointA.second}) < radius)
+                return true;
+    } else {
+        counter = pointA.second > pointB.second ? -1 : 1;
+        for (int i = pointA.second; i != pointB.second; i += counter)
+            if (calculDistance(center, {pointA.first, i}) < radius)
+                return true;
+    }
+    return false;
+}
+
 bool Collision::collideSquareCircle(boundingBox& square, boundingBox& circle)
 {
-    return false;
+    int radius = circle.pos[RADIUS].first;
+    std::pair<int, int> center = {circle.pos[CENTER].first + radius, circle.pos[CENTER].second};
+    return (checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[LOWERLEFT])  || // Left
+            checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[UPPERRIGHT])    || // Up
+            checkSideSquare(center, radius, square.pos[UPPERRIGHT], square.pos[LOWERRIGHT]) || // Right
+            checkSideSquare(center, radius, square.pos[LOWERRIGHT], square.pos[LOWERLEFT]) // Down
+    );
 }
 
 bool Collision::collideCircle(boundingBox& c1, boundingBox& c2)
