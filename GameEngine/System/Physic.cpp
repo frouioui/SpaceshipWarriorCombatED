@@ -24,13 +24,18 @@ Physic::~Physic()
 void Physic::update()
 {
     for (auto const & x : _entities) {
-        speed toto = gameEngine.getComponent<speed>(x);
+        auto& point = gameEngine.getComponent<boundingBox>(x);
+        std::cout << "update " << x << " " << point.pos[0].first << " " << point.pos[0].second  << std::endl;
+        auto& toto = gameEngine.getComponent<speed>(x);
         if (gameEngine.getComponent<boundingBox>(x).type == SQUARE) {
-            auto& point = gameEngine.getComponent<boundingBox>(x);
             point.pos[UPPERLEFT].second += toto.speed;
             point.pos[UPPERRIGHT].second += toto.speed;
             point.pos[LOWERLEFT].second += toto.speed;
             point.pos[LOWERRIGHT].second += toto.speed;
+        }
+
+        if (gameEngine.getComponent<boundingBox>(x).type == CIRCLE) {
+            point.pos[CENTER].second += toto.speed;
         }
     }
 }

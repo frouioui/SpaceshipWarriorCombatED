@@ -12,6 +12,8 @@
 #include "Component/event.hpp"
 #include "Component/rendering.hpp"
 #include "Component/boundingBox.hpp"
+#include "Component/speed.hpp"
+#include "Component/destroyable.hpp"
 
 class Input : public ASystem{
 	public:

@@ -23,6 +23,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/System/Physic.cpp
                 GameEngine/System/Collision.cpp
                 GameEngine/System/Input.cpp
+                GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
                 Game/Rtype/Rtype.cpp

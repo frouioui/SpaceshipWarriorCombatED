@@ -16,6 +16,8 @@
 #include "speed.hpp"
 #include "Input.hpp"
 #include "Collision.hpp"
+#include "DestroyEntity.hpp"
+#include "Component/destroyable.hpp"
 
 class Rtype : public AGame {
 	public:

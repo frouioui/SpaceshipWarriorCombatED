@@ -24,6 +24,6 @@ void Render::update()
 {
     
     for (auto const& x :_entities) {
-        rendering entity = gameEngine.getComponent<rendering>(x);
+        auto& entity = gameEngine.getComponent<rendering>(x);
     }
 }

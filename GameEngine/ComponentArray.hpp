@@ -30,9 +30,9 @@ class ComponentArray : public IComponentArray {
 		}
 		void remove(Entity id) {
 			if (_entityToIndex.find(id) != _entityToIndex.end()) {
-				std::size_t removedIndex = _entityToIndex[id];
 				_size--;
-				_component[_size] = _component[removedIndex];
+				std::size_t removedIndex = _entityToIndex[id];
+				_component[removedIndex] = _component[_size];
 				Entity idLast = _indexToEntity[_size];
 				_entityToIndex[idLast] = removedIndex;
 				_indexToEntity[removedIndex] = idLast;

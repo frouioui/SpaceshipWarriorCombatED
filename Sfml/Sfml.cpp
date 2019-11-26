@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Sfml.hpp"
 
-Sfml::Sfml() : _window(), _box(), _title(), _event(),
+Sfml::Sfml() : _window(), _box(), _circle(), _title(), _event(),
 _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _clock()
 {
     std::string projectPath;
@@ -24,6 +24,15 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
     box1.setOutlineColor(sf::Color::Green);
     box1.setFillColor(sf::Color::Transparent);
     _box.push_back(box1);
+    box1.setOutlineThickness(1);
+    box1.setOutlineColor(sf::Color::Red);
+    box1.setFillColor(sf::Color::Transparent);
+    _box.push_back(box1);
+    sf::CircleShape circle;
+    circle.setFillColor(sf::Color::Transparent);
+    circle.setOutlineColor(sf::Color::Yellow);
+    circle.setOutlineThickness(1);
+    _circle.push_back(circle);
     // TODO: path to global
     // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
     // 	throw std::exception();
@@ -71,6 +80,14 @@ void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
     sf::RectangleShape box = sf::RectangleShape(_box[type]);
     box.setPosition((float)TRANSX(pos[1], (int)_window.getSize().x), (float)TRANSY(pos[0], (int)_window.getSize().y));
     box.setSize({(float)TRANSX(size[1], (int)_window.getSize().x), (float)TRANSY(size[0], (int)_window.getSize().y)});
+    _window.draw(box);
+}
+
+void Sfml::drawCircle(std::vector<int> pos, int radius, int type)
+{
+    sf::CircleShape box = sf::CircleShape(_circle[type]);
+    box.setPosition((float)TRANSX(pos[1], (int)_window.getSize().x), (float)TRANSY(pos[0], (int)_window.getSize().y));
+    box.setRadius((float)TRANSX(radius, (int)_window.getSize().x));
     _window.draw(box);
 }
 
@@ -238,10 +255,10 @@ void Sfml::updateWindow()
     // while (_window.isOpen()) {
     //     if (getEvent() == input::CLOSE)
     //         closeWindow();
-	// if (elapsed < 10000) {
-	//     elapsed = _clock.getElapsedTime().asMicroseconds();
-	// 	return;
-	// }
+	if (elapsed < 10000) {
+	    elapsed = _clock.getElapsedTime().asMicroseconds();
+		return;
+	}
 	// updateParallax();
 
 	// drawObject("1", pos);
@@ -372,6 +389,9 @@ void Sfml::drawBoundingBox(std::vector<boundingBox> list)
 					{x.pos[LOWERLEFT].first - x.pos[UPPERLEFT].first,
 					x.pos[UPPERRIGHT].second - x.pos[UPPERLEFT].second
 					});
+		}
+        if (x.type == CIRCLE) {
+			drawCircle({x.pos[0].first, x.pos[0].second}, x.pos[1].first);
 		}
 	}
 }

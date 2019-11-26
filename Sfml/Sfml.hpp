@@ -29,6 +29,7 @@ class Sfml {
         void closeWindow();
         void updateWindow();
         void drawBox(std::vector<int> pos, std::vector<int> size, int type = 0);
+        void drawCircle(std::vector<int> pos, int radius, int type = 0);
         void drawObject(std::string name, std::vector<int> pos);
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
         input getEvent();
@@ -49,6 +50,7 @@ class Sfml {
     private:
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
+        std::vector<sf::CircleShape> _circle;
         sf::Sprite _title;
         std::unordered_map<std::string, sf::Sprite> _backgnd;
         // sf::Sprite _backgnd;

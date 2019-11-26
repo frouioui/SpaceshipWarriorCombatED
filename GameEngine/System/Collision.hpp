@@ -10,6 +10,7 @@
 
 #include "GameEngine.hpp"
 #include "Component/boundingBox.hpp"
+#include "Component/destroyable.hpp"
 
 class Collision : public ASystem {
 	public:

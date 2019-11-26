@@ -11,6 +11,7 @@ Collision::Collision()
 {
     Signature sign;
     sign.set(gameEngine.getComponentID<boundingBox>());
+    sign.set(gameEngine.getComponentID<destroyable>());
     setSignature(sign);
 }
 
@@ -83,16 +84,23 @@ bool Collision::isCollide(boundingBox& bb1, boundingBox& bb2)
     return false;
 }
 
+
 void Collision::update()
 {
     for (auto const & x : _entities) {
-        for (auto const & y : _entities) {
+         for (auto const & y : _entities) {
             if (x == y)
                 continue;
-        auto& bb1 = gameEngine.getComponent<boundingBox>(x);
-        auto& bb2 = gameEngine.getComponent<boundingBox>(y);
-        if (isCollide(bb1, bb2))
-            std::cout << "collide" << std::endl;
+            auto& bb1 = gameEngine.getComponent<boundingBox>(x);
+            auto& bb2 = gameEngine.getComponent<boundingBox>(y);
+            if (isCollide(bb1, bb2)) {
+                auto &destroy1 = gameEngine.getComponent<destroyable>(x);
+                auto &destroy2 = gameEngine.getComponent<destroyable>(y);
+                if (destroy1.isDestroyable)
+                    destroy1.isDestroy = true;
+                if (destroy2.isDestroyable)
+                    destroy2.isDestroy = true;
+            }
         }
     } 
 }
