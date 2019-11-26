@@ -12,8 +12,10 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
                     ${r-type_SOURCE_DIR}/client
+                    ${r-type_SOURCE_DIR}/server
                     ${r-type_SOURCE_DIR}/Game
                     ${r-type_SOURCE_DIR}/Sfml/Assets
+                    ${r-type_SOURCE_DIR}/lib/udp
                     )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -30,7 +32,13 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
                 Game/Rtype/Rtype.cpp
-                client/Client.cpp
+                server/src/Server.cpp
+                server/src/room/Room.cpp
+                server/src/room/RoomManager.cpp
+                server/src/client/Client.cpp
+                server/src/client/ClientManager.cpp
+                lib/udp/src/Packet.cpp
+                lib/udp/src/UDP.cpp
                 Sfml/Sfml.cpp
                 Sfml/Assets/AssetsFactory.cpp
                 Error/Error.cpp
@@ -39,15 +47,20 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 )
 
 # Server main
-set(SERVER_SRC_MAIN ./Game/Rtype/main.cpp ${SERVER_SRC})
+set(SERVER_SRC_MAIN ./server/src/main.cpp ${SERVER_SRC})
 
 # Client sources (except main)
-set(CLIENT_SRC  client/Client.cpp
+set(CLIENT_SRC  client/src/Client.cpp
+                client/src/network/NetworkConfig.cpp
+                client/src/network/NetworkManager.cpp
+                client/src/network/player/Player.cpp
                 Error/Error.cpp
                 Sfml/Sfml.cpp
                 Sfml/Assets/AAsset.cpp
                 Sfml/Assets/AssetsFactory.cpp
                 Sfml/Assets/Player1.cpp
+                lib/udp/src/Packet.cpp
+                lib/udp/src/UDP.cpp
                 )
 
 # Client main
