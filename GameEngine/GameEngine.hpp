@@ -43,6 +43,8 @@ class GameEngine {
 
                 void setEntitySystem(Entity id, Signature sign) { _systems->changeSignatureFromEntity(id, sign);};
 
+                void updateSystem() { _systems->updateSystem();};
+
                 template<typename T>
                 std::shared_ptr<ComponentArray<T>> getComponentArray() {return _components->GetComponentArray<T>();};
         private:

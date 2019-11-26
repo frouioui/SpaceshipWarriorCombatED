@@ -75,7 +75,8 @@ void Input::update()
                 });
                 gameEngine.addComponent(missile, boundingBox {
                     CIRCLE,
-                    {{point.pos[UPPERRIGHT].first + (point.pos[LOWERRIGHT].first - point.pos[UPPERRIGHT].first) / 2 - 1, point.pos[LOWERRIGHT].second + 1}, {1, 0}}
+                    {{point.pos[UPPERRIGHT].first + (point.pos[LOWERRIGHT].first - point.pos[UPPERRIGHT].first) / 2 - 1, point.pos[LOWERRIGHT].second + 1},
+                    {2, 0}}
                 });
                 gameEngine.addComponent(missile, speed {
                     1

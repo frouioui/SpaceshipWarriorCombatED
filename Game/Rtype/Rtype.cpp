@@ -28,10 +28,7 @@ Rtype::~Rtype()
 void Rtype::update()
 {
     addEventToGameEngine();
-    gameEngine.getSystem<Input>()->update();
-    gameEngine.getSystem<Physic>()->update();
-    gameEngine.getSystem<Collision>()->update();
-    gameEngine.getSystem<DestroyEntity>()->update();
+    gameEngine.updateSystem();
 }
 
 void Rtype::initGame(int nbmissile, int stage)

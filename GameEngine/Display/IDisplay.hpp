@@ -16,6 +16,7 @@ class IDisplay {
         virtual void displayGame() = 0;
         virtual void displayMenu() = 0;
         virtual input getInput() = 0;
+        virtual void update() = 0;
 };
 
 #endif /* !IDISPLAY_HPP_ */
