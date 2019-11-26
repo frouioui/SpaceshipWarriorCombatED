@@ -313,37 +313,37 @@ void Sfml::drawCharacter(std::vector<std::vector<int>> charater, std::vector<int
 }
 
 
-void Sfml::updateWindow()
-{
-    sf::Time time = _clock.getElapsedTime();
-    static float elapsed = time.asMicroseconds();
-    std::vector<int> pos;
+// void Sfml::updateWindow()
+// {
+//     sf::Time time = _clock.getElapsedTime();
+//     static float elapsed = time.asMicroseconds();
+//     std::vector<int> pos;
 
-    // pos.push_back(1000);
-    // pos.push_back(1000);
-    // while (_window.isOpen()) {
-    //     if (getEvent() == input::CLOSE)
-    //         closeWindow();
-	if (elapsed < 10000) {
-	    elapsed = _clock.getElapsedTime().asMicroseconds();
-		return;
-	}
-	// updateParallax();
+//     // pos.push_back(1000);
+//     // pos.push_back(1000);
+//     // while (_window.isOpen()) {
+//     //     if (getEvent() == input::CLOSE)
+//     //         closeWindow();
+// 	if (elapsed < 10000) {
+// 	    elapsed = _clock.getElapsedTime().asMicroseconds();
+// 		return;
+// 	}
+// 	// updateParallax();
 
-	// drawObject("1", pos);
-	_window.display();
-	_window.clear();
-	_clock.restart();
-    // }
-}
+// 	// drawObject("1", pos);
+// 	_window.display();
+// 	_window.clear();
+// 	_clock.restart();
+//     // }
+// }
 
-void Sfml::loadAsset()
-{
-//     _character.clear();
-//     _enemy.clear();
-    // _wall.clear();
-    // _Objmap.clear();
-    // _texture.clear();
+// void Sfml::loadAsset()
+// {
+// //     _character.clear();
+// //     _enemy.clear();
+//     // _wall.clear();
+//     // _Objmap.clear();
+//     // _texture.clear();
 
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)

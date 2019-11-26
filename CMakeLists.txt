@@ -11,11 +11,11 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/Sfml
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
-                    ${r-type_SOURCE_DIR}/client
-                    ${r-type_SOURCE_DIR}/server
+                    ${r-type_SOURCE_DIR}/client/include
+                    ${r-type_SOURCE_DIR}/server/include
                     ${r-type_SOURCE_DIR}/Game
                     ${r-type_SOURCE_DIR}/Sfml/Assets
-                    ${r-type_SOURCE_DIR}/lib/udp
+                    ${r-type_SOURCE_DIR}/lib/udp/include
                     )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
@@ -64,7 +64,7 @@ set(CLIENT_SRC  client/src/Client.cpp
                 )
 
 # Client main
-set(CLIENT_SRC_MAIN client/main.cpp ${CLIENT_SRC})
+set(CLIENT_SRC_MAIN client/src/main.cpp ${CLIENT_SRC})
 
 # Executable
 add_executable(r-type_server ${SERVER_SRC_MAIN})
