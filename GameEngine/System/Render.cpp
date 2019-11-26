@@ -23,8 +23,7 @@ Render::~Render()
 void Render::update()
 {
     
-    // for (auto const& x :_entities) {
-        // rendering entity = gameEngine.getComponent<rendering>(x);
-        // gameEngine.getSfml()->drawBox(entity.pos, entity.size);
-    // }
+    for (auto const& x :_entities) {
+        auto& entity = gameEngine.getComponent<rendering>(x);
+    }
 }

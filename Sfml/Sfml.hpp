@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2019
-** OOP_arcade_2018
+** R-Type
 ** File description:
 ** Sfml
 */
@@ -9,62 +9,79 @@
 #define SFML_HPP_
 
 #include <fstream>
+#include <vector>
 #include <unordered_map>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include "Component/event.hpp"
-
+#include "Component/boundingBox.hpp"
+#include "AssetsFactory.hpp"
+#include "Object.hpp"
 
 #define TRANSCOORD(x, y) (x * y / 100)
-#define TRANSX(x, y) (TRANSCOORD(x, y / 8) * 8)
-#define TRANSY(x, y) (TRANSCOORD(x, y / 16) * 16)
+#define TRANSX(x, y) (TRANSCOORD(x, y))
+#define TRANSY(x, y) (TRANSCOORD(x, y))
 
 class Sfml {
-	public:
+
+    public:
         Sfml();
         ~Sfml();
         void openWindow();
         void closeWindow();
         void updateWindow();
         void drawBox(std::vector<int> pos, std::vector<int> size, int type = 0);
+        void drawCircle(std::vector<int> pos, int radius, int type = 0);
         void drawObject(std::string name, std::vector<int> pos);
+
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
         input getEvent();
         std::string getString(std::vector<int> pos);
-		void loadAsset();
-		void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
-		void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
-		std::string getName() const {return "sfml";};
-	    std::vector<int> getPosMenu(const std::string &id) {return _posMenu[id];};
+        void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
+        void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
+        std::string getName() const {return "sfml";};
+        std::vector<int> getPosMenu(const std::string &id) {return _posMenu[id];};
         sf::Clock& getClock() { return _clock;};
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
+
+        void drawAllObjects() noexcept;
+
+        void updateAllObject(const std::vector<Asset::object_t> &);
+
+        void loadAsset();
+        void loadPlayer(int playerIndex);
         void loadBackground();
+
         void updateParallax();
+        void drawBoundingBox(std::vector<boundingBox>);
 
     private:
+        void drawObject(const std::string &name) noexcept;
+        void updateObject(const Asset::object_t &object);
+
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
+        std::vector<sf::CircleShape> _circle;
         sf::Sprite _title;
         std::unordered_map<std::string, sf::Sprite> _backgnd;
-        // sf::Sprite _backgnd;
         sf::Font _font;
         sf::Event _event;
-		// std::vector<sf::Texture> _texture;
-		std::unordered_map<std::string, sf::Texture> _texture;
+        std::unordered_map<std::string, sf::Texture> _texture;
         std::vector<sf::Sprite> _enemy;
         std::vector<sf::Sprite> _wall;
-        // std::vector<sf::Sprite> _objet;
-        std::unordered_map<std::string, sf::Sprite> _objet;
+        std::vector<sf::Sprite> _objet;
+        std::unordered_map<std::string, std::unique_ptr<Asset::IAsset>> _objects;
+        Asset::AssetsFactory _factory;
         std::vector<sf::Sprite> _character;
-		std::map<std::string, std::vector<int>> _posMenu;
-		std::map<std::string, std::vector<sf::Sprite>> _Objmap;
-		void drawObjMap(const std::string &type, int id, std::vector<int> pos);
+        std::map<std::string, std::vector<int>> _posMenu;
+        std::map<std::string, std::vector<sf::Sprite>> _Objmap;
+        void drawObjMap(const std::string &type, int id, std::vector<int> pos);
         sf::Clock _clock;
         std::map<std::string, sf::Sprite> _spriteList;
-        std::string _assetsPath;
+        std::string _ressourcesPath;
 };
 
 #endif /* !SFML_HPP_ */

@@ -10,6 +10,7 @@
 
 #include <set>
 #include "ECS.hpp"
+#include <iostream>
 
 class GameEngine;
 extern GameEngine gameEngine;
@@ -19,10 +20,10 @@ class ASystem {
 		ASystem() : _entities(), _signature() {};
 		~ASystem() {};
 		void setSignature(Signature sign) { _signature =  sign;};
-		void update() {};
+		virtual void update() = 0;
 		ECS::Signature getSignature() { return _signature;};
         std::set<ECS::Entity> _entities;
-	private:
+	protected:
 		ECS::Signature _signature;
 };
 

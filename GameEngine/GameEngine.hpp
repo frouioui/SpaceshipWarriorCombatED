@@ -30,7 +30,7 @@ class GameEngine {
                 void removeComponent(Entity id) { _components->removeToArray<T>(id);};
 
                 template<typename T>
-                void addComponent(Entity id) { _components->addToArray<T>(id);};
+                void addComponent(Entity id, T component) { _components->addToArray<T>(id, component);};
 
                 template<typename T>
                 T& getComponent(Entity id) { return _components->getToArray<T>(id);};
@@ -40,6 +40,13 @@ class GameEngine {
 
                 template<typename T>
                 std::shared_ptr<ASystem> getSystem() {return _systems->getSystem<T>();};
+
+                void setEntitySystem(Entity id, Signature sign) { _systems->changeSignatureFromEntity(id, sign);};
+
+                void updateSystem() { _systems->updateSystem();};
+
+                template<typename T>
+                std::shared_ptr<ComponentArray<T>> getComponentArray() {return _components->GetComponentArray<T>();};
         private:
                 std::unique_ptr<EntityManager> _entities;
                 std::unique_ptr<SystemManager> _systems;

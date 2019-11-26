@@ -46,6 +46,11 @@ class SystemManager {
             }
         }
 
+        void updateSystem() {
+            for (auto &x : _systems)
+                x.second->update();
+        }
+
         void destroyEntity(Entity id) {
             for (auto const & x : _systems)
                 x.second->_entities.erase(id);                

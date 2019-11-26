@@ -19,7 +19,7 @@ class Render : public ASystem {
 		void showMenu();
 		void showCinematic();
 		void showGame();
-		void update();
+		void update();	
 	protected:
 	private:
 

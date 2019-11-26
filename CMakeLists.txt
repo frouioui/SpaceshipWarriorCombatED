@@ -7,10 +7,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/GameEngine/Component
                     ${r-type_SOURCE_DIR}/GameEngine/System
+                    ${r-type_SOURCE_DIR}/Error
                     ${r-type_SOURCE_DIR}/Sfml
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
-                    ${r-type_SOURCE_DIR}/Game)
+                    ${r-type_SOURCE_DIR}/client
+                    ${r-type_SOURCE_DIR}/Game
+                    ${r-type_SOURCE_DIR}/Sfml/Assets
+                    )
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
@@ -19,16 +23,32 @@ conan_basic_setup()
 set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/GameEngine.cpp
                 GameEngine/System/Render.cpp
+                GameEngine/System/Physic.cpp
+                GameEngine/System/Collision.cpp
+                GameEngine/System/Input.cpp
+                GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
-                Game/Rtype/Rtype.cpp)
+                Game/Rtype/Rtype.cpp
+                client/Client.cpp
+                Sfml/Sfml.cpp
+                Sfml/Assets/AssetsFactory.cpp
+                Error/Error.cpp
+                Sfml/Assets/Player1.cpp
+                Sfml/Assets/AAsset.cpp
+                )
 
 # Server main
 set(SERVER_SRC_MAIN ./Game/Rtype/main.cpp ${SERVER_SRC})
 
 # Client sources (except main)
 set(CLIENT_SRC  client/Client.cpp
-                Sfml/Sfml.cpp)
+                Error/Error.cpp
+                Sfml/Sfml.cpp
+                Sfml/Assets/AAsset.cpp
+                Sfml/Assets/AssetsFactory.cpp
+                Sfml/Assets/Player1.cpp
+                )
 
 # Client main
 set(CLIENT_SRC_MAIN client/main.cpp ${CLIENT_SRC})
