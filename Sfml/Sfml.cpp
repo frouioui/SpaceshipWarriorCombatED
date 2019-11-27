@@ -108,12 +108,33 @@ void Sfml::closeWindow()
 
 void Sfml::loadAsset()
 {
+    //TODO: Select index in relation to the client's status
     loadPlayer(0);
+    loadPlayer(1);
+    loadPlayer(2);
+    loadPlayer(3);
 }
 
 void Sfml::loadPlayer(int playerIndex)
 {
-    _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+    switch (playerIndex)
+    {
+    case 0:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+        break;
+    case 1:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
+        break;
+    case 2:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER2, _ressourcesPath);
+        break;
+    case 3:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER3, _ressourcesPath);
+        break;
+    default:
+        std::cerr << "Cannot load more than 4 players" << std::endl;
+        break;
+    }
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)

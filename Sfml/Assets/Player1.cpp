@@ -2,16 +2,16 @@
 ** EPITECH PROJECT, 2019
 ** R-Type
 ** File description:
-** Player0 Asset
+** Player1 Asset
 */
 
 #include <SFML/Graphics.hpp>
-#include "Player0.hpp"
+#include "Player1.hpp"
 
-Asset::Player0::Player0(const std::string &ressourcesPath):
+Asset::Player1::Player1(const std::string &ressourcesPath):
 Asset::AAsset(ressourcesPath, "r-typesheet42.gif")
 {
-    sf::IntRect rect(0, 0, 33, 17);
+    sf::IntRect rect(0, 17, 33, 17);
 
     _nbTiles = 4;
     for (int i = 0; i < _nbTiles; i++) {
@@ -21,13 +21,13 @@ Asset::AAsset(ressourcesPath, "r-typesheet42.gif")
     loadAsset();
 }
 
-void Asset::Player0::loadAsset()
+void Asset::Player1::loadAsset()
 {
     loadTexture();
     setSprite();
 }
 
-void Asset::Player0::setSprite() noexcept
+void Asset::Player1::setSprite() noexcept
 {
     _sprite.setTexture(_texture);
     _sprite.setScale(3, 3);
