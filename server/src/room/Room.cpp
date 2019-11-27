@@ -122,7 +122,7 @@ void Room::managePacket(Packet packet)
 	switch (packet.getAction())
 	{
 	case PRTL::Actions::INPUT:
-        _game->addEvent({_client_manager.getClientByToken(packet.getToken()).getPlayerId(), static_cast<input>(std::stoi(packet.getData(PRTL::INPUT)))});
+        _game->addEvent({_client_manager.getClientByToken(packet.getToken()).getPlayerId() + 1, static_cast<input>(std::stoi(packet.getData(PRTL::INPUT)))});
 		break;
 
 	default:
