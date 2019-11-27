@@ -69,7 +69,7 @@ void Room::sendInfoBoundingBoxes()
             packetBoundingBox.setData(PRTL::CONTENT, PRTL::CIRCLE);
             packetBoundingBox.setData(PRTL::CIRCLE_POS_CENTER_X, std::to_string(boundingBox.pos[circlePos::CENTER].second));
             packetBoundingBox.setData(PRTL::CIRCLE_POS_CENTER_Y, std::to_string(boundingBox.pos[circlePos::CENTER].first));
-            packetBoundingBox.setData(PRTL::CIRCLE_POS_RADIUS, std::to_string(boundingBox.pos[circlePos::CENTER].first));
+            packetBoundingBox.setData(PRTL::CIRCLE_POS_RADIUS, std::to_string(boundingBox.pos[circlePos::RADIUS].first));
         } else if (boundingBox.type == shapeType::SQUARE) {
             packetBoundingBox.setData(PRTL::CONTENT, PRTL::SQUARE);
             packetBoundingBox.setData(PRTL::SQUARE_UPPERLEFT_Y, std::to_string(boundingBox.pos[squarePos::UPPERLEFT].first));

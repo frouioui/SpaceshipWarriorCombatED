@@ -66,8 +66,8 @@ std::vector<boundingBox> Client::getBoundingBox()
         if (p.getData(PRTL::CONTENT) == PRTL::CIRCLE) {
             box.type = shapeType::CIRCLE;
             std::pair<int, int> pos;
-            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_X));
-            pos.second = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_Y));
+            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_Y));
+            pos.second = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_X));
             box.pos.push_back(pos);
             pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_RADIUS));
             pos.second = 0;
