@@ -9,14 +9,18 @@
 
 Collision::Collision()
 {
-    Signature sign;
-    sign.set(gameEngine.getComponentID<boundingBox>());
-    sign.set(gameEngine.getComponentID<destroyable>());
-    setSignature(sign);
 }
 
 Collision::~Collision()
 {
+}
+
+void Collision::init()
+{
+    Signature sign;
+    sign.set(gameEngine->getComponentID<boundingBox>());
+    sign.set(gameEngine->getComponentID<destroyable>());
+    setSignature(sign);
 }
 
 bool Collision::collideSquare(boundingBox& bb1, boundingBox& bb2)
@@ -85,10 +89,10 @@ bool Collision::collideSquareCircle(boundingBox& square, boundingBox& circle)
 {
     int radius = circle.pos[RADIUS].first;
     std::pair<int, int> center = {circle.pos[CENTER].first + radius, circle.pos[CENTER].second};
-    return (checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[LOWERLEFT])  || // Left
-            checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[UPPERRIGHT])    || // Up
-            checkSideSquare(center, radius, square.pos[UPPERRIGHT], square.pos[LOWERRIGHT]) || // Right
-            checkSideSquare(center, radius, square.pos[LOWERRIGHT], square.pos[LOWERLEFT]) // Down
+    return (checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[LOWERLEFT])  ||       // Left
+            checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[UPPERRIGHT])    ||    // Up
+            checkSideSquare(center, radius, square.pos[UPPERRIGHT], square.pos[LOWERRIGHT]) ||      // Right
+            checkSideSquare(center, radius, square.pos[LOWERRIGHT], square.pos[LOWERLEFT])          // Down
     );
 }
 
@@ -120,11 +124,11 @@ void Collision::update()
          for (auto const & y : _entities) {
             if (x == y)
                 continue;
-            auto& bb1 = gameEngine.getComponent<boundingBox>(x);
-            auto& bb2 = gameEngine.getComponent<boundingBox>(y);
+            auto& bb1 = gameEngine->getComponent<boundingBox>(x);
+            auto& bb2 = gameEngine->getComponent<boundingBox>(y);
             if (isCollide(bb1, bb2)) {
-                auto &destroy1 = gameEngine.getComponent<destroyable>(x);
-                auto &destroy2 = gameEngine.getComponent<destroyable>(y);
+                auto &destroy1 = gameEngine->getComponent<destroyable>(x);
+                auto &destroy2 = gameEngine->getComponent<destroyable>(y);
                 destroy1.isDestroy = true;
                 destroy2.isDestroy = true;
             }

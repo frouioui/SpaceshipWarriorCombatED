@@ -11,6 +11,7 @@
 
 AGame::AGame() : _event(), _enemy(), _player(), _stage(0)
 {
+    gameEngine = std::make_shared<GameEngine>();
 }
 
 AGame::~AGame()
@@ -25,7 +26,7 @@ void AGame::addEventToGameEngine()
 {
     auto it = _event.cbegin();
     while (it != _event.cend()) {
-        auto& x = gameEngine.getComponent<Event>(_player[it->player-1]);
+        auto& x = gameEngine->getComponent<Event>(_player[it->player-1]);
         x.event = it->event;
         it = _event.erase(_event.begin());
 		if (it != _event.cend())
@@ -44,12 +45,12 @@ void AGame::update()
 
 std::vector<rendering> AGame::getRendering()
 {
-    return gameEngine.getComponentArray<rendering>()->listedComponent();
+    return gameEngine->getComponentArray<rendering>()->listedComponent();
 }
 
 std::vector<boundingBox> AGame::getBoundingBox()
 {
-    return gameEngine.getComponentArray<boundingBox>()->listedComponent();
+    return gameEngine->getComponentArray<boundingBox>()->listedComponent();
 }
 
 

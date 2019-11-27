@@ -21,7 +21,7 @@ class GameEngine {
                 void destroyEntity(Entity id);
 
                 template<typename T>
-                void insertSystem() { _systems->insertSystem<T>();};
+                void insertSystem(std::shared_ptr<GameEngine>& eg) { _systems->insertSystem<T>(eg);};
 
                 template<typename T>
                 void insertComponent() { _components->insertComponent<T>();};

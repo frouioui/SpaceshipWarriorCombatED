@@ -9,10 +9,6 @@
 
 Render::Render() : ASystem()
 {
-    Signature sign;
-    sign.set(gameEngine.getComponentID<rendering>());
-    setSignature(sign);
-    
 }
 
 Render::~Render()
@@ -20,10 +16,17 @@ Render::~Render()
     
 }
 
+void Render::init()
+{
+    Signature sign;
+    sign.set(gameEngine->getComponentID<rendering>());
+    setSignature(sign);
+}
+
 void Render::update()
 {
     
     for (auto const& x :_entities) {
-        auto& entity = gameEngine.getComponent<rendering>(x);
+        auto& entity = gameEngine->getComponent<rendering>(x);
     }
 }

@@ -17,6 +17,7 @@ class DestroyEntity : public ASystem {
 		DestroyEntity();
 		~DestroyEntity();
         void update();
+        void init();
 	private:
         bool isOutside(boundingBox&);
 };

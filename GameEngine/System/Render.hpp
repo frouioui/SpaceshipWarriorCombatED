@@ -16,6 +16,7 @@ class Render : public ASystem {
 	public:
 		Render();
 		~Render();
+		void init();
 		void showMenu();
 		void showCinematic();
 		void showGame();
