@@ -40,6 +40,11 @@ _clockParallax(), _spriteList(), _ressourcesPath()
     // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();
     loadAsset();
+    try {
+        loadMusic();
+    } catch (Error::Sfml::SfmlError &e) {
+        std::cerr << e.what() << e.where() << std::endl;
+    }
     // TODO: path to global
     // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
     // 	throw std::exception();
@@ -68,6 +73,7 @@ _clockParallax(), _spriteList(), _ressourcesPath()
 
 Sfml::~Sfml()
 {
+    stopMusic();
 }
 
 void Sfml::openWindow()
@@ -499,4 +505,22 @@ void Sfml::drawBoundingBox(std::vector<boundingBox> list)
 			drawCircle({x.pos[0].first, x.pos[0].second}, x.pos[1].first);
 		}
 	}
+}
+
+void Sfml::loadMusic()
+{
+    if (!_music.openFromFile(_ressourcesPath + "r-type_music.ogg"))
+        throw Error::Sfml::SfmlError("Failed to load music", "Sfml::loadMusic");
+    _music.setLoop(true);
+    _music.play();
+}
+
+void Sfml::startMusic() noexcept
+{
+    _music.play();
+}
+
+void Sfml::stopMusic() noexcept
+{
+    _music.stop();
 }

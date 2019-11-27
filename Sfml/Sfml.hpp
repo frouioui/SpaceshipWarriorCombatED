@@ -14,6 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "Component/event.hpp"
 #include "Component/boundingBox.hpp"
 #include "AssetsFactory.hpp"
@@ -64,6 +65,9 @@ class Sfml {
     private:
         void drawObject(const std::string &name) noexcept;
         void updateObject(const Asset::object_t &object);
+        void loadMusic();
+        void startMusic() noexcept;
+        void stopMusic() noexcept;
 
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
@@ -87,6 +91,7 @@ class Sfml {
         sf::Clock _clockParallax;
         std::map<std::string, sf::Sprite> _spriteList;
         std::string _ressourcesPath;
+        sf::Music _music;
 };
 
 #endif /* !SFML_HPP_ */
