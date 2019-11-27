@@ -59,6 +59,8 @@ set(CLIENT_SRC  client/src/Client.cpp
                 Sfml/Assets/Player2.cpp
                 Sfml/Assets/Player3.cpp
                 Sfml/Assets/PlayerDie.cpp
+                Sfml/Assets/PlayerShoot0.cpp
+                Sfml/Assets/PlayerShoot1.cpp
                 lib/udp/src/Packet.cpp
                 lib/udp/src/UDP.cpp
                 )

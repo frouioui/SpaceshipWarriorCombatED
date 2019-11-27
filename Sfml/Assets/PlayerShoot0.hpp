@@ -2,26 +2,26 @@
 ** EPITECH PROJECT, 2019
 ** R-Type
 ** File description:
-** PlayerDie
+** PlayerShoot0
 */
 
-#ifndef PLAYERDIE_HPP_
-#define PLAYERDIE_HPP_
+#ifndef PLAYERSHOOT0_HPP_
+#define PLAYERSHOOT0_HPP_
 
 #include "AAsset.hpp"
 
 namespace Asset {
-    class PlayerDie: public Asset::AAsset {
+    class PlayerShoot0: public Asset::AAsset {
         public:
-            PlayerDie(const std::string &);
-            ~PlayerDie() = default;
+            PlayerShoot0(const std::string &);
+            ~PlayerShoot0() = default;
 
             void updateSprite(float x, float y) noexcept final;
 
         private:
             void loadAsset() final;
             void setSprite() noexcept final;
-    }; /* !PlayerDie */
+    }; /* !PlayerShoot0 */
 } /* !Asset */
 
-#endif /* !PLAYERDIE_HPP_ */
+#endif /* !PLAYERSHOOT0_HPP_ */

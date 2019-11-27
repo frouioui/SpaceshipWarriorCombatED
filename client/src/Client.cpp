@@ -20,39 +20,39 @@ Client::~Client()
 
 int Client::run() throw()
 {
-    input counter = input::NOTHING;
+    // input counter = input::NOTHING;
 
-    _network.init();
+    // _network.init();
 
-    std::cout << "done with init" << std::endl;
+    // std::cout << "done with init" << std::endl;
 
-    // wait until connected to server
-    while (_network.isConnected() == false) {}
+    // // wait until connected to server
+    // while (_network.isConnected() == false) {}
 
-    // TEST
-    // std::cout << "connected" << std::endl;
-    _network.createAndJoinRoom();
-    // std::cout << "now about to run" << std::endl;
-    // _network.getAvailableRooms();
+    // // TEST
+    // // std::cout << "connected" << std::endl;
+    // _network.createAndJoinRoom();
+    // // std::cout << "now about to run" << std::endl;
+    // // _network.getAvailableRooms();
 
-    // _sfml.loadBackground();
-    // _sfml.loadAsset();
+    // // _sfml.loadBackground();
+    // // _sfml.loadAsset();
     _sfml.openWindow();
 
-    while (_running && counter != input::CLOSE) {
-        counter = _sfml.getEvent();
+    // while (_running && counter != input::CLOSE) {
+    //     counter = _sfml.getEvent();
 
-        _network.sendInput(counter);
+    //     _network.sendInput(counter);
 
-        // SEND LA SHIT AU SERVER
+    //     // SEND LA SHIT AU SERVER
 
-        _sfml.updateParallax();
+    //     _sfml.updateParallax();
 
-        // RECUP LES REPONSES DU SERVER
+    //     // RECUP LES REPONSES DU SERVER
 
-        _sfml.drawBoundingBox(getBoundingBox());
+    //     _sfml.drawBoundingBox(getBoundingBox());
         _sfml.updateWindow();
-    }
+    // }
     return 0;
 }
 

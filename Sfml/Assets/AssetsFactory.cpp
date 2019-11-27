@@ -11,6 +11,8 @@
 #include "Player2.hpp"
 #include "Player3.hpp"
 #include "PlayerDie.hpp"
+#include "PlayerShoot0.hpp"
+#include "PlayerShoot1.hpp"
 #include "Error.hpp"
 
 Asset::AssetsFactory::AssetsFactory()
@@ -29,6 +31,12 @@ Asset::AssetsFactory::AssetsFactory()
     };
     _assetCreator[Asset::PLAYERDIE] = [this] (const std::string &ressourcesPath) {
         return this->createPlayerDie(ressourcesPath);
+    };
+    _assetCreator[Asset::PLAYERSHOOT0] = [this] (const std::string &ressourcesPath) {
+        return this->createPlayerShoot0(ressourcesPath);
+    };
+    _assetCreator[Asset::PLAYERSHOOT1] = [this] (const std::string &ressourcesPath) {
+        return this->createPlayerShoot1(ressourcesPath);
     };
 }
 
@@ -75,4 +83,18 @@ std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayerDie(const std::
     std::unique_ptr<Asset::PlayerDie> newPlayerDie = std::make_unique<Asset::PlayerDie>(ressourcesPath);
 
     return newPlayerDie;
+}
+
+std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayerShoot0(const std::string &ressourcesPath) const noexcept
+{
+    std::unique_ptr<Asset::PlayerShoot0> newPlayerShoot0 = std::make_unique<Asset::PlayerShoot0>(ressourcesPath);
+
+    return newPlayerShoot0;
+}
+
+std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayerShoot1(const std::string &ressourcesPath) const noexcept
+{
+    std::unique_ptr<Asset::PlayerShoot1> newPlayerShoot1 = std::make_unique<Asset::PlayerShoot1>(ressourcesPath);
+
+    return newPlayerShoot1;
 }

@@ -32,6 +32,8 @@ namespace Asset {
             std::unique_ptr<Asset::IAsset> createPlayer2(const std::string &) const noexcept;
             std::unique_ptr<Asset::IAsset> createPlayer3(const std::string &) const noexcept;
             std::unique_ptr<Asset::IAsset> createPlayerDie(const std::string &) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayerShoot0(const std::string &) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayerShoot1(const std::string &) const noexcept;
     }; /* !AssetsFactory*/
 } /* !Asset */
 

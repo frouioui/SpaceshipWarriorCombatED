@@ -54,6 +54,8 @@ class Sfml {
         void loadAsset();
         void loadPlayer(int playerIndex);
         void loadPlayerDie();
+        void loadPlayerShoot0();
+        void loadPlayerShoot1();
         void loadBackground();
 
         void updateParallax();
