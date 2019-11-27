@@ -11,8 +11,8 @@
 #include "Error.hpp"
 
 Sfml::Sfml() : _window(), _box(), _circle(), _title(), _event(),
-_texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _Objmap(), _clock(),
-_spriteList(), _ressourcesPath()
+_texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _Objmap(), _clockObject(),
+_clockParallax(), _spriteList(), _ressourcesPath()
 {
     std::string projectPath;
     const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
@@ -83,26 +83,70 @@ void Sfml::closeWindow()
 
 // void Sfml::updateWindow()
 // {
-//     sf::Time time = _clock.getElapsedTime();
-//     float elapsed = time.asMicroseconds();
-//     Asset::object_t obj = {
+//     // sf::Time time = _clock.getElapsedTime();
+//     // float elapsed = time.asMicroseconds();
+//     Asset::object_t obj0 = {
 //         .id = "player0",
 //         .state = Asset::ENABLE,
-//         .pos = std::vector<float>(1000, 500)
+//         .pos = std::vector<float>(100, 100)
 //     };
 
-//     updateObject(obj);
+//     updateObject(obj0);
+//     Asset::object_t obj1 = {
+//         .id = "player1",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(200, 200)
+//     };
+
+//     updateObject(obj1);
+//     updateObject(obj1);
+//     Asset::object_t obj2 = {
+//         .id = "player2",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(300, 300)
+//     };
+
+//     updateObject(obj2);
+//     updateObject(obj2);
+//     updateObject(obj2);
+//     Asset::object_t obj3 = {
+//         .id = "player3",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(400, 400)
+//     };
+
+//     updateObject(obj3);
+//     updateObject(obj3);
+//     updateObject(obj3);
+//     updateObject(obj3);
+//     Asset::object_t obj4 = {
+//         .id = "playerdie",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(500, 500)
+//     };
+
+//     // updateObject(obj4);
 //     while (_window.isOpen()) {
 //         if (getEvent() == input::CLOSE)
 //             closeWindow();
-//         while (elapsed < 100000) {
-//             elapsed = _clock.getElapsedTime().asMicroseconds();
+//         // while (elapsed < 5000000) {
+//         //     elapsed = _clock.getElapsedTime().asMicroseconds();
+//         // }
+//         if (_clockParallax.getElapsedTime().asMicroseconds() > 10000) {
+//             _window.clear();
+//             updateParallax();
+//             if (_clockObject.getElapsedTime().asMicroseconds() > 200000) {
+//                 updateObject(obj0);
+//                 updateObject(obj1);
+//                 updateObject(obj2);
+//                 updateObject(obj3);
+//                 updateObject(obj4);
+//                 _clockObject.restart();
+//             }
+//             drawAllObjects();
+//             _window.display();
+//             _clockParallax.restart();
 //         }
-//         _window.clear();
-//         updateParallax();
-//         drawAllObjects();
-//         _window.display();
-//         _clock.restart();
 //     }
 // }
 
@@ -113,6 +157,7 @@ void Sfml::loadAsset()
     loadPlayer(1);
     loadPlayer(2);
     loadPlayer(3);
+    loadPlayerDie();
 }
 
 void Sfml::loadPlayer(int playerIndex)
@@ -135,6 +180,11 @@ void Sfml::loadPlayer(int playerIndex)
         std::cerr << "Cannot load more than 4 players" << std::endl;
         break;
     }
+}
+
+void Sfml::loadPlayerDie()
+{
+    _objects["playerdie"] = _factory.createAsset(Asset::PLAYERDIE, _ressourcesPath);
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)

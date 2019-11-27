@@ -42,7 +42,7 @@ class Sfml {
         void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
         std::string getName() const {return "sfml";};
         std::vector<int> getPosMenu(const std::string &id) {return _posMenu[id];};
-        sf::Clock& getClock() { return _clock;};
+        sf::Clock& getClock() { return _clockObject;};
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
@@ -53,6 +53,7 @@ class Sfml {
 
         void loadAsset();
         void loadPlayer(int playerIndex);
+        void loadPlayerDie();
         void loadBackground();
 
         void updateParallax();
@@ -80,6 +81,8 @@ class Sfml {
         std::map<std::string, std::vector<sf::Sprite>> _Objmap;
         void drawObjMap(const std::string &type, int id, std::vector<int> pos);
         sf::Clock _clock;
+        sf::Clock _clockObject;
+        sf::Clock _clockParallax;
         std::map<std::string, sf::Sprite> _spriteList;
         std::string _ressourcesPath;
 };

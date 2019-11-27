@@ -10,6 +10,7 @@
 #include "Player1.hpp"
 #include "Player2.hpp"
 #include "Player3.hpp"
+#include "PlayerDie.hpp"
 #include "Error.hpp"
 
 Asset::AssetsFactory::AssetsFactory()
@@ -25,6 +26,9 @@ Asset::AssetsFactory::AssetsFactory()
     };
     _assetCreator[Asset::PLAYER3] = [this] (const std::string &ressourcesPath) {
         return this->createPlayer3(ressourcesPath);
+    };
+    _assetCreator[Asset::PLAYERDIE] = [this] (const std::string &ressourcesPath) {
+        return this->createPlayerDie(ressourcesPath);
     };
 }
 
@@ -64,4 +68,11 @@ std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayer3(const std::st
     std::unique_ptr<Asset::Player3> newPlayer3 = std::make_unique<Asset::Player3>(ressourcesPath);
 
     return newPlayer3;
+}
+
+std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayerDie(const std::string &ressourcesPath) const noexcept
+{
+    std::unique_ptr<Asset::PlayerDie> newPlayerDie = std::make_unique<Asset::PlayerDie>(ressourcesPath);
+
+    return newPlayerDie;
 }
