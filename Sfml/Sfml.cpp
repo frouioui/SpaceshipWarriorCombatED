@@ -20,7 +20,7 @@ _spriteList(), _ressourcesPath()
     if (std::string::npos != last_slash_idx) {
         projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
     }
-        // projectPath = std::string(std::getenv("PWD"));
+    // projectPath = std::string(std::getenv("PWD"));
     _ressourcesPath = projectPath + "/ressources/";
     sf::RectangleShape box1 = sf::RectangleShape();
     box1.setOutlineThickness(1);
@@ -37,7 +37,7 @@ _spriteList(), _ressourcesPath()
     circle.setOutlineThickness(1);
     _circle.push_back(circle);
 
-    _ressourcesPath = projectPath + "/ressources/";
+    // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();
     loadAsset();
     // TODO: path to global
@@ -113,7 +113,7 @@ void Sfml::loadAsset()
 
 void Sfml::loadPlayer(int playerIndex)
 {
-    _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
+    _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
@@ -402,7 +402,7 @@ void Sfml::drawBoundingBox(std::vector<boundingBox> list)
 {
 	for (auto x : list) {
 		if (x.type == SQUARE) {
-			drawBox({x.pos[UPPERLEFT].first, x.pos[UPPERLEFT].second}, 
+			drawBox({x.pos[UPPERLEFT].first, x.pos[UPPERLEFT].second},
 					{x.pos[LOWERLEFT].first - x.pos[UPPERLEFT].first,
 					x.pos[UPPERRIGHT].second - x.pos[UPPERLEFT].second
 					});

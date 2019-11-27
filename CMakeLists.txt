@@ -42,7 +42,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 Sfml/Sfml.cpp
                 Sfml/Assets/AssetsFactory.cpp
                 Error/Error.cpp
-                Sfml/Assets/Player1.cpp
+                Sfml/Assets/Player0.cpp
                 Sfml/Assets/AAsset.cpp
                 )
 
@@ -58,7 +58,7 @@ set(CLIENT_SRC  client/src/Client.cpp
                 Sfml/Sfml.cpp
                 Sfml/Assets/AAsset.cpp
                 Sfml/Assets/AssetsFactory.cpp
-                Sfml/Assets/Player1.cpp
+                Sfml/Assets/Player0.cpp
                 lib/udp/src/Packet.cpp
                 lib/udp/src/UDP.cpp
                 )

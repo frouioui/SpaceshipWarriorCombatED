@@ -2,24 +2,24 @@
 ** EPITECH PROJECT, 2019
 ** R-Type
 ** File description:
-** Player1
+** Player0
 */
 
-#ifndef PLAYER1_HPP_
-#define PLAYER1_HPP_
+#ifndef PLAYER0_HPP_
+#define PLAYER0_HPP_
 
 #include "AAsset.hpp"
 
 namespace Asset {
-    class Player1: public Asset::AAsset {
+    class Player0: public Asset::AAsset {
         public:
-            Player1(const std::string &);
-            ~Player1() = default;
+            Player0(const std::string &);
+            ~Player0() = default;
 
         private:
             void loadAsset() final;
             void setSprite() noexcept final;
-    }; /* !Player1 */
+    }; /* !Player0 */
 } /* !Asset */
 
-#endif /* !PLAYER1_HPP_ */
+#endif /* !PLAYER0_HPP_ */

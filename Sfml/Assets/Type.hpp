@@ -10,7 +10,7 @@
 
 namespace Asset {
     enum Type {
-        PLAYER1,
+        PLAYER0,
         PLAYER2,
         PLAYER3,
         PLAYER4,

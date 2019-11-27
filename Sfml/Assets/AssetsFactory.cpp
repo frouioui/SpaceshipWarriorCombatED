@@ -6,13 +6,13 @@
 */
 
 #include "AssetsFactory.hpp"
-#include "Player1.hpp"
+#include "Player0.hpp"
 #include "Error.hpp"
 
 Asset::AssetsFactory::AssetsFactory()
 {
-    _assetCreator[Asset::PLAYER1] = [this] (const std::string &ressourcesPath) {
-        return this->createPlayer1(ressourcesPath);
+    _assetCreator[Asset::PLAYER0] = [this] (const std::string &ressourcesPath) {
+        return this->createPlayer0(ressourcesPath);
     };
 }
 
@@ -26,9 +26,9 @@ const std::string &ressourcesPath)
     return it->second(ressourcesPath);
 }
 
-std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayer1(const std::string &ressourcesPath) const noexcept
+std::unique_ptr<Asset::IAsset> Asset::AssetsFactory::createPlayer0(const std::string &ressourcesPath) const noexcept
 {
-    std::unique_ptr<Asset::Player1> newPlayer1 = std::make_unique<Asset::Player1>(ressourcesPath);
+    std::unique_ptr<Asset::Player0> newPlayer0 = std::make_unique<Asset::Player0>(ressourcesPath);
 
-    return newPlayer1;
+    return newPlayer0;
 }

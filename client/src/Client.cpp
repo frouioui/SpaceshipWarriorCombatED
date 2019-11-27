@@ -25,7 +25,7 @@ int Client::run() throw()
     _network.init();
 
     std::cout << "done with init" << std::endl;
-    
+
     // wait until connected to server
     while (_network.isConnected() == false) {}
 
@@ -35,8 +35,8 @@ int Client::run() throw()
     // std::cout << "now about to run" << std::endl;
     // _network.getAvailableRooms();
 
-    _sfml.loadBackground();
-    _sfml.loadAsset();
+    // _sfml.loadBackground();
+    // _sfml.loadAsset();
     _sfml.openWindow();
 
     while (_running && counter != input::CLOSE) {

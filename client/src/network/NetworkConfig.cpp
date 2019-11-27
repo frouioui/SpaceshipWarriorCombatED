@@ -5,7 +5,7 @@ NetworkConfig::NetworkConfig()
     // TODO: Check env variable too
 
     _server_ip = "127.0.0.1";
-    _server_port = 99;
+    _server_port = 2000;
 }
 
 NetworkConfig::NetworkConfig(const std::string &server_ip, short server_port)
