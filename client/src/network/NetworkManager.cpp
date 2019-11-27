@@ -104,6 +104,8 @@ void NetworkManager::handleRecieve()
 
             } else if (it->getAction() == PRTL::Actions::BOUNDINGBOX) {
                 _mutex.lock();
+                dataPacket toto = it->getData();
+                std::cout << toto[PRTL::CONTENT] << std::endl;
                 _bounding_boxes.push_back(*(it));
                 _mutex.unlock();
             }

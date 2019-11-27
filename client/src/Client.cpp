@@ -42,7 +42,8 @@ int Client::run() throw()
     while (_running && counter != input::CLOSE) {
         counter = _sfml.getEvent();
 
-        _network.sendInput(counter);
+        if (counter != input::NOTHING)
+            _network.sendInput(counter);
 
         // SEND LA SHIT AU SERVER
 
@@ -61,18 +62,23 @@ std::vector<boundingBox> Client::getBoundingBox()
     std::vector<Packet> packet = _network.transfertQueueBoundingBoxes();
     std::vector<boundingBox> boundingbox;
 
+    std::cout << "BEGIN GET BDGB" << std::endl;
     for (auto &&p : packet) {
         boundingBox box;
         if (p.getData(PRTL::CONTENT) == PRTL::CIRCLE) {
+            std::cout << "CIRCLE" << std::endl;
+
             box.type = shapeType::CIRCLE;
             std::pair<int, int> pos;
-            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_X));
-            pos.second = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_Y));
+            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_Y));
+            pos.second = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_X));
             box.pos.push_back(pos);
             pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_RADIUS));
             pos.second = 0;
             box.pos.push_back(pos);
+            std::cout << "END CIRCLE" << std::endl;
         } else if (p.getData(PRTL::CONTENT) == PRTL::SQUARE) {
+
             box.type = shapeType::SQUARE;
             std::pair<int, int> pos;
             pos.first = std::stoi(p.getData(PRTL::SQUARE_UPPERLEFT_Y));
@@ -87,6 +93,7 @@ std::vector<boundingBox> Client::getBoundingBox()
             pos.first = std::stoi(p.getData(PRTL::SQUARE_LOWERRIGHT_Y));
             pos.second = std::stoi(p.getData(PRTL::SQUARE_LOWERRIGHT_X));
             box.pos.push_back(pos);
+
         }
         boundingbox.push_back(box);
     }

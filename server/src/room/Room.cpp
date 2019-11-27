@@ -66,10 +66,11 @@ void Room::sendInfoBoundingBoxes()
     for (auto &&boundingBox : boundingBoxes) {
         std::vector<Client> clients = _client_manager.getAllClients();
         if (boundingBox.type == shapeType::CIRCLE) {
+            std::cout << "toto" << std::endl;
             packetBoundingBox.setData(PRTL::CONTENT, PRTL::CIRCLE);
             packetBoundingBox.setData(PRTL::CIRCLE_POS_CENTER_X, std::to_string(boundingBox.pos[circlePos::CENTER].second));
             packetBoundingBox.setData(PRTL::CIRCLE_POS_CENTER_Y, std::to_string(boundingBox.pos[circlePos::CENTER].first));
-            packetBoundingBox.setData(PRTL::CIRCLE_POS_RADIUS, std::to_string(boundingBox.pos[circlePos::CENTER].first));
+            packetBoundingBox.setData(PRTL::CIRCLE_POS_RADIUS, std::to_string(boundingBox.pos[circlePos::RADIUS].first));
         } else if (boundingBox.type == shapeType::SQUARE) {
             packetBoundingBox.setData(PRTL::CONTENT, PRTL::SQUARE);
             packetBoundingBox.setData(PRTL::SQUARE_UPPERLEFT_Y, std::to_string(boundingBox.pos[squarePos::UPPERLEFT].first));
@@ -105,15 +106,22 @@ void Room::run() throw()
     Packet packet;
 
     std::thread([&](){this->sendInfoToClient();}).detach();
+    std::thread([&](){this->updateGame();}).detach();
 
     while (_running == true) {
         try {
             packet = _udp_server.receive();
             std::thread([&](){this->managePacket(packet);}).detach();
-            _game->update();
         } catch (std::exception &e) {
             std::cout << e.what() << std::endl;
         }
+    }
+}
+
+void Room::updateGame()
+{
+    while (true) { 
+        _game->update();
     }
 }
 
@@ -122,7 +130,7 @@ void Room::managePacket(Packet packet)
 	switch (packet.getAction())
 	{
 	case PRTL::Actions::INPUT:
-        _game->addEvent({_client_manager.getClientByToken(packet.getToken()).getPlayerId(), static_cast<input>(std::stoi(packet.getData(PRTL::INPUT)))});
+        _game->addEvent({_client_manager.getClientByToken(packet.getToken()).getPlayerId() + 1, static_cast<input>(std::stoi(packet.getData(PRTL::INPUT)))});
 		break;
 
 	default:

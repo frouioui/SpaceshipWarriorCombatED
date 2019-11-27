@@ -238,7 +238,7 @@ input Sfml::getEvent()
 {
     // sf::Event event;
 
-    while (_window.pollEvent(_event)) {
+    if (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::KeyPressed) {
             if (_event.key.code == sf::Keyboard::Escape)
                 return input::ECHAP;

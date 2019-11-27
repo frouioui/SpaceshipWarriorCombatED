@@ -50,6 +50,7 @@ private:
 
     void sendInfoToClient();
     void sendInfoBoundingBoxes();
+    void updateGame();
 };
 
 
