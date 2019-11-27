@@ -18,6 +18,7 @@ class Collision : public ASystem {
 		Collision();
 		~Collision();
         void update();
+        void init();
     private:
         bool isCollide(boundingBox&, boundingBox&);
         bool collideSquare(boundingBox&, boundingBox&);

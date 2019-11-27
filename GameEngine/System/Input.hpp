@@ -19,6 +19,7 @@ class Input : public ASystem{
 	public:
 		Input();
 		~Input();
+		void init();
         void update();
 	protected:
 	private:

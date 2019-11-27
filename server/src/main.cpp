@@ -2,8 +2,6 @@
 #include "Server.hpp"
 #include "GameEngine.hpp"
 
-GameEngine gameEngine;
-
 int main(int ac, char **argv)
 {
     (void)ac;

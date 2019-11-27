@@ -21,10 +21,12 @@ class SystemManager {
 		~SystemManager() {};
 
         template<typename T>
-        void insertSystem() {
+        void insertSystem(std::shared_ptr<GameEngine>& ge) {
             std::string name = typeid(T).name();
             if (_systems.find(name) == _systems.end()) {
                 _systems.insert({name, std::make_shared<T>()});
+                _systems[name]->setGameEngine(ge);
+                _systems[name]->init();
             } else
                 throw std::exception();
         }

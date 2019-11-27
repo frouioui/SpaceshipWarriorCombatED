@@ -17,6 +17,7 @@ class Physic : public ASystem {
 	public:
 		Physic();
 		~Physic();
+		void init();
 		void update();
 	protected:
 	private:

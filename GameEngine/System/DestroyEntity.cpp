@@ -9,14 +9,18 @@
 
 DestroyEntity::DestroyEntity()
 {
-    Signature sign;
-    sign.set(gameEngine.getComponentID<destroyable>());
-    sign.set(gameEngine.getComponentID<boundingBox>());
-    setSignature(sign);
 }
 
 DestroyEntity::~DestroyEntity()
 {
+}
+
+void DestroyEntity::init()
+{
+    Signature sign;
+    sign.set(gameEngine->getComponentID<destroyable>());
+    sign.set(gameEngine->getComponentID<boundingBox>());
+    setSignature(sign);
 }
 
 
@@ -29,8 +33,8 @@ void DestroyEntity::update()
 {
     std::vector<Entity> tmp;
     for (auto x : _entities) {
-        auto& bb1 = gameEngine.getComponent<boundingBox>(x);
-        auto &dest = gameEngine.getComponent<destroyable>(x);
+        auto& bb1 = gameEngine->getComponent<boundingBox>(x);
+        auto &dest = gameEngine->getComponent<destroyable>(x);
         if (dest.isDestroyable)
             if (dest.isDestroy || isOutside(bb1)) {
                 tmp.push_back(x);
@@ -38,6 +42,6 @@ void DestroyEntity::update()
         
     }
     for (auto x : tmp) {
-        gameEngine.destroyEntity(x);
+        gameEngine->destroyEntity(x);
     }
 }

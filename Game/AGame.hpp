@@ -31,6 +31,7 @@ class AGame : public IGame {
         std::vector<IEnemy> _enemy;
         std::vector<Entity> _player;
 		int _stage;
+        std::shared_ptr<GameEngine> gameEngine;
 };
 
 #endif /* !AGAME_HPP_ */
