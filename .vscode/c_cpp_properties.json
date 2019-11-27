@@ -4,6 +4,7 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
+                "${workspaceFolder}/client/include",
                 "${workspaceFolder}/GameEngine"
             ],
             "defines": [],

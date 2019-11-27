@@ -20,6 +20,8 @@ public:
 
     unsigned short generatePlayerId() const;
 
+    std::vector<Client> &getAllClients();
+
 private:
     std::vector<Client> _clients;
 

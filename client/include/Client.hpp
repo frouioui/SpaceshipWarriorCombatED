@@ -2,6 +2,7 @@
 #define CLIENT_HPP_
 
 #include "network/NetworkManager.hpp"
+#include "Sfml.hpp"
 
 class Client {
 public:
@@ -17,7 +18,11 @@ protected:
 private:
 	NetworkManager _network;
 
+	Sfml _sfml;
+
 	bool _running;
+
+	std::vector<boundingBox> getBoundingBox();
 };
 
 #endif /* !CLIENT_HPP_ */

@@ -7,6 +7,7 @@
 #include "UDP.hpp"
 #include "Packet.hpp"
 #include "network/player/Player.hpp"
+#include "event.hpp"
 
 class NetworkManager {
 public:
@@ -23,7 +24,9 @@ public:
 	void createAndJoinRoom();
 	void joinRoom(unsigned short id_room);
 
+	void sendInput(input input);
 
+	std::vector<Packet> transfertQueueBoundingBoxes();
 
 // attributes
 private:
@@ -37,6 +40,8 @@ private:
 	std::vector<Packet> _queue_send; // The queue of packet to send
 	std::vector<Packet> _queue_received; // The queue of packet that have been received
 	std::vector<Player> _players;
+
+	std::vector<Packet> _bounding_boxes;
 
 	std::mutex _mutex; // Main mutex of the network manager
 

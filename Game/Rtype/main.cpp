@@ -15,7 +15,7 @@ GameEngine gameEngine;
 int main()
 {
     std::unique_ptr<IGame> game = std::make_unique<Rtype>();
-    Client client;
+    // Client client;
     Sfml sfml;
     input counter = input::NOTHING;
 

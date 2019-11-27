@@ -80,3 +80,8 @@ Client &ClientManager::getClientByToken(const std::string &token)
     }
     return client;
 }
+
+std::vector<Client> &ClientManager::getAllClients()
+{
+    return _clients;
+}

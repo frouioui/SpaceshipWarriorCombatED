@@ -3,6 +3,7 @@
 
 #include "Protocol.hpp"
 #include "network/NetworkManager.hpp"
+#include "event.hpp"
 
 NetworkManager::NetworkManager(UDPInfo &info) : _udp(info)
 {
@@ -100,6 +101,11 @@ void NetworkManager::handleRecieve()
                 if (it->getResponse() == PRTL::Responses::FAILURE) {
                     std::cout << "Error when creating the room" << std::endl;
                 }
+
+            } else if (it->getAction() == PRTL::Actions::BOUNDINGBOX) {
+                _mutex.lock();
+                _bounding_boxes.push_back(*(it));
+                _mutex.unlock();
             }
 
             _mutex.lock();
@@ -108,8 +114,17 @@ void NetworkManager::handleRecieve()
                 it = std::next(it);
             _mutex.unlock();
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     } 
+}
+
+std::vector<Packet> NetworkManager::transfertQueueBoundingBoxes()
+{
+    _mutex.lock();
+    std::vector<Packet> bdboxes = _bounding_boxes;
+    _bounding_boxes.erase(_bounding_boxes.cbegin(), _bounding_boxes.cend());
+    _mutex.unlock();
+    return bdboxes;
 }
 
 void NetworkManager::getAvailableRooms()
@@ -138,6 +153,17 @@ void NetworkManager::joinRoom(unsigned short id_room)
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::JOIN_ROOM);
     packet.setData(PRTL::ID_ROOM, std::to_string(id_room));
+    _mutex.lock();
+    _udp.send(packet);
+    _mutex.unlock();
+}
+
+void NetworkManager::sendInput(input input)
+{
+    Packet packet(_config.getGameServerIp(), _config.getGameServerPort());
+    packet.setToken(_auth_token);
+    packet.setAction(PRTL::Actions::INPUT);
+    packet.setData(PRTL::INPUT, std::to_string(input));
     _mutex.lock();
     _udp.send(packet);
     _mutex.unlock();
