@@ -27,6 +27,7 @@ public:
 	void sendInput(input input);
 
 	std::vector<Packet> transfertQueueBoundingBoxes();
+	void handleRecieve();
 
 // attributes
 private:
@@ -43,11 +44,12 @@ private:
 
 	std::vector<Packet> _bounding_boxes;
 
-	std::mutex _mutex; // Main mutex of the network manager
+	std::mutex _mutex_send;
+	std::mutex _mutex_receive;
+	std::mutex _mutex_data;
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();
-	void handleRecieve();
 
 };
 

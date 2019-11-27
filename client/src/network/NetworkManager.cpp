@@ -31,20 +31,19 @@ void NetworkManager::init()
     _running = true;
     std::thread([&](){authToServer();}).detach();
     std::thread([&](){receive();}).detach();
-    std::thread([&](){handleRecieve();}).detach();
 }
 
 void NetworkManager::authToServer()
 {
     std::cout << "starting authentification" << std::endl;
     while (_connected == false) {
-        _mutex.lock();
         Packet packet(_config.getServerIp(), _config.getServerPort());
         packet.setAction(PRTL::Actions::AUTH);
         packet.setData(PRTL::USER, "rtype");
         packet.setData(PRTL::PASSWORD, "rtype");
+        _mutex_send.lock();
         _udp.send(packet);
-        _mutex.unlock();
+        _mutex_send.unlock();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }
@@ -52,7 +51,9 @@ void NetworkManager::authToServer()
 void NetworkManager::receive()
 {
     while (true) {
+        _mutex_receive.lock();
         Packet packet = _udp.receive();
+        _mutex_receive.unlock();
 
         if (packet.getAction() == PRTL::Actions::AUTH && packet.getResponse() == PRTL::Responses::SUCCESS) {
             _auth_token = packet.getData("token");
@@ -63,16 +64,17 @@ void NetworkManager::receive()
         } else if (_connected == false) {
             std::cout << "not logged in" << std::endl;
         } else {
-            _mutex.lock();
+            _mutex_data.lock();
             _queue_received.emplace_back(packet);
-            _mutex.unlock();
+            _mutex_data.unlock();
+            handleRecieve();
         }
     }
 }
 
 void NetworkManager::handleRecieve()
 {
-    while (true) {
+    if (_queue_received.size() > 0) {
         auto it = _queue_received.cbegin();
         while (it != _queue_received.cend()) {
             if (it->getAction() == PRTL::Actions::JOIN_ROOM) {
@@ -103,27 +105,26 @@ void NetworkManager::handleRecieve()
                 }
 
             } else if (it->getAction() == PRTL::Actions::BOUNDINGBOX) {
-                _mutex.lock();
+                _mutex_data.lock();
                 _bounding_boxes.push_back(*(it));
-                _mutex.unlock();
+                _mutex_data.unlock();
             }
 
-            _mutex.lock();
+            _mutex_data.lock();
             it = _queue_received.erase(_queue_received.begin());
             if (it != _queue_received.cend())
                 it = std::next(it);
-            _mutex.unlock();
+            _mutex_data.unlock();
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
-    } 
+    }
 }
 
 std::vector<Packet> NetworkManager::transfertQueueBoundingBoxes()
 {
-    _mutex.lock();
+    _mutex_data.lock();
     std::vector<Packet> bdboxes = _bounding_boxes;
     _bounding_boxes.erase(_bounding_boxes.cbegin(), _bounding_boxes.cend());
-    _mutex.unlock();
+    _mutex_data.unlock();
     return bdboxes;
 }
 
@@ -132,9 +133,9 @@ void NetworkManager::getAvailableRooms()
     Packet packet(_config.getServerIp(), _config.getServerPort());
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::GET_ROOMS);
-    _mutex.lock();
+    _mutex_send.lock();
     _udp.send(packet);
-    _mutex.unlock();
+    _mutex_send.unlock();
 }
 
 void NetworkManager::createAndJoinRoom()
@@ -142,9 +143,9 @@ void NetworkManager::createAndJoinRoom()
     Packet packet(_config.getServerIp(), _config.getServerPort());
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::CREATE_ROOM);
-    _mutex.lock();
+    _mutex_send.lock();
     _udp.send(packet);
-    _mutex.unlock();
+    _mutex_send.unlock();
 }
 
 void NetworkManager::joinRoom(unsigned short id_room)
@@ -153,9 +154,9 @@ void NetworkManager::joinRoom(unsigned short id_room)
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::JOIN_ROOM);
     packet.setData(PRTL::ID_ROOM, std::to_string(id_room));
-    _mutex.lock();
+    _mutex_send.lock();
     _udp.send(packet);
-    _mutex.unlock();
+    _mutex_send.unlock();
 }
 
 void NetworkManager::sendInput(input input)
@@ -164,7 +165,7 @@ void NetworkManager::sendInput(input input)
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::INPUT);
     packet.setData(PRTL::INPUT, std::to_string(input));
-    _mutex.lock();
+    _mutex_send.lock();
     _udp.send(packet);
-    _mutex.unlock();
+    _mutex_send.unlock();
 }
