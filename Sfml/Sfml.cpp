@@ -11,8 +11,8 @@
 #include "Error.hpp"
 
 Sfml::Sfml() : _window(), _box(), _circle(), _title(), _event(),
-_texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _Objmap(), _clock(),
-_spriteList(), _ressourcesPath()
+_texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _Objmap(), _clockObject(),
+_clockParallax(), _spriteList(), _ressourcesPath()
 {
     std::string projectPath;
     const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
@@ -40,6 +40,11 @@ _spriteList(), _ressourcesPath()
     // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();
     loadAsset();
+    try {
+        loadMusic();
+    } catch (Error::Sfml::SfmlError &e) {
+        std::cerr << e.what() << e.where() << std::endl;
+    }
     // TODO: path to global
     // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
     // 	throw std::exception();
@@ -68,6 +73,7 @@ _spriteList(), _ressourcesPath()
 
 Sfml::~Sfml()
 {
+    stopMusic();
 }
 
 void Sfml::openWindow()
@@ -81,39 +87,127 @@ void Sfml::closeWindow()
     _window.close();
 }
 
-// void Sfml::updateWindow()
-// {
-//     sf::Time time = _clock.getElapsedTime();
-//     float elapsed = time.asMicroseconds();
-//     Asset::object_t obj = {
-//         .id = "player0",
-//         .state = Asset::ENABLE,
-//         .pos = std::vector<float>(1000, 500)
-//     };
+void Sfml::updateWindow()
+{
+    // sf::Time time = _clock.getElapsedTime();
+    // float elapsed = time.asMicroseconds();
+    Asset::object_t obj0 = {
+        .id = "player0",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(10, 10)
+    };
 
-//     updateObject(obj);
-//     while (_window.isOpen()) {
-//         if (getEvent() == input::CLOSE)
-//             closeWindow();
-//         while (elapsed < 100000) {
-//             elapsed = _clock.getElapsedTime().asMicroseconds();
-//         }
-//         _window.clear();
-//         updateParallax();
-//         drawAllObjects();
-//         _window.display();
-//         _clock.restart();
-//     }
-// }
+    Asset::object_t obj1 = {
+        .id = "player1",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(20, 20)
+    };
+
+    Asset::object_t obj2 = {
+        .id = "player2",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(30, 30)
+    };
+
+    Asset::object_t obj3 = {
+        .id = "player3",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(40, 40)
+    };
+
+    Asset::object_t obj4 = {
+        .id = "playerdie",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(50, 50)
+    };
+
+    Asset::object_t obj5 = {
+        .id = "playershoot0",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(60, 60)
+    };
+
+
+    Asset::object_t obj6 = {
+        .id = "playershoot1",
+        .state = Asset::ENABLE,
+        .pos = std::vector<float>(70, 70)
+    };
+    while (_window.isOpen()) {
+        if (getEvent() == input::CLOSE)
+            closeWindow();
+        // while (elapsed < 5000000) {
+        //     elapsed = _clock.getElapsedTime().asMicroseconds();
+        // }
+        if (_clockParallax.getElapsedTime().asMicroseconds() > 10000) {
+            _window.clear();
+            updateParallax();
+            if (_clockObject.getElapsedTime().asMicroseconds() > 200000) {
+                updateObject(obj0);
+                updateObject(obj1);
+                updateObject(obj2);
+                updateObject(obj3);
+                updateObject(obj4);
+                updateObject(obj5);
+                updateObject(obj6);
+                obj5.pos[1] += 1;
+                obj6.pos[1] += 1;
+                _clockObject.restart();
+            }
+            drawAllObjects();
+            _window.display();
+            _clockParallax.restart();
+        }
+    }
+}
 
 void Sfml::loadAsset()
 {
+    //TODO: Select index in relation to the client's status
     loadPlayer(0);
+    loadPlayer(1);
+    loadPlayer(2);
+    loadPlayer(3);
+    loadPlayerDie();
+    loadPlayerShoot0();
+    loadPlayerShoot1();
 }
 
 void Sfml::loadPlayer(int playerIndex)
 {
-    _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+    switch (playerIndex)
+    {
+    case 0:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+        break;
+    case 1:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
+        break;
+    case 2:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER2, _ressourcesPath);
+        break;
+    case 3:
+        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER3, _ressourcesPath);
+        break;
+    default:
+        std::cerr << "Cannot load more than 4 players" << std::endl;
+        break;
+    }
+}
+
+void Sfml::loadPlayerDie()
+{
+    _objects["playerdie"] = _factory.createAsset(Asset::PLAYERDIE, _ressourcesPath);
+}
+
+void Sfml::loadPlayerShoot0()
+{
+    _objects["playershoot0"] = _factory.createAsset(Asset::PLAYERSHOOT0, _ressourcesPath);
+}
+
+void Sfml::loadPlayerShoot1()
+{
+    _objects["playershoot1"] = _factory.createAsset(Asset::PLAYERSHOOT1, _ressourcesPath);
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
@@ -206,9 +300,9 @@ void Sfml::updateObject(const Asset::object_t &object)
 
     if (it == _objects.end())
         throw Error::Sfml::SfmlError("Object not found", "Sfml::updateObject");
-    // _objects[object.id]->updateSprite((float)TRANSCOORD(object.pos[1], (int)_window.getSize().x),
-        // (float)TRANSCOORD(object.pos[0], (int)_window.getSize().y));
-    _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
+    _objects[object.id]->updateSprite((float)TRANSCOORD(object.pos[1], (int)_window.getSize().x),
+        (float)TRANSCOORD(object.pos[0], (int)_window.getSize().y));
+    // _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
     _objects[object.id]->setState(object.state);
 }
 
@@ -313,29 +407,29 @@ void Sfml::drawCharacter(std::vector<std::vector<int>> charater, std::vector<int
 }
 
 
-void Sfml::updateWindow()
-{
-    sf::Time time = _clock.getElapsedTime();
-    static float elapsed = time.asMicroseconds();
-    std::vector<int> pos;
+// void Sfml::updateWindow()
+// {
+//     sf::Time time = _clock.getElapsedTime();
+//     static float elapsed = time.asMicroseconds();
+//     std::vector<int> pos;
 
-    // pos.push_back(1000);
-    // pos.push_back(1000);
-    // while (_window.isOpen()) {
-    //     if (getEvent() == input::CLOSE)
-    //         closeWindow();
-	if (elapsed < 10000) {
-	    elapsed = _clock.getElapsedTime().asMicroseconds();
-		return;
-	}
-	// updateParallax();
+//     // pos.push_back(1000);
+//     // pos.push_back(1000);
+//     // while (_window.isOpen()) {
+//     //     if (getEvent() == input::CLOSE)
+//     //         closeWindow();
+// 	if (elapsed < 10000) {
+// 	    elapsed = _clock.getElapsedTime().asMicroseconds();
+// 		return;
+// 	}
+// 	// updateParallax();
 
-	// drawObject("1", pos);
-	_window.display();
-	_window.clear();
-	_clock.restart();
-    // }
-}
+// 	// drawObject("1", pos);
+// 	_window.display();
+// 	_window.clear();
+// 	_clock.restart();
+//     // }
+// }
 
 // void Sfml::loadAsset()
 // {
@@ -411,4 +505,22 @@ void Sfml::drawBoundingBox(std::vector<boundingBox> list)
 			drawCircle({x.pos[0].first, x.pos[0].second}, x.pos[1].first);
 		}
 	}
+}
+
+void Sfml::loadMusic()
+{
+    if (!_music.openFromFile(_ressourcesPath + "r-type_music.ogg"))
+        throw Error::Sfml::SfmlError("Failed to load music", "Sfml::loadMusic");
+    _music.setLoop(true);
+    _music.play();
+}
+
+void Sfml::startMusic() noexcept
+{
+    _music.play();
+}
+
+void Sfml::stopMusic() noexcept
+{
+    _music.stop();
 }

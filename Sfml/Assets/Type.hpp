@@ -11,15 +11,15 @@
 namespace Asset {
     enum Type {
         PLAYER0,
+        PLAYER1,
         PLAYER2,
         PLAYER3,
-        PLAYER4,
+        PLAYERSHOOT0,
         PLAYERSHOOT1,
-        PLAYERSHOOT2,
         PLAYERDIE,
-        ENNEMY1,
-        ENNEMYSHOOT1,
-        ENNEMYDIE1
+        ENNEMY0,
+        ENNEMYSHOOT0,
+        ENNEMYDIE0
     }; /* !Type */
 } /* !Asset */
 

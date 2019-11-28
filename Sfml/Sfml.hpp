@@ -14,6 +14,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "Component/event.hpp"
 #include "Component/boundingBox.hpp"
 #include "AssetsFactory.hpp"
@@ -42,7 +43,7 @@ class Sfml {
         void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
         std::string getName() const {return "sfml";};
         std::vector<int> getPosMenu(const std::string &id) {return _posMenu[id];};
-        sf::Clock& getClock() { return _clock;};
+        sf::Clock& getClock() { return _clockObject;};
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
@@ -53,6 +54,9 @@ class Sfml {
 
         void loadAsset();
         void loadPlayer(int playerIndex);
+        void loadPlayerDie();
+        void loadPlayerShoot0();
+        void loadPlayerShoot1();
         void loadBackground();
 
         void updateParallax();
@@ -61,6 +65,9 @@ class Sfml {
     private:
         void drawObject(const std::string &name) noexcept;
         void updateObject(const Asset::object_t &object);
+        void loadMusic();
+        void startMusic() noexcept;
+        void stopMusic() noexcept;
 
         sf::RenderWindow _window;
         std::vector<sf::RectangleShape> _box;
@@ -80,8 +87,11 @@ class Sfml {
         std::map<std::string, std::vector<sf::Sprite>> _Objmap;
         void drawObjMap(const std::string &type, int id, std::vector<int> pos);
         sf::Clock _clock;
+        sf::Clock _clockObject;
+        sf::Clock _clockParallax;
         std::map<std::string, sf::Sprite> _spriteList;
         std::string _ressourcesPath;
+        sf::Music _music;
 };
 
 #endif /* !SFML_HPP_ */
