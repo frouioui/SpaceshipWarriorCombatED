@@ -25,42 +25,25 @@ Rtype::~Rtype()
 {
 }
 
+
 void Rtype::update()
 {
-    addEventToGameEngine();
+    auto it = _event.cbegin();
+    while (it != _event.cend()) {
+        for (auto &x : _player)
+            x->update({it->player, it->event});
+        it = _event.erase(_event.begin());
+		if (it != _event.cend())
+			it = std::next(it);
+    }
     gameEngine->updateSystem();
 }
 
-void Rtype::initGame(int nbmissile, int stage)
+void Rtype::initGame(int nbplayer, int stage)
 {
-    Entity player = gameEngine->createEntity();
-    _player.push_back(player);
-    Signature sign;
-    sign.set(gameEngine->getComponentID<rendering>());
-    sign.set(gameEngine->getComponentID<boundingBox>());
-    // sign.set(gameEngine->getComponentID<speed>());
-    sign.set(gameEngine->getComponentID<Event>());
-    sign.set(gameEngine->getComponentID<destroyable>());
-    gameEngine->addComponent(player,rendering {
-        {50, 10},
-        {10, 10}
-    });
-    gameEngine->addComponent(player, boundingBox {
-        SQUARE,
-        {{50, 10}, {50, 20}, {60, 10}, {60, 20}}
-    });
-    // gameEngine->addComponent(player, speed {
-    //     0
-    // });
-    gameEngine->addComponent(player, Event {
-        1,
-        NOTHING
-    });
-    gameEngine->addComponent(player, destroyable {
-        false, false
-    });
-    gameEngine->setEntitySystem(player, sign);
-
+    for (int i = 1; i <= nbplayer; i++) {
+        _player.push_back(createPlayer(gameEngine ,i));
+    }
 
     Entity wall = gameEngine->createEntity();
     Signature signwall;

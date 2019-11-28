@@ -12,6 +12,7 @@
 #include "EntityManager.hpp"
 #include "SystemManager.hpp"
 #include "ComponentManager.hpp"
+#include "Error.hpp"
 
 class GameEngine {
 	public:
@@ -33,20 +34,20 @@ class GameEngine {
                 void addComponent(Entity id, T component) { _components->addToArray<T>(id, component);};
 
                 template<typename T>
-                T& getComponent(Entity id) { return _components->getToArray<T>(id);};
+                T& getComponent(Entity id) const { return _components->getToArray<T>(id);};
 
                 template<typename T>
-                ComponentID getComponentID() { return _components->getComponentID<T>();};
+                ComponentID getComponentID() const { return _components->getComponentID<T>();};
 
                 template<typename T>
-                std::shared_ptr<ASystem> getSystem() {return _systems->getSystem<T>();};
+                std::shared_ptr<ASystem> getSystem() const {return _systems->getSystem<T>();};
 
                 void setEntitySystem(Entity id, Signature sign) { _systems->changeSignatureFromEntity(id, sign);};
 
                 void updateSystem() { _systems->updateSystem();};
 
                 template<typename T>
-                std::shared_ptr<ComponentArray<T>> getComponentArray() {return _components->GetComponentArray<T>();};
+                std::shared_ptr<ComponentArray<T>> getComponentArray() const {return _components->GetComponentArray<T>();};
         private:
                 std::unique_ptr<EntityManager> _entities;
                 std::unique_ptr<SystemManager> _systems;

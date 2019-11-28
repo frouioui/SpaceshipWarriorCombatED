@@ -18,6 +18,7 @@
 #include "Collision.hpp"
 #include "DestroyEntity.hpp"
 #include "Component/destroyable.hpp"
+#include "IPlayer.hpp"
 
 class Rtype : public AGame {
 	public:
