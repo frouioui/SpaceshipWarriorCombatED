@@ -12,6 +12,7 @@ public:
 	~Client();
 
 	int run() throw();
+	void stop();
 
 protected:
 

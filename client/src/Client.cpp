@@ -18,6 +18,11 @@ Client::~Client()
 {
 }
 
+void Client::stop()
+{
+    _running = false;
+}
+
 int Client::run() throw()
 {
     input counter = input::NOTHING;
@@ -53,6 +58,8 @@ int Client::run() throw()
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.updateWindow();
     }
+    stop();
+    _network.stop();
     return 0;
 }
 

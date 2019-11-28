@@ -26,6 +26,11 @@ bool NetworkManager::isConnected() const
     return _connected;
 }
 
+void NetworkManager::stop()
+{
+    _running = false;
+}
+
 void NetworkManager::init()
 {
     _running = true;
@@ -36,7 +41,7 @@ void NetworkManager::init()
 void NetworkManager::authToServer()
 {
     std::cout << "starting authentification" << std::endl;
-    while (_connected == false) {
+    while (_connected == false && _running == true) {
         Packet packet(_config.getServerIp(), _config.getServerPort());
         packet.setAction(PRTL::Actions::AUTH);
         packet.setData(PRTL::USER, "rtype");
@@ -50,7 +55,7 @@ void NetworkManager::authToServer()
 
 void NetworkManager::receive()
 {
-    while (true) {
+    while (_running == true) {
         _mutex_receive.lock();
         Packet packet = _udp.receive();
         _mutex_receive.unlock();
