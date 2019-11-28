@@ -11,6 +11,7 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/Sfml
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
+                    ${r-type_SOURCE_DIR}/Game/Player
                     ${r-type_SOURCE_DIR}/client/include
                     ${r-type_SOURCE_DIR}/server/include
                     ${r-type_SOURCE_DIR}/Game
@@ -27,10 +28,10 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/System/Render.cpp
                 GameEngine/System/Physic.cpp
                 GameEngine/System/Collision.cpp
-                GameEngine/System/Input.cpp
                 GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
+                Game/Player/Player.cpp
                 Game/Rtype/Rtype.cpp
                 server/src/Server.cpp
                 server/src/room/Room.cpp
@@ -39,11 +40,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 server/src/client/ClientManager.cpp
                 lib/udp/src/Packet.cpp
                 lib/udp/src/UDP.cpp
-                Sfml/Sfml.cpp
-                Sfml/Assets/AssetsFactory.cpp
                 Error/Error.cpp
-                Sfml/Assets/Player0.cpp
-                Sfml/Assets/AAsset.cpp
                 )
 
 # Server main
@@ -59,6 +56,12 @@ set(CLIENT_SRC  client/src/Client.cpp
                 Sfml/Assets/AAsset.cpp
                 Sfml/Assets/AssetsFactory.cpp
                 Sfml/Assets/Player0.cpp
+                Sfml/Assets/Player1.cpp
+                Sfml/Assets/Player2.cpp
+                Sfml/Assets/Player3.cpp
+                Sfml/Assets/PlayerDie.cpp
+                Sfml/Assets/PlayerShoot0.cpp
+                Sfml/Assets/PlayerShoot1.cpp
                 lib/udp/src/Packet.cpp
                 lib/udp/src/UDP.cpp
                 )

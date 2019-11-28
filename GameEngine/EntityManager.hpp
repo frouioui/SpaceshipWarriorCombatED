@@ -9,6 +9,7 @@
 #define ENTITYMANAGER_HPP_
 
 #include "ECS.hpp"
+#include "Error.hpp"
 #include <queue>
 #include <array>
 

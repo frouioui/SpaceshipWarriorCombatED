@@ -29,14 +29,14 @@ class ComponentManager {
 				_component.insert({name, std::make_shared<ComponentArray<T>>()});
 				_nextID++;
 			} else
-				throw std::exception();
+				throw Error::Error("Impossible to insert Component", "Component Manager");
 		}
 
 		template<typename T>
 		ComponentID getComponentID() {
 			std::string name = typeid(T).name();
 			if (_component.find(name) == _component.end())
-				throw std::exception();
+				throw Error::Error("Impossible to get Component's ID " + name,"Component Manager");
 			return _componentID[name];
 		}
 
@@ -54,7 +54,7 @@ class ComponentManager {
 		{
 			std::string name = typeid(T).name();
 			if (_component.find(name) == _component.end())
-				throw std::exception();
+				throw Error::Error("Impossible to get Component Array","Component Manager");
 			return std::static_pointer_cast<ComponentArray<T>>(_component[name]);
 		}
 

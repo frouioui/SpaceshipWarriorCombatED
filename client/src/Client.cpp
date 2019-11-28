@@ -40,8 +40,6 @@ int Client::run() throw()
     // std::cout << "now about to run" << std::endl;
     // _network.getAvailableRooms();
 
-    _sfml.loadBackground();
-    _sfml.loadAsset();
     _sfml.openWindow();
 
     while (_running && counter != input::CLOSE) {
@@ -49,11 +47,11 @@ int Client::run() throw()
 
         _network.sendInput(counter);
 
-        // SEND LA SHIT AU SERVER
+         // SEND LA SHIT AU SERVER
 
         _sfml.updateParallax();
 
-        // RECUP LES REPONSES DU SERVER
+         // RECUP LES REPONSES DU SERVER
 
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.updateWindow();

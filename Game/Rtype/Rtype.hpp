@@ -14,17 +14,16 @@
 #include "AGame.hpp"
 #include "Physic.hpp"
 #include "speed.hpp"
-#include "Input.hpp"
 #include "Collision.hpp"
 #include "DestroyEntity.hpp"
 #include "Component/destroyable.hpp"
+#include "IPlayer.hpp"
 
 class Rtype : public AGame {
 	public:
 		Rtype();
 		~Rtype();
 		void initGame(int nbPlayer, int stage = 0);
-		std::vector<boundingBox> getBoundingBox();
 		void update();
 	private:
 };

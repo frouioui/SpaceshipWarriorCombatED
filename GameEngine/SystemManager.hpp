@@ -28,14 +28,14 @@ class SystemManager {
                 _systems[name]->setGameEngine(ge);
                 _systems[name]->init();
             } else
-                throw std::exception();
+                throw Error::Error("Impossible to insert System " + name, "System Manager");
         }
 
         template<typename T>
         std::shared_ptr<ASystem> getSystem() {
             std::string name = typeid(T).name();
             if (_systems.find(name) == _systems.end())
-                throw std::exception();
+                throw Error::Error("Impossible to get System " + name, "System Manager");
             return _systems[name];
         }
 

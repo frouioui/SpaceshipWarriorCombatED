@@ -10,6 +10,7 @@
 
 #include "IGame.hpp"
 #include "IEnemy.hpp"
+#include "IPlayer.hpp"
 
 extern GameEngine gameEngine;
 
@@ -17,10 +18,9 @@ class AGame : public IGame {
 	public:
         AGame();
 		~AGame();
-        void initGame(int nbPlayer, int stage);
+        virtual void initGame(int nbPlayer, int stage) = 0;
         void addEvent(Event input);
-        void update();
-        void addEventToGameEngine();
+        virtual void update() = 0;
         std::vector<rendering> getRendering();
         std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();
@@ -29,7 +29,7 @@ class AGame : public IGame {
 	protected:
         std::vector<Event> _event;
         std::vector<IEnemy> _enemy;
-        std::vector<Entity> _player;
+        std::vector<std::unique_ptr<IPlayer>> _player;
 		int _stage;
         std::shared_ptr<GameEngine> gameEngine;
 };

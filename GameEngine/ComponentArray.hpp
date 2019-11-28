@@ -26,7 +26,7 @@ class ComponentArray : public IComponentArray {
 				_component[_size] = component;
 				_size++;
 			} else
-				throw std::exception();			
+				throw Error::Error("Impossible to insert Component", "Compnent Array");			
 		}
 		void remove(Entity id) {
 			if (_entityToIndex.find(id) != _entityToIndex.end()) {
@@ -42,7 +42,7 @@ class ComponentArray : public IComponentArray {
 		}
 		T& getComponent(Entity id) {
 			if (_entityToIndex.find(id) == _entityToIndex.end())
-				throw std::exception();
+				throw Error::Error(std::string("Impossible to get Component ") + std::string(typeid(T).name()), "Compnent Array");
 			return _component[_entityToIndex[id]];
 		}
 		void destroyEntity(Entity id) override {

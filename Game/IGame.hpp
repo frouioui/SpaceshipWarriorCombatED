@@ -20,7 +20,6 @@ class IGame {
         virtual void initGame(int nbPlayer, int stage) = 0;
         virtual void addEvent(Event input) = 0;
         virtual void update() = 0;
-        virtual void addEventToGameEngine() = 0;
         virtual std::vector<rendering> getRendering() = 0;
         virtual std::vector<boundingBox> getBoundingBox() = 0;
         virtual void loadEnnemy() = 0;
