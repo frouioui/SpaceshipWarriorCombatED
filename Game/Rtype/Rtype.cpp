@@ -67,8 +67,3 @@ void Rtype::initGame(int nbplayer, int stage)
     });
     gameEngine->setEntitySystem(wall, signwall);
 }
-
-std::vector<boundingBox> Rtype::getBoundingBox()
-{
-    return gameEngine->getComponentArray<boundingBox>()->listedComponent();
-}

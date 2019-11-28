@@ -18,18 +18,10 @@ AGame::~AGame()
 {
 }
 
-void AGame::initGame(int nbPlayer, int stage)
-{
-
-}
 
 void AGame::addEvent(Event input)
 {
     _event.push_back(input);
-}
-
-void AGame::update()
-{
 }
 
 std::vector<rendering> AGame::getRendering()

@@ -18,9 +18,9 @@ class AGame : public IGame {
 	public:
         AGame();
 		~AGame();
-        void initGame(int nbPlayer, int stage);
+        virtual void initGame(int nbPlayer, int stage) = 0;
         void addEvent(Event input);
-        void update();
+        virtual void update() = 0;
         std::vector<rendering> getRendering();
         std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();

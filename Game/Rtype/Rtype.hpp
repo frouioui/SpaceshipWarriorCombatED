@@ -25,7 +25,6 @@ class Rtype : public AGame {
 		Rtype();
 		~Rtype();
 		void initGame(int nbPlayer, int stage = 0);
-		std::vector<boundingBox> getBoundingBox();
 		void update();
 	private:
 };
