@@ -19,6 +19,7 @@ public:
     void init(); // Init all the threads
 
 	bool isConnected() const; // Tells wether or not the client is connected to the server
+	void stop();
 
 	void getAvailableRooms();
 	void createAndJoinRoom();
