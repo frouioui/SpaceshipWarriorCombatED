@@ -35,7 +35,7 @@ void GameEngine::setEntitySystem(Entity id, Signature sign) {
     _systems->changeSignatureFromEntity(id, sign);
 };
 
-void updateSystem()
+void GameEngine::updateSystem()
 {
     _systems->updateSystem();
 };
