@@ -16,7 +16,6 @@ Rtype::Rtype() : AGame()
     gameEngine->insertComponent<Event>();
     gameEngine->insertComponent<destroyable>();
     gameEngine->insertSystem<Physic>(gameEngine);
-    gameEngine->insertSystem<Input>(gameEngine);
     gameEngine->insertSystem<Collision>(gameEngine);
     gameEngine->insertSystem<DestroyEntity>(gameEngine);
 }

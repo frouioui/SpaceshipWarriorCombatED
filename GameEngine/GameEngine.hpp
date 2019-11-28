@@ -42,12 +42,23 @@ class GameEngine {
                 template<typename T>
                 std::shared_ptr<ASystem> getSystem() const {return _systems->getSystem<T>();};
 
-                void setEntitySystem(Entity id, Signature sign) { _systems->changeSignatureFromEntity(id, sign);};
+                void setEntitySystem(Entity id, Signature sign);
 
-                void updateSystem() { _systems->updateSystem();};
+                void updateSystem();
 
                 template<typename T>
                 std::shared_ptr<ComponentArray<T>> getComponentArray() const {return _components->GetComponentArray<T>();};
+
+                template<typename T>
+                bool isEntityHave(Entity id) {
+                        Signature result;
+                        auto x = _entities->getSignature(id);
+                        result.set(getComponentID<T>());
+                        std::cout << ((x & result) == result) << std::endl;
+                        if ((x & result) == result)
+                                return true;
+                        return false;
+                }
         private:
                 std::unique_ptr<EntityManager> _entities;
                 std::unique_ptr<SystemManager> _systems;

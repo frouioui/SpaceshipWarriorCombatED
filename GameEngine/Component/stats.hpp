@@ -8,11 +8,12 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-struct player
+struct stats
 {
-    /* data */
-    int id;
-    bool alive;
+    int life;
+    int speed;
+    int dammage;
+    int score;
 };
 
 

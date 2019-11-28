@@ -48,27 +48,6 @@ _clockParallax(), _spriteList(), _ressourcesPath()
     // TODO: path to global
     // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
     // 	throw std::exception();
-
-    /* POSITION MENU */
-
-    // _posMenu.emplace("posTitle", std::vector<int>({0,17}));
-    // _posMenu.emplace("posName", std::vector<int>({63, 33}));
-    // _posMenu.emplace("posBoxname", std::vector<int>({60, 29}));
-    // _posMenu.emplace("posUndertitle", std::vector<int>({33,19}));
-    // _posMenu.emplace("sizeBoxname", std::vector<int>({10,40}));
-    // _posMenu.emplace("posQuestion", std::vector<int>({55, 43}));
-    // _posMenu.emplace("posBoxGame", std::vector<int>({40, 10}));
-    // _posMenu.emplace("sizeBoxGame", std::vector<int>({40, 30}));
-    // _posMenu.emplace("posGame", std::vector<int>({45, 15}));
-    // _posMenu.emplace("posExit", std::vector<int>({85, 47}));
-    // _posMenu.emplace("posBoxLib", std::vector<int>({40, 60}));
-    // _posMenu.emplace("sizeBoxLib", std::vector<int>({40, 30}));
-    // _posMenu.emplace("posLib", std::vector<int>({45, 65}));
-    // _posMenu.emplace("posTitleScore", std::vector<int>({65, 85}));
-    // _posMenu.emplace("posScore", std::vector<int>({75, 85}));
-    // _posMenu.emplace("posBoxScore", std::vector<int>({74, 84}));
-    // _posMenu.emplace("sizeBoxScore", std::vector<int>({5, 10}));
-    // _posMenu.emplace("posMap", std::vector<int>({40, 3}));
 }
 
 Sfml::~Sfml()
@@ -330,8 +309,6 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
 
 input Sfml::getEvent()
 {
-    // sf::Event event;
-
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::KeyPressed) {
             if (_event.key.code == sf::Keyboard::Escape)

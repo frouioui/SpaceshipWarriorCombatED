@@ -28,7 +28,6 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/System/Render.cpp
                 GameEngine/System/Physic.cpp
                 GameEngine/System/Collision.cpp
-                GameEngine/System/Input.cpp
                 GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
@@ -46,7 +45,6 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
 
 # Server main
 set(SERVER_SRC_MAIN ./server/src/main.cpp ${SERVER_SRC})
-#set(SERVER_SRC_MAIN ./Game/Rtype/main.cpp ${SERVER_SRC}
 
 # Client sources (except main)
 set(CLIENT_SRC  client/src/Client.cpp
