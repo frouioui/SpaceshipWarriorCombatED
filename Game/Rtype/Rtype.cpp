@@ -15,6 +15,9 @@ Rtype::Rtype() : AGame()
     gameEngine->insertComponent<speed>();
     gameEngine->insertComponent<Event>();
     gameEngine->insertComponent<destroyable>();
+    gameEngine->insertComponent<Effect>();
+    gameEngine->insertComponent<Stats>();
+    gameEngine->insertComponent<fromPlayer>();
     gameEngine->insertSystem<Physic>(gameEngine);
     gameEngine->insertSystem<Collision>(gameEngine);
     gameEngine->insertSystem<DestroyEntity>(gameEngine);
@@ -50,6 +53,7 @@ void Rtype::initGame(int nbplayer, int stage)
     signwall.set(gameEngine->getComponentID<boundingBox>());
     // signwall.set(gameEngine->getComponentID<speed>());
     signwall.set(gameEngine->getComponentID<destroyable>());
+    signwall.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(wall,rendering {
         {55, 70},
         {10, 10}
@@ -63,6 +67,12 @@ void Rtype::initGame(int nbplayer, int stage)
     // });
     gameEngine->addComponent(wall, destroyable {
         false, false
+    });
+    gameEngine->addComponent(wall, Stats {
+        100,
+        0,
+        0,
+        0
     });
     gameEngine->setEntitySystem(wall, signwall);
 }

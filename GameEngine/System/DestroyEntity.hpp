@@ -11,6 +11,7 @@
 #include "GameEngine.hpp"
 #include "Component/destroyable.hpp"
 #include "Component/boundingBox.hpp"
+#include "Component/stats.hpp"
 
 class DestroyEntity : public ASystem {
 	public:

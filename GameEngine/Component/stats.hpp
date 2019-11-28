@@ -5,10 +5,11 @@
 ** player
 */
 
-#ifndef PLAYER_HPP_
-#define PLAYER_HPP_
+#ifndef effect
+#define effect
+#include "effect.hpp"
 
-struct stats
+struct Stats
 {
     int life;
     int speed;
@@ -17,4 +18,4 @@ struct stats
 };
 
 
-#endif /* !PLAYER_HPP_ */
+#endif /* !effect */

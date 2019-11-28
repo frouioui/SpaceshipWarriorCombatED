@@ -8,20 +8,18 @@
 #ifndef EFFECT_HPP_
 #define EFFECT_HPP_
 
-namespace effect {
-    enum type {
-        DAMMAGE,
-        BONUS,
-        SPEED,
-    };
+enum Type {
+    DAMMAGE,
+    SCORE,
+    SPEED,
+};
 
-    struct effect
-    {
-        /* data */
-        int dammage;
-        int bonus;
-    };
-}
+struct Effect
+{
+    /* data */
+    Type type;
+    int data;
+};
 
 
 #endif /* !EFFECT_HPP_ */

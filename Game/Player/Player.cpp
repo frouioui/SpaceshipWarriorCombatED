@@ -43,41 +43,42 @@ Player::~Player()
 
 void Player::updatePos(const Event& event)
 {
+    auto& stats = gameEngine->getComponent<Stats>(_id);
     if (event.event != NOTHING) {
         if (event.event == KEYDOWN) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
             if (point.pos[LOWERLEFT].first <= 99) {
-                point.pos[UPPERLEFT].first += 1;
-                point.pos[UPPERRIGHT].first += 1;
-                point.pos[LOWERLEFT].first += 1;
-                point.pos[LOWERRIGHT].first += 1;
+                point.pos[UPPERLEFT].first += stats.speed;
+                point.pos[UPPERRIGHT].first += stats.speed;
+                point.pos[LOWERLEFT].first += stats.speed;
+                point.pos[LOWERRIGHT].first += stats.speed;
             }
         }
         if (event.event == KEYUP) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
             if (point.pos[UPPERLEFT].first >= 2) {
-                point.pos[UPPERLEFT].first -= 1;
-                point.pos[UPPERRIGHT].first -= 1;
-                point.pos[LOWERLEFT].first -= 1;
-                point.pos[LOWERRIGHT].first -= 1;
+                point.pos[UPPERLEFT].first -= stats.speed;
+                point.pos[UPPERRIGHT].first -= stats.speed;
+                point.pos[LOWERLEFT].first -= stats.speed;
+                point.pos[LOWERRIGHT].first -= stats.speed;
             }
         }
         if (event.event == KEYLEFT) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
             if (point.pos[UPPERLEFT].second >= 2) {
-                point.pos[UPPERLEFT].second -= 1;
-                point.pos[UPPERRIGHT].second -= 1;
-                point.pos[LOWERLEFT].second -= 1;
-                point.pos[LOWERRIGHT].second -= 1;
+                point.pos[UPPERLEFT].second -= stats.speed;
+                point.pos[UPPERRIGHT].second -= stats.speed;
+                point.pos[LOWERLEFT].second -= stats.speed;
+                point.pos[LOWERRIGHT].second -= stats.speed;
             }
         }
         if (event.event == KEYRIGTH) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
             if (point.pos[UPPERRIGHT].second <= 99) {
-                point.pos[UPPERLEFT].second += 1;
-                point.pos[UPPERRIGHT].second += 1;
-                point.pos[LOWERLEFT].second += 1;
-                point.pos[LOWERRIGHT].second += 1;
+                point.pos[UPPERLEFT].second += stats.speed;
+                point.pos[UPPERRIGHT].second += stats.speed;
+                point.pos[LOWERLEFT].second += stats.speed;
+                point.pos[LOWERRIGHT].second += stats.speed;
             }
         }
     }
@@ -86,12 +87,15 @@ void Player::updatePos(const Event& event)
 void Player::shoot()
 {
     auto& point = gameEngine->getComponent<boundingBox>(_id);
+    auto& stats = gameEngine->getComponent<Stats>(_id);
     Entity missile = gameEngine->createEntity();
     Signature signmis;
     signmis.set(gameEngine->getComponentID<rendering>());
     signmis.set(gameEngine->getComponentID<destroyable>());
     signmis.set(gameEngine->getComponentID<boundingBox>());
     signmis.set(gameEngine->getComponentID<speed>());
+    signmis.set(gameEngine->getComponentID<Effect>());
+    signmis.set(gameEngine->getComponentID<fromPlayer>());
     gameEngine->addComponent(missile,rendering {
         {point.pos[UPPERRIGHT].first + (point.pos[LOWERRIGHT].first - point.pos[UPPERRIGHT].first) / 2 - 1, point.pos[LOWERRIGHT].second + 1},
         {1, 1}
@@ -106,6 +110,13 @@ void Player::shoot()
     });
     gameEngine->addComponent(missile, destroyable {
         true, false
+    });
+    gameEngine->addComponent(missile, Effect {
+        Type::DAMMAGE,
+        stats.dammage
+    });
+    gameEngine->addComponent(missile, fromPlayer {
+        _id
     });
     gameEngine->setEntitySystem(missile, signmis);
 }
@@ -146,6 +157,7 @@ void Player::createEntity()
     sign.set(gameEngine->getComponentID<boundingBox>());
     // sign.set(gameEngine->getComponentID<speed>());
     sign.set(gameEngine->getComponentID<destroyable>());
+    sign.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(player,rendering {
         {_pos.first, _pos.second},
         {_size.first, _size.second}
@@ -164,6 +176,12 @@ void Player::createEntity()
     // });
     gameEngine->addComponent(player, destroyable {
         false, false
+    });
+    gameEngine->addComponent(player, Stats {
+        1,
+        1,
+        10,
+        0
     });
     gameEngine->setEntitySystem(player, sign);
     _id = player;

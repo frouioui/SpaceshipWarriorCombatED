@@ -39,6 +39,11 @@ void DestroyEntity::update()
             if (dest.isDestroy || isOutside(bb1)) {
                 tmp.push_back(x);
             }
+        if (gameEngine->isEntityHave<Stats>(x)) {
+            auto& stats = gameEngine->getComponent<Stats>(x);
+            if (stats.life <= 0)
+                tmp.push_back(x);
+        }
         
     }
     for (auto x : tmp) {

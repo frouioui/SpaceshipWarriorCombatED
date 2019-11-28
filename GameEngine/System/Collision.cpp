@@ -19,7 +19,6 @@ void Collision::init()
 {
     Signature sign;
     sign.set(gameEngine->getComponentID<boundingBox>());
-    sign.set(gameEngine->getComponentID<destroyable>());
     setSignature(sign);
 }
 
@@ -117,6 +116,51 @@ bool Collision::isCollide(boundingBox& bb1, boundingBox& bb2)
     return false;
 }
 
+void Collision::checkDestruction(Entity one, Entity two)
+{
+    if (gameEngine->isEntityHave<destroyable>(one) && gameEngine->isEntityHave<destroyable>(two)) {
+        auto &destroy = gameEngine->getComponent<destroyable>(one);
+        destroy.isDestroy = true;
+        auto &destroy2 = gameEngine->getComponent<destroyable>(two);
+        destroy2.isDestroy = true;
+    }
+}
+
+void Collision::checkEffect(Entity one, Entity two)
+{
+    if (gameEngine->isEntityHave<Effect>(one) && gameEngine->isEntityHave<Stats>(two)) {
+        auto &effec = gameEngine->getComponent<Effect>(one);
+        auto &stats = gameEngine->getComponent<Stats>(two);
+        effec.type == Type::DAMMAGE ? stats.life -= effec.data : 0;
+        effec.type == Type::SCORE ? stats.score += effec.data : 0;
+        effec.type == Type::SPEED ? stats.speed += effec.data : 0;
+    } else if (gameEngine->isEntityHave<Effect>(two) && gameEngine->isEntityHave<Stats>(two)) {
+        auto &effec = gameEngine->getComponent<Effect>(two);
+        auto &stats = gameEngine->getComponent<Stats>(one);
+        effec.type == Type::DAMMAGE ? stats.life -= effec.data : 0;
+        effec.type == Type::SCORE ? stats.score += effec.data : 0;
+        effec.type == Type::SPEED ? stats.speed += effec.data : 0;
+    }
+}
+
+void Collision::checkScore(Entity one, Entity two)
+{
+    if (gameEngine->isEntityHave<fromPlayer>(one) && gameEngine->isEntityHave<Stats>(two)) {
+        auto &id = gameEngine->getComponent<fromPlayer>(one);
+        auto &stats = gameEngine->getComponent<Stats>(two);
+        if (stats.life <= 0) {
+            auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
+            statsplayer.score += stats.score;
+        } 
+    } else if (gameEngine->isEntityHave<fromPlayer>(two) && gameEngine->isEntityHave<Stats>(two)) {
+        auto &id = gameEngine->getComponent<fromPlayer>(one);
+        auto &stats = gameEngine->getComponent<Stats>(two);
+        if (stats.life <= 0) {
+            auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
+            statsplayer.score += stats.score;
+        }
+    }
+}
 
 void Collision::update()
 {
@@ -127,11 +171,10 @@ void Collision::update()
             auto& bb1 = gameEngine->getComponent<boundingBox>(x);
             auto& bb2 = gameEngine->getComponent<boundingBox>(y);
             if (isCollide(bb1, bb2)) {
-                auto &destroy1 = gameEngine->getComponent<destroyable>(x);
-                auto &destroy2 = gameEngine->getComponent<destroyable>(y);
-                destroy1.isDestroy = true;
-                destroy2.isDestroy = true;
+                checkDestruction(x, y);
+                checkEffect(x, y);
+                checkScore(x, y);
             }
         }
-    } 
+    }
 }

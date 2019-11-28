@@ -54,7 +54,6 @@ class GameEngine {
                         Signature result;
                         auto x = _entities->getSignature(id);
                         result.set(getComponentID<T>());
-                        std::cout << ((x & result) == result) << std::endl;
                         if ((x & result) == result)
                                 return true;
                         return false;
