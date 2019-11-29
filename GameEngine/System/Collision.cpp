@@ -88,11 +88,14 @@ bool Collision::collideSquareCircle(boundingBox& square, boundingBox& circle)
 {
     int radius = circle.pos[RADIUS].first;
     std::pair<int, int> center = {circle.pos[CENTER].first + radius, circle.pos[CENTER].second};
-    return (checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[LOWERLEFT])  ||       // Left
-            checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[UPPERRIGHT])    ||    // Up
-            checkSideSquare(center, radius, square.pos[UPPERRIGHT], square.pos[LOWERRIGHT]) ||      // Right
-            checkSideSquare(center, radius, square.pos[LOWERRIGHT], square.pos[LOWERLEFT])          // Down
-    );
+    if (circle.pos[CENTER].first +  2 * radius >= square.pos[UPPERLEFT].first && circle.pos[CENTER].first - 2 * radius <= square.pos[LOWERLEFT].first)
+        if  (circle.pos[CENTER].second +  2 * radius >= square.pos[UPPERLEFT].second && circle.pos[CENTER].second - 2 * radius <= square.pos[UPPERRIGHT].second)
+            return (checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[LOWERLEFT])  ||       // Left
+                    checkSideSquare(center, radius, square.pos[UPPERLEFT], square.pos[UPPERRIGHT])    ||    // Up
+                    checkSideSquare(center, radius, square.pos[UPPERRIGHT], square.pos[LOWERRIGHT]) ||      // Right
+                    checkSideSquare(center, radius, square.pos[LOWERRIGHT], square.pos[LOWERLEFT])          // Down
+            );
+    return false;
 }
 
 bool Collision::collideCircle(boundingBox& c1, boundingBox& c2)
@@ -102,6 +105,8 @@ bool Collision::collideCircle(boundingBox& c1, boundingBox& c2)
 
 bool Collision::isCollide(boundingBox& bb1, boundingBox& bb2)
 {
+    if (bb1.collideType == bb2.collideType)
+        return false;
     if (bb1.type == SQUARE && bb2.type == SQUARE)
         return collideSquare(bb1, bb2);
 

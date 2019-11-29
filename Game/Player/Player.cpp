@@ -103,7 +103,8 @@ void Player::shoot()
     gameEngine->addComponent(missile, boundingBox {
         CIRCLE,
         {{point.pos[UPPERRIGHT].first + (point.pos[LOWERRIGHT].first - point.pos[UPPERRIGHT].first) / 2 - 1, point.pos[LOWERRIGHT].second + 1},
-        {2, 0}}
+        {2, 0}},
+        collisionType::COLLIDE_PLAYER
     });
     gameEngine->addComponent(missile, speed {
         3
@@ -169,7 +170,8 @@ void Player::createEntity()
             {_pos.first, _pos.second + _size.second},
             {_pos.first + _size.first, _pos.second},
             {_pos.first + _size.first, _pos.second + _size.second}
-        }
+        },
+        collisionType::COLLIDE_PLAYER
     });
     // gameEngine->addComponent(player, speed {
     //     0

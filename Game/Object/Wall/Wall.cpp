@@ -34,7 +34,8 @@ void Wall::createObjet(std::pair<int,int> pos)
         {{pos.first, pos.second},
         {pos.first, pos.second + _size.second},
         {pos.first + _size.first, pos.second},
-        {pos.first + _size.first, pos.second + _size.second}}
+        {pos.first + _size.first, pos.second + _size.second}},
+        collisionType::COLLIDE_OBJECT
     });
     gameEngine->addComponent(wall, speed {
         -1

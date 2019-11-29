@@ -28,10 +28,17 @@ enum circlePos {
     RADIUS = 1
 };
 
+enum collisionType {
+    COLLIDE_PLAYER,
+    COLLIDE_ENEMY,
+    COLLIDE_OBJECT,
+};
+
 struct boundingBox
 {
     shapeType type;
     std::vector<std::pair<int, int>> pos;
+    collisionType collideType;
 };
 
 #endif /* !BOUNDINGBOX_HPP_ */
