@@ -11,6 +11,7 @@ include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/Sfml
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
+                    ${r-type_SOURCE_DIR}/Game/Object
                     ${r-type_SOURCE_DIR}/Game/Player
                     ${r-type_SOURCE_DIR}/client/include
                     ${r-type_SOURCE_DIR}/server/include
@@ -31,6 +32,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
+                Game/Object/Wall/Wall.cpp
                 Game/Player/Player.cpp
                 Game/Rtype/Rtype.cpp
                 server/src/Server.cpp

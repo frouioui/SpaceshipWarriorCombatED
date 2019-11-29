@@ -20,7 +20,7 @@
 #include "AssetsFactory.hpp"
 #include "Object.hpp"
 
-#define TRANSCOORD(x, y) (x * y / 100)
+#define TRANSCOORD(x, y) (x * y / 250)
 #define TRANSX(x, y) (TRANSCOORD(x, y))
 #define TRANSY(x, y) (TRANSCOORD(x, y))
 

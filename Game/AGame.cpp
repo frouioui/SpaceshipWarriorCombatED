@@ -9,7 +9,7 @@
 #include <iostream>
 
 
-AGame::AGame() : _event(), _enemy(), _player(), _stage(0)
+AGame::AGame() : _event(), _enemy(), _objet(), _player(), _stage(0)
 {
     gameEngine = std::make_shared<GameEngine>();
 }

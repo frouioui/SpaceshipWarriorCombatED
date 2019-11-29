@@ -11,28 +11,28 @@ Player::Player(std::shared_ptr<GameEngine>& ge, int id) :
 _playerID(id), _isAlive(false), gameEngine(ge)
 {
     if (id == 1) {
-        _pos.first = 30;
+        _pos.first = 50;
         _pos.second = 5;
-        _size.first = 3;
-        _size.second = 4;
+        _size.first = 10;
+        _size.second = 20;
     }
     else if (id == 2) {
-        _pos.first = 45;
+        _pos.first = 100;
         _pos.second = 5;
-        _size.first = 3;
-        _size.second = 4;
+        _size.first = 10;
+        _size.second = 20;
     }
     else if (id == 3) {
-        _pos.first = 60;
+        _pos.first = 150;
         _pos.second = 5;
-        _size.first = 3;
-        _size.second = 4;
+        _size.first = 10;
+        _size.second = 20;
     }
     else if (id == 4) {
-        _pos.first = 75;
+        _pos.first = 200;
         _pos.second = 5;
-        _size.first = 3;
-        _size.second = 4;
+        _size.first = 10;
+        _size.second = 20;
     }
     createEntity();
 }
@@ -47,7 +47,7 @@ void Player::updatePos(const Event& event)
     if (event.event != NOTHING) {
         if (event.event == KEYDOWN) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
-            if (point.pos[LOWERLEFT].first <= 99) {
+            if (point.pos[LOWERLEFT].first <= MAX_WINDOW - 2) {
                 point.pos[UPPERLEFT].first += stats.speed;
                 point.pos[UPPERRIGHT].first += stats.speed;
                 point.pos[LOWERLEFT].first += stats.speed;
@@ -74,7 +74,7 @@ void Player::updatePos(const Event& event)
         }
         if (event.event == KEYRIGTH) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
-            if (point.pos[UPPERRIGHT].second <= 99) {
+            if (point.pos[UPPERRIGHT].second <= MAX_WINDOW - 2) {
                 point.pos[UPPERLEFT].second += stats.speed;
                 point.pos[UPPERRIGHT].second += stats.speed;
                 point.pos[LOWERLEFT].second += stats.speed;
@@ -106,7 +106,7 @@ void Player::shoot()
         {2, 0}}
     });
     gameEngine->addComponent(missile, speed {
-        1
+        3
     });
     gameEngine->addComponent(missile, destroyable {
         true, false
@@ -179,7 +179,7 @@ void Player::createEntity()
     });
     gameEngine->addComponent(player, Stats {
         1,
-        1,
+        3,
         10,
         0
     });

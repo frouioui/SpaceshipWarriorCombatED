@@ -7,6 +7,7 @@
 
 #include "Rtype.hpp"
 #include <iostream>
+#include "Wall/Wall.hpp"
 
 Rtype::Rtype() : AGame()
 {
@@ -27,6 +28,20 @@ Rtype::~Rtype()
 {
 }
 
+void Rtype::createBorder(int size)
+{
+    static int counter = 0;
+    std::pair<int,int> size_obj = _objet[0]->getSize();
+    if (counter % (size_obj.second + 1) == 0) {
+        for (int i = 0; i < size; i++) {
+            int spesize = i * size_obj.first;
+            _objet[0]->createObjet({0 + spesize, MAX_WINDOW});
+            _objet[0]->createObjet({MAX_WINDOW - size_obj.first - spesize, MAX_WINDOW});
+        } 
+        counter = 0;
+    }
+    counter++;
+}
 
 void Rtype::update()
 {
@@ -39,6 +54,7 @@ void Rtype::update()
 			it = std::next(it);
     }
     gameEngine->updateSystem();
+    createBorder(2);
 }
 
 void Rtype::initGame(int nbplayer, int stage)
@@ -46,33 +62,5 @@ void Rtype::initGame(int nbplayer, int stage)
     for (int i = 1; i <= nbplayer; i++) {
         _player.push_back(createPlayer(gameEngine ,i));
     }
-
-    Entity wall = gameEngine->createEntity();
-    Signature signwall;
-    signwall.set(gameEngine->getComponentID<rendering>());
-    signwall.set(gameEngine->getComponentID<boundingBox>());
-    // signwall.set(gameEngine->getComponentID<speed>());
-    signwall.set(gameEngine->getComponentID<destroyable>());
-    signwall.set(gameEngine->getComponentID<Stats>());
-    gameEngine->addComponent(wall,rendering {
-        {55, 70},
-        {10, 10}
-    });
-    gameEngine->addComponent(wall, boundingBox {
-        SQUARE,
-        {{55, 70}, {55, 80}, {65, 70}, {65, 80}}
-    });
-    // gameEngine->addComponent(wall, speed {
-    //     0
-    // });
-    gameEngine->addComponent(wall, destroyable {
-        false, false
-    });
-    gameEngine->addComponent(wall, Stats {
-        100,
-        0,
-        0,
-        0
-    });
-    gameEngine->setEntitySystem(wall, signwall);
+    _objet.push_back(std::make_unique<Wall>(gameEngine));
 }

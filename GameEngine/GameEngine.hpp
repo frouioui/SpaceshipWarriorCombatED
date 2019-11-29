@@ -14,6 +14,8 @@
 #include "ComponentManager.hpp"
 #include "Error.hpp"
 
+#define MAX_WINDOW 250
+
 class GameEngine {
 	public:
 		GameEngine();

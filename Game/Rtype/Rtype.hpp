@@ -26,6 +26,7 @@ class Rtype : public AGame {
 		void initGame(int nbPlayer, int stage = 0);
 		void update();
 	private:
+		void createBorder(int size);
 };
 
 #endif /* !RTYPE_HPP_ */

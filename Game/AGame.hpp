@@ -11,8 +11,7 @@
 #include "IGame.hpp"
 #include "IEnemy.hpp"
 #include "IPlayer.hpp"
-
-extern GameEngine gameEngine;
+#include "IObjet.hpp"
 
 class AGame : public IGame {
 	public:
@@ -24,11 +23,13 @@ class AGame : public IGame {
         std::vector<rendering> getRendering();
         std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();
+        void loadObject();
         void deletePlayer(int id);
         void addPlayer();
 	protected:
         std::vector<Event> _event;
-        std::vector<IEnemy> _enemy;
+        std::vector<std::unique_ptr<IEnemy>> _enemy;
+        std::vector<std::unique_ptr<IObjet>> _objet;
         std::vector<std::unique_ptr<IPlayer>> _player;
 		int _stage;
         std::shared_ptr<GameEngine> gameEngine;

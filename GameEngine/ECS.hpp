@@ -12,8 +12,8 @@
 namespace ECS {
     using Entity = unsigned int;
     using ComponentID = unsigned int;
-    const Entity MAX_ENTITY = 100;
-    const ComponentID MAX_COMPONENT = 50;
+    const Entity MAX_ENTITY = 1000;
+    const ComponentID MAX_COMPONENT = 15;
     using Signature = std::bitset<MAX_COMPONENT>;
 }
 
