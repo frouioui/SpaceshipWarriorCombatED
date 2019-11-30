@@ -74,11 +74,12 @@ void Rtype::update()
 			it = std::next(it);
     }
     gameEngine->updateSystem();
-    static bool counter = false;
-    if (!counter) {
-        createRandomObject(1);
-        counter = true;
-    }
+    // static int counter = 0;
+    // if (counter % 130) {
+    //     createRandomObject(1);
+    //     counter = 0;
+    // }
+    // counter++;
     createBorder(1);
 }
 
