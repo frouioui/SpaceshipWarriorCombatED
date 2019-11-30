@@ -25,6 +25,7 @@ enum input {
     CHEAT3,
     CHEAT4,
     CHEAT5,
+    CLICK_LEFT
 };
 
 struct Event
