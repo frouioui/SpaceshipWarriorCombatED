@@ -2,6 +2,8 @@
 
 Client::Client()
 {
+    _connected = true;
+    _ready = false;
 }
 
 Client::~Client()
@@ -66,4 +68,14 @@ void Client::ready()
 bool Client::isReady() const
 {
     return _ready;
+}
+
+bool Client::isConnected() const
+{
+    return _connected;
+}
+
+void Client::disconnect()
+{
+    _connected = false;
 }
