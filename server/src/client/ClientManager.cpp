@@ -88,10 +88,24 @@ std::vector<Client> &ClientManager::getAllClients()
 
 bool ClientManager::isAllReady() const
 {
-    for (auto &&i : _clients) {
-        if (i.isReady() == false) {
-            return false;
-        } 
+    for (size_t i = 0; i < _clients.size(); i++) {
+        if (_clients[i].isConnected()) {
+            if (_clients[i].isReady() == false) {
+                return false;
+            } 
+        }
     }
     return true;
+}
+
+bool ClientManager::isClientConnected(const std::string &auth_token)
+{
+    if (getClientByToken(auth_token).isConnected() == true)
+        return true;
+    return false;
+}
+
+void ClientManager::disconnectClient(const std::string &auth_token)
+{
+    getClientByToken(auth_token).disconnect();
 }

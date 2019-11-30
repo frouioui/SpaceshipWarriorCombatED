@@ -35,7 +35,19 @@ bool NetworkManager::isInRoom() const
 
 void NetworkManager::stop()
 {
+    Packet packet(_config.getServerIp(), _config.getServerPort());
+    packet.setAction(PRTL::Actions::GOODBYE);
+    packet.setToken(_auth_token);
+    _mutex_send.lock();
+    _udp.send(packet);
+    _mutex_send.unlock();
+    packet.set(_config.getGameServerIp());
+    packet.set(_config.getGameServerPort());
+    _mutex_send.lock();
+    _udp.send(packet);
+    _mutex_send.unlock();
     _running = false;
+    std::cout << "HOEIRHFIOHRF" << std::endl;
 }
 
 void NetworkManager::init()

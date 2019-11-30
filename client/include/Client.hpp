@@ -25,6 +25,9 @@ private:
 
 	std::vector<boundingBox> getBoundingBox();
     std::vector<rendering> getRendering();
+
+	int selectRoomMenu();
+	int readyMenu();
 };
 
 #endif /* !CLIENT_HPP_ */

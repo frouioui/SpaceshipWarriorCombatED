@@ -36,8 +36,8 @@ class Sfml {
         void drawBox(std::vector<int> pos, std::vector<int> size, int type = 0);
         void drawCircle(std::vector<int> pos, int radius, int type = 0);
         void drawObject(std::string name, std::vector<int> pos);
-
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
+        
         input getEvent();
         std::string getString(std::vector<int> pos);
         void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
@@ -48,6 +48,7 @@ class Sfml {
         sf::Sprite& getSpriteInList(const std::string& id) { return _spriteList[id];};
         void addSpriteInList(const std::string& name, const std::string &path);
         void drawSpriteListe();
+        std::vector<int> getClickEvent();
 
         void drawAllObjects() noexcept;
 

@@ -36,6 +36,7 @@ namespace PRTL
         BOUNDINGBOX,
         INPUT,
         NEWCO,
+        GOODBYE,
         UNKNOWN
     };
 
