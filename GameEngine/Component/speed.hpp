@@ -7,11 +7,13 @@
 
 #ifndef SPEED_HPP_
 #define SPEED_HPP_
+#include <functional>
 
 struct speed
 {
     /* data */
     float speed;
+    std::function<int(int x)> calc;
 };
 
 

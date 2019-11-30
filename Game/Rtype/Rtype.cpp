@@ -79,18 +79,15 @@ void Rtype::update()
         createRandomObject(1);
         counter = true;
     }
-        
-    createBorder(2);
+    createBorder(1);
 }
 
 void Rtype::initGame(int nbplayer, int stage)
 {
     for (int i = 1; i <= nbplayer; i++) {
         _player.push_back(createPlayer(gameEngine ,i));
-    } try {
-        loadWallObject();
-        // loadRandomObject();
-    } catch (std::exception(&e)) {
-        std::cout << e.what() << std::endl;
     }
+    try {loadWallObject();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
+    try {loadRandomObject();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
+    try {loadEnnemy();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
 }

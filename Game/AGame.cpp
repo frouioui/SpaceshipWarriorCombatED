@@ -36,7 +36,30 @@ std::vector<boundingBox> AGame::getBoundingBox()
 
 void AGame::loadEnnemy()
 {
+    std::string projectPath;
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
 
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    std::vector<std::string> pathname;
+    DIR *dir;
+    struct dirent *ent;
+    std::string enemyObject = projectPath + "/Game/Enemy/lib/";
+    if ((dir = opendir(enemyObject.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            std::string result = ent->d_name;
+            if (result.find(".so") != std::string::npos)
+                pathname.push_back(result);
+        }
+        closedir(dir);
+    } else
+        throw Error::Error("Impossible to open directory");
+    for (auto x : pathname) {
+        _lib.push_back(_loader.loadLib(enemyObject + x));
+        _enemy.push_back(_loader.getInstance<IEnemy>(_lib.back(), "Enemy"));
+        _enemy.back()->setGameEngine(gameEngine);
+    }
 }
 
 void AGame::loadRandomObject()

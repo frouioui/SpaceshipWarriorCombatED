@@ -6,6 +6,7 @@
 */
 
 #include "Player.hpp"
+#include <math.h>
 
 Player::Player(std::shared_ptr<GameEngine>& ge, int id) : 
 _playerID(id), _isAlive(false), gameEngine(ge)
@@ -107,7 +108,8 @@ void Player::shoot()
         collisionType::COLLIDE_PLAYER
     });
     gameEngine->addComponent(missile, speed {
-        3
+        3,
+        [] (int x) {return cos(x) * 5;}
     });
     gameEngine->addComponent(missile, destroyable {
         true, false

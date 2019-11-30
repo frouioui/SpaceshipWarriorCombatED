@@ -37,7 +37,8 @@ void Asteroid::createObjet(std::pair<int,int> pos)
         collisionType::COLLIDE_OBJECT
     });
     gameEngine->addComponent(wall, speed {
-        -1
+        -1,
+        [] (int x) {return 0;}
     });
     gameEngine->addComponent(wall, destroyable {
         false, false

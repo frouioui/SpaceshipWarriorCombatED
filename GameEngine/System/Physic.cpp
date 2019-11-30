@@ -29,16 +29,24 @@ void Physic::update()
 {
     for (auto const & x : _entities) {
         auto& point = gameEngine->getComponent<boundingBox>(x);
-        auto& toto = gameEngine->getComponent<speed>(x);
+        auto& speedy = gameEngine->getComponent<speed>(x);
+        auto& renders = gameEngine->getComponent<rendering>(x);
         if (gameEngine->getComponent<boundingBox>(x).type == SQUARE) {
-            point.pos[UPPERLEFT].second += toto.speed;
-            point.pos[UPPERRIGHT].second += toto.speed;
-            point.pos[LOWERLEFT].second += toto.speed;
-            point.pos[LOWERRIGHT].second += toto.speed;
+            point.pos[UPPERLEFT].second += speedy.speed;
+            point.pos[UPPERRIGHT].second += speedy.speed;
+            point.pos[LOWERLEFT].second += speedy.speed;
+            point.pos[LOWERRIGHT].second += speedy.speed;
+            point.pos[UPPERLEFT].first += speedy.calc(point.pos[UPPERLEFT].second);
+            point.pos[UPPERRIGHT].first += speedy.calc(point.pos[UPPERRIGHT].second);
+            point.pos[LOWERLEFT].first += speedy.calc(point.pos[LOWERLEFT].second);
+            point.pos[LOWERRIGHT].first += speedy.calc(point.pos[LOWERRIGHT].second);
         }
 
         if (gameEngine->getComponent<boundingBox>(x).type == CIRCLE) {
-            point.pos[CENTER].second += toto.speed;
+            point.pos[CENTER].second += speedy.speed;
+            point.pos[CENTER].first += speedy.calc(point.pos[CENTER].second);
         }
+        renders.pos[0] += speedy.speed;
+        renders.pos[1] += speedy.calc(renders.pos[0]);
     }
 }
