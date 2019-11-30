@@ -40,14 +40,12 @@ _clockParallax(), _spriteList(), _ressourcesPath()
     circle.setOutlineThickness(1);
     _circle.push_back(circle);
 
-    // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();
     try {
         loadMusic();
     } catch (Error::Sfml::SfmlError &e) {
         std::cerr << e.what() << e.where() << std::endl;
     }
-    // TODO: path to global
     if (!_font.loadFromFile(_ressourcesPath + "CaviarDreams.ttf"))
     	throw std::exception();
 }
@@ -307,46 +305,46 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
     _window.draw(*text);
 }
 
-input Sfml::getEvent()
+std::vector<input> Sfml::getEvent()
 {
+    std::vector<input> result;
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::KeyPressed) {
             if (_event.key.code == sf::Keyboard::Escape)
-                return input::ECHAP;
+                result.push_back(input::ECHAP);
             if (_event.key.code == sf::Keyboard::Up)
-                return input::KEYUP;
+                result.push_back(input::KEYUP);
             if (_event.key.code == sf::Keyboard::Right)
-                return input::KEYRIGTH;
+                result.push_back(input::KEYRIGTH);
             if (_event.key.code == sf::Keyboard::Left)
-                return input::KEYLEFT;
+                result.push_back(input::KEYLEFT);
             if (_event.key.code == sf::Keyboard::Down)
-                return input::KEYDOWN;
+                result.push_back(input::KEYDOWN);
             if (_event.key.code == sf::Keyboard::Enter)
-                return input::ENTER;
+                result.push_back(input::ENTER);
             if (_event.key.code == sf::Keyboard::Space)
-                return input::SPACE;
+                result.push_back(input::SPACE);
             if (_event.key.code == sf::Keyboard::L)
-                return input::CHEAT5;
+                result.push_back(input::CHEAT5);
             if (_event.key.code == sf::Keyboard::Y)
-                return input::CHEAT2;
+                result.push_back(input::CHEAT2);
             if (_event.key.code == sf::Keyboard::C)
-                return input::CHEAT1;
+                result.push_back(input::CHEAT1);
             if (_event.key.code == sf::Keyboard::I)
-                return input::CHEAT4;
+                result.push_back(input::CHEAT4);
             if (_event.key.code == sf::Keyboard::R)
-                return input::CHEAT3;
+                result.push_back(input::CHEAT3);
             if (_event.key.code == sf::Keyboard::W)
-                return input::BUTTON1;
+                result.push_back(input::BUTTON1);
             if (_event.key.code == sf::Keyboard::X)
-                return input::BUTTON2;
+                result.push_back(input::BUTTON2);
         } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            return input::CLICK_LEFT;
+            result.push_back(input::CLICK_LEFT);
         }
         if (_event.type == sf::Event::Closed)
-            return input::CLOSE;
-        return input::NOTHING;
+            result.push_back(input::CLOSE);
     }
-    return input::NOTHING;
+    return result;
 }
 
 std::string Sfml::getString(std::vector<int> pos)

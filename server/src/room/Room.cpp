@@ -6,6 +6,7 @@ Room::Room(UDPInfo &info) : _udp_server(info), _game(std::make_unique<Rtype>())
 {
     _running = false;
     _game->initGame(1, 0);
+    _clock = std::chrono::system_clock::now();
 }
 
 Room::Room(Room &source) : _udp_server(source._udp_server), _game(std::make_unique<Rtype>())

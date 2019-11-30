@@ -20,7 +20,7 @@ Client::~Client()
 
 int Client::selectRoomMenu()
 {
-    input counter = input::NOTHING;
+    std::vector<input> counter;
     bool done = false;
     int roomId = 1;
 
@@ -40,14 +40,16 @@ int Client::selectRoomMenu()
     std::vector<int> sizeBtn4 = {20, 85};
     while (done == false) {
         counter = _sfml.getEvent();
-        if (counter == input::KEYDOWN && roomId < 4) {
-            roomId++;
-        } else if (counter == input::KEYUP && roomId > 1) {
-            roomId--;
-        } else if (counter == input::CLOSE) {
-            return -1;
-        } else if (counter == input::ENTER) {
-            return roomId;
+        for (auto& x : counter) {
+            if (x == input::KEYDOWN && roomId < 4) {
+                roomId++;
+            } else if (x == input::KEYUP && roomId > 1) {
+                roomId--;
+            } else if (x == input::CLOSE) {
+                return -1;
+            } else if (x == input::ENTER) {
+                return roomId;
+            }
         }
 
         // _sfml.updateParallax();
@@ -68,7 +70,7 @@ int Client::selectRoomMenu()
 
 int Client::readyMenu()
 {
-    input counter = input::NOTHING;
+    std::vector<input> counter;
     bool done = false;
 
     std::cout << "launching menu" << std::endl;
@@ -79,10 +81,12 @@ int Client::readyMenu()
 
     while (done == false) {
         counter = _sfml.getEvent();
-        if (counter == input::CLOSE) {
-            return -1;
-        } else if (counter == input::ENTER) {
-            return 1;
+        for (auto& x : counter) {
+            if (x == input::CLOSE) {
+                return -1;
+            } else if (x == input::ENTER) {
+                return 1;
+            }
         }
 
         // _sfml.updateParallax();
@@ -101,7 +105,8 @@ void Client::stop()
 
 int Client::run() throw()
 {
-    input counter = input::NOTHING;
+    std::vector<input> counter;
+    bool loopblock = false;
 
     _network.init();
 
@@ -132,17 +137,15 @@ int Client::run() throw()
     }
     _network.readyToPlay();
 
-    while (_running && counter != input::CLOSE) {
+    while (_running && !loopblock) {
         counter = _sfml.getEvent();
-
+        for (auto &x: counter) {
+            if (x == input::CLOSE)
+                loopblock = true;
+        }
         _network.sendInput(counter);
-
-         // SEND LA SHIT AU SERVER
-
         _sfml.updateParallax();
-         // RECUP LES REPONSES DU SERVER
         // _sfml.updateAllObject(getRendering());
-
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.drawAllObjects();
         _sfml.updateWindow();

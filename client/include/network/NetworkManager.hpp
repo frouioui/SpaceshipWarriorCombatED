@@ -28,7 +28,7 @@ public:
 
 	bool isInRoom() const;
 
-	void sendInput(input input);
+	void sendInput(std::vector<input> input);
 
 	std::vector<Packet> transfertQueueBoundingBoxes();
 	void handleRecieve();
