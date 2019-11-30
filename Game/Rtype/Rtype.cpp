@@ -40,7 +40,7 @@ void Rtype::createBorder(int size)
             int spesize = i * size_obj.first;
             _wall[random]->createObjet({0 + spesize, MAX_WINDOW});
             _wall[random]->createObjet({MAX_WINDOW - size_obj.first - spesize, MAX_WINDOW});
-        } 
+        }
         counter = 0;
     }
     counter++;
@@ -87,7 +87,7 @@ void Rtype::initGame(int nbplayer, int stage)
     for (int i = 1; i <= nbplayer; i++) {
         _player.push_back(createPlayer(gameEngine ,i));
     }
-    try {loadWallObject();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
-    try {loadRandomObject();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
-    try {loadEnnemy();} catch (std::exception(&e)) {std::cout << e.what() << std::endl;}
+    try {loadWallObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
+    try {loadRandomObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
+    try {loadEnnemy();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
 }

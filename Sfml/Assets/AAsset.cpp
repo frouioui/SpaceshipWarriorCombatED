@@ -10,18 +10,8 @@
 
 Asset::AAsset::AAsset(const std::string &ressourcesPath, const std::string &assetPath):
  _tiles(), _nbTiles(), _tileIndex(0), _sprite(), _texture(),
-_state(Asset::DISABLE), _ressourcesPath(ressourcesPath), _assetPath(assetPath)
+_ressourcesPath(ressourcesPath), _assetPath(assetPath)
 {
-}
-
-Asset::State Asset::AAsset::getState() const noexcept
-{
-    return _state;
-}
-
-void Asset::AAsset::setState(Asset::State state) noexcept
-{
-    _state = state;
 }
 
 void Asset::AAsset::updateSprite(float x, float y) noexcept

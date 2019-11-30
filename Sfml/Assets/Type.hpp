@@ -10,6 +10,7 @@
 
 namespace Asset {
     enum Type {
+        ASTEROID,
         PLAYER0,
         PLAYER1,
         PLAYER2,
@@ -19,7 +20,8 @@ namespace Asset {
         PLAYERDIE,
         ENNEMY0,
         ENNEMYSHOOT0,
-        ENNEMYDIE0
+        ENNEMYDIE0,
+        WALL
     }; /* !Type */
 } /* !Asset */
 

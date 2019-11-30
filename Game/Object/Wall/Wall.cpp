@@ -27,6 +27,8 @@ void Wall::createObjet(std::pair<int,int> pos)
     signwall.set(gameEngine->getComponentID<destroyable>());
     signwall.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(wall,rendering {
+        {Asset::WALL},
+        {"wall"},
         {pos.first, pos.second},
         {_size.first, _size.second}
     });

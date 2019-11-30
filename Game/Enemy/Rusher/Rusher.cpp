@@ -21,12 +21,15 @@ void Rusher::createEnemy(std::pair<int, int> pos)
 {
     Entity rusher = gameEngine->createEntity();
     Signature signrusher;
+
     signrusher.set(gameEngine->getComponentID<rendering>());
     signrusher.set(gameEngine->getComponentID<boundingBox>());
     signrusher.set(gameEngine->getComponentID<speed>());
     signrusher.set(gameEngine->getComponentID<destroyable>());
     signrusher.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(rusher,rendering {
+        {Asset::ENNEMY0},
+        {"rusher" + std::to_string(rusher)},
         {pos.first, pos.second},
         {_size.first, _size.second}
     });

@@ -53,10 +53,11 @@ int Client::run() throw()
          // SEND LA SHIT AU SERVER
 
         _sfml.updateParallax();
-
          // RECUP LES REPONSES DU SERVER
+        // _sfml.updateAllObject(getRendering());
 
         _sfml.drawBoundingBox(getBoundingBox());
+        _sfml.drawAllObjects();
         _sfml.updateWindow();
     }
     stop();
@@ -99,4 +100,12 @@ std::vector<boundingBox> Client::getBoundingBox()
         boundingbox.push_back(box);
     }
     return boundingbox;
+}
+
+std::vector<rendering> Client::getRendering()
+{
+    std::vector<rendering> rendering;
+
+    //TODO: NICO: desobscrurcir le cote obscure de la force
+    return rendering;
 }

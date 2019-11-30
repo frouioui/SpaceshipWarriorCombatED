@@ -43,7 +43,6 @@ _clockParallax(), _spriteList(), _ressourcesPath()
 
     // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();
-    loadAsset();
     try {
         loadMusic();
     } catch (Error::Sfml::SfmlError &e) {
@@ -144,53 +143,40 @@ void Sfml::closeWindow()
 //     }
 // }
 
-void Sfml::loadAsset()
+void Sfml::loadPlayer(Asset::Type type, const std::string &id)
 {
-    //TODO: Select index in relation to the client's status
-    loadPlayer(0);
-    loadPlayer(1);
-    loadPlayer(2);
-    loadPlayer(3);
-    loadPlayerDie();
-    loadPlayerShoot0();
-    loadPlayerShoot1();
-}
-
-void Sfml::loadPlayer(int playerIndex)
-{
-    switch (playerIndex)
+    switch (type)
     {
-    case 0:
-        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+    case Asset::PLAYER0:
+        _objects[id] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
         break;
-    case 1:
-        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
+    case Asset::PLAYER1:
+        _objects[id] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
         break;
-    case 2:
-        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER2, _ressourcesPath);
+    case Asset::PLAYER2:
+        _objects[id] = _factory.createAsset(Asset::PLAYER2, _ressourcesPath);
         break;
-    case 3:
-        _objects["player" + std::to_string(playerIndex)] = _factory.createAsset(Asset::PLAYER3, _ressourcesPath);
+    case Asset::PLAYER3:
+        _objects[id] = _factory.createAsset(Asset::PLAYER3, _ressourcesPath);
         break;
     default:
-        std::cerr << "Cannot load more than 4 players" << std::endl;
         break;
     }
 }
 
-void Sfml::loadPlayerDie()
+void Sfml::loadPlayerDie(const std::string &id)
 {
-    _objects["playerdie"] = _factory.createAsset(Asset::PLAYERDIE, _ressourcesPath);
+    _objects[id] = _factory.createAsset(Asset::PLAYERDIE, _ressourcesPath);
 }
 
-void Sfml::loadPlayerShoot0()
+void Sfml::loadPlayerShoot0(const std::string &id)
 {
-    _objects["playershoot0"] = _factory.createAsset(Asset::PLAYERSHOOT0, _ressourcesPath);
+    _objects[id] = _factory.createAsset(Asset::PLAYERSHOOT0, _ressourcesPath);
 }
 
-void Sfml::loadPlayerShoot1()
+void Sfml::loadPlayerShoot1(const std::string &id)
 {
-    _objects["playershoot1"] = _factory.createAsset(Asset::PLAYERSHOOT1, _ressourcesPath);
+    _objects[id] = _factory.createAsset(Asset::PLAYERSHOOT1, _ressourcesPath);
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
@@ -247,46 +233,58 @@ void Sfml::updateParallax()
 void Sfml::drawAllObjects() noexcept
 {
     for (auto it = _objects.begin(); it != _objects.end(); it++) {
-        if (it->second->getState())
-            _window.draw(it->second->getSprite());
+        _window.draw(it->second->getSprite());
     }
 }
 
 void Sfml::drawObject(const std::string &name) noexcept
 {
     _window.draw(_objects[name]->getSprite());
-    // (void)pos;
-    // (void)name;
-    // sf::Sprite sprite;
-    // sf::Texture texture;
-    // std::string path = _ressourcesPath + "r-typesheet" + name + ".gif";
-    // if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
-    //     sprite.setTexture(texture);
-    //     sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
-    //     _window.draw(sprite);
-    // }
-    // else
-    //     throw std::exception();
-    // _objet[path].setPosition(1000, 100);
 }
 
-void Sfml::updateAllObject(const std::vector<Asset::object_t> &objects)
+void Sfml::updateAllObject(const std::vector<rendering> &objects)
 {
+    _objects.clear();
     for (auto it = objects.begin(); it != objects.end(); it++) {
         updateObject(*it);
     }
 }
 
-void Sfml::updateObject(const Asset::object_t &object)
+void Sfml::updateObject(const rendering &object)
 {
+    switch (object.type)
+    {
+    case Asset::PLAYER0:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER1:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER2:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER3:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYERDIE:
+        loadPlayerDie(object.id);
+        break;
+    case Asset::PLAYERSHOOT0:
+        loadPlayerShoot0(object.id);
+        break;
+    case Asset::PLAYERSHOOT1:
+        loadPlayerShoot0(object.id);
+        break;
+    default:
+        break;
+    }
     auto it = _objects.find(object.id);
 
     if (it == _objects.end())
-        throw Error::Sfml::SfmlError("Object not found", "Sfml::updateObject");
+        return
     _objects[object.id]->updateSprite((float)TRANSCOORD(object.pos[1], (int)_window.getSize().x),
         (float)TRANSCOORD(object.pos[0], (int)_window.getSize().y));
-    // _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
-    _objects[object.id]->setState(object.state);
+    _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
 }
 
 void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur)
@@ -411,15 +409,6 @@ void Sfml::updateWindow()
 	_clock.restart();
     // }
 }
-
-// void Sfml::loadAsset()
-// {
-// //     _character.clear();
-// //     _enemy.clear();
-//     // _wall.clear();
-//     // _Objmap.clear();
-//     // _texture.clear();
-
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)
 {

@@ -7,8 +7,9 @@
 
 #include "Player.hpp"
 #include <math.h>
+#include <iostream>
 
-Player::Player(std::shared_ptr<GameEngine>& ge, int id) : 
+Player::Player(std::shared_ptr<GameEngine>& ge, int id) :
 _playerID(id), _isAlive(false), gameEngine(ge)
 {
     if (id == 1) {
@@ -98,6 +99,8 @@ void Player::shoot()
     signmis.set(gameEngine->getComponentID<Effect>());
     signmis.set(gameEngine->getComponentID<fromPlayer>());
     gameEngine->addComponent(missile,rendering {
+        {Asset::PLAYERSHOOT0},
+        {std::to_string(missile)},
         {point.pos[UPPERRIGHT].first + (point.pos[LOWERRIGHT].first - point.pos[UPPERRIGHT].first) / 2 - 1, point.pos[LOWERRIGHT].second + 1},
         {1, 1}
     });
@@ -162,6 +165,8 @@ void Player::createEntity()
     sign.set(gameEngine->getComponentID<destroyable>());
     sign.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(player,rendering {
+        {Asset::PLAYER0},
+        {"player"},
         {_pos.first, _pos.second},
         {_size.first, _size.second}
     });

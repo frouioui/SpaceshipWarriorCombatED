@@ -16,9 +16,6 @@ namespace Asset {
             AAsset(const std::string &ressourcesPath, const std::string &assetPath);
             ~AAsset() = default;
 
-            Asset::State getState() const noexcept final;
-            void setState(Asset::State) noexcept final;
-
             void updateSprite(float x, float y) noexcept override;
             const sf::Sprite &getSprite() const noexcept final;
 
@@ -35,7 +32,6 @@ namespace Asset {
             virtual void loadAsset() = 0;
             virtual void setSprite() noexcept = 0;
 
-            Asset::State _state;
             std::string _ressourcesPath;
             std::string _assetPath;
 

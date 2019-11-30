@@ -18,9 +18,6 @@ namespace Asset {
         public:
             virtual ~IAsset() = default;
 
-            virtual Asset::State getState() const noexcept = 0;
-            virtual void setState(Asset::State) noexcept = 0;
-
             virtual void updateSprite(float x, float y) noexcept = 0;
             virtual const sf::Sprite &getSprite() const noexcept = 0;
 

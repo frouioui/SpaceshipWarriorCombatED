@@ -19,6 +19,7 @@
 #include "Component/boundingBox.hpp"
 #include "AssetsFactory.hpp"
 #include "Object.hpp"
+#include "rendering.hpp"
 
 #define TRANSCOORD(x, y) (x * y / 250)
 #define TRANSX(x, y) (TRANSCOORD(x, y))
@@ -50,13 +51,12 @@ class Sfml {
 
         void drawAllObjects() noexcept;
 
-        void updateAllObject(const std::vector<Asset::object_t> &);
+        void updateAllObject(const std::vector<rendering> &objects);
 
-        void loadAsset();
-        void loadPlayer(int playerIndex);
-        void loadPlayerDie();
-        void loadPlayerShoot0();
-        void loadPlayerShoot1();
+        void loadPlayer(Asset::Type, const std::string &id);
+        void loadPlayerDie(const std::string &id);
+        void loadPlayerShoot0(const std::string &id);
+        void loadPlayerShoot1(const std::string &id);
         void loadBackground();
 
         void updateParallax();
@@ -64,7 +64,7 @@ class Sfml {
 
     private:
         void drawObject(const std::string &name) noexcept;
-        void updateObject(const Asset::object_t &object);
+        void updateObject(const rendering &object);
         void loadMusic();
         void startMusic() noexcept;
         void stopMusic() noexcept;

@@ -24,6 +24,7 @@ private:
 	bool _running;
 
 	std::vector<boundingBox> getBoundingBox();
+    std::vector<rendering> getRendering();
 };
 
 #endif /* !CLIENT_HPP_ */

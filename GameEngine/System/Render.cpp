@@ -13,7 +13,6 @@ Render::Render() : ASystem()
 
 Render::~Render()
 {
-    
 }
 
 void Render::init()
@@ -25,8 +24,8 @@ void Render::init()
 
 void Render::update()
 {
-    
     for (auto const& x :_entities) {
         auto& entity = gameEngine->getComponent<rendering>(x);
+        // TODO: NICO: la je ne sais pas quoi faire
     }
 }
