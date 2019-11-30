@@ -1,8 +1,18 @@
 #include <iostream>
 #include "room/RoomManager.hpp"
 
-RoomManager::RoomManager()
+RoomManager::RoomManager() : _rooms(0)
 {
+    boost::asio::io_context io_context;
+    std::vector<UDPInfo> info = {{io_context, 30000}, {io_context, 30001}, {io_context, 30002}, {io_context, 30004}} ;
+    _rooms.push_back(std::make_shared<Room>(info[0], 1));
+    _rooms.push_back(std::make_shared<Room>(info[1], 2));
+    _rooms.push_back(std::make_shared<Room>(info[2], 3));
+    _rooms.push_back(std::make_shared<Room>(info[3], 4));
+    std::thread([&](){_rooms[0]->run();}).detach();
+    std::thread([&](){_rooms[1]->run();}).detach();
+    std::thread([&](){_rooms[2]->run();}).detach();
+    std::thread([&](){_rooms[3]->run();}).detach();
 }
 
 RoomManager::~RoomManager()
@@ -24,43 +34,26 @@ unsigned short RoomManager::getAvailablePort()
         if (_AVAILABLE_PORTS[i].used == false) {
             port = _AVAILABLE_PORTS[i].port;
             _AVAILABLE_PORTS[i].used = true;
+            std::cout << "PORT=" << port << std::endl;
             return port;
         }
     }
     return port;
 }
 
-bool RoomManager::addAndRunRoom(Client &client)
-{
-    if (_rooms.size() == _LIMIT_ROOM) {
-        return false;
-    }
-
-    const unsigned short port = getAvailablePort();
-    boost::asio::io_context io_context;
-    UDPInfo info = {io_context, static_cast<short>(port)};
-    unsigned short new_id = getNewId();
-    _rooms.emplace_back(info, new_id);
-    getRoomById(new_id).addClient(client);
-
-    // run
-    std::thread([&](){getRoomById(new_id).run();}).detach();
-    return true;
-}
-
-std::vector<Room> &RoomManager::getAllRoom()
+std::vector<std::shared_ptr<Room>> RoomManager::getAllRoom()
 {
     return _rooms;
 }
 
-Room &RoomManager::getRoomById(unsigned short id)
+std::shared_ptr<Room> RoomManager::getRoomById(unsigned short id)
 {
     for (auto &&i : _rooms) {
-        if (i.getRoomId() == id) {
+        if (i->getRoomId() == id) {
             return i;
         }
     }
-    return _rooms[0];
+    return  nullptr;
 }
 
 unsigned short RoomManager::getNewId() const
@@ -73,7 +66,7 @@ unsigned short RoomManager::getNewId() const
         id = rand() % 9999;
         current = false;
         for (size_t i = 0; i < _rooms.size() && current == false; i++) {
-            if (_rooms[i].getRoomId() == id)
+            if (_rooms[i]->getRoomId() == id)
                 current = true;
         }
         if (current == false)

@@ -19,6 +19,8 @@ public:
 	void send(Packet packet);
 	void finish();
 
+	const short &getPort() const {return _port;}
+
 protected:
 
 private:

@@ -12,21 +12,19 @@ Room::Room(Room &source) : _udp_server(source._udp_server), _game(std::make_uniq
 {
     _running = source.isRunning();
     _room_id = source._room_id;
-    _game->initGame(1, 0);
 }
 
 Room::Room(Room &&source) : _udp_server(source._udp_server), _game(std::make_unique<Rtype>())
 {
     _running = source.isRunning();
     _room_id = source._room_id;
-    _game->initGame(1, 0);
 }
 
 Room::Room(UDPInfo info, unsigned short room_id) : _udp_server(info), _game(std::make_unique<Rtype>())
 {
+    std::cout << "salut:" << room_id << std::endl;
     _room_id = room_id;
     _running = false;
-    _game->initGame(1, 0);
 }
 
 Room::~Room()
@@ -97,12 +95,29 @@ void Room::sendInfoToClient()
     }
 }
 
+void Room::waitForReady()
+{
+    std::vector<Client> clients = _client_manager.getAllClients();
+    Packet packet;
+
+    while (_client_manager.isAllReady() == false) {
+        packet = _udp_server.receive();
+        if (packet.getAction() == PRTL::Actions::READY) {
+            _client_manager.getClientByToken(packet.getToken()).ready();
+        }
+    }
+}
+
 void Room::run() throw()
 {
-    _mutex.lock();
     _running = true;
-    _mutex.unlock();
     Packet packet;
+
+    while (_client_manager.getAllClients().size() == 0) {}
+    std::cout << "ROOM [#" << _room_id << "] got its first client" << std::endl;
+
+    waitForReady();
+    _game->initGame(_client_manager.getAllClients().size(), 0);
 
     std::thread([&](){this->sendInfoToClient();}).detach();
 

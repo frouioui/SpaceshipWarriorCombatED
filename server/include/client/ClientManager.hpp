@@ -22,6 +22,8 @@ public:
 
     std::vector<Client> &getAllClients();
 
+    bool isAllReady() const;
+
 private:
     std::vector<Client> _clients;
 
