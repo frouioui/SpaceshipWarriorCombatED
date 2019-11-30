@@ -489,7 +489,7 @@ void Sfml::loadMusic()
     if (!_music.openFromFile(_ressourcesPath + "r-type_music.ogg"))
         throw Error::Sfml::SfmlError("Failed to load music", "Sfml::loadMusic");
     _music.setLoop(true);
-    _music.play();
+    // _music.play();
 }
 
 void Sfml::startMusic() noexcept

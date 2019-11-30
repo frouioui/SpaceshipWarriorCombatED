@@ -9,6 +9,7 @@
 #include "client/ClientManager.hpp"
 #include "Rtype.hpp"
 
+
 class Room
 {
 public:
@@ -50,6 +51,7 @@ private:
 
     void sendInfoToClient();
     void sendInfoBoundingBoxes();
+    void waitForReady();
 };
 
 

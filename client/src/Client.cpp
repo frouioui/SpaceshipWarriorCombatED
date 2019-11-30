@@ -34,11 +34,14 @@ int Client::run() throw()
     // wait until connected to server
     while (_network.isConnected() == false) {}
 
-    // TEST
-    // std::cout << "connected" << std::endl;
-    _network.createAndJoinRoom();
-    // std::cout << "now about to run" << std::endl;
-    // _network.getAvailableRooms();
+    _network.joinRoom(1);
+
+    sleep(10);
+    _network.readyToPlay();
+
+    std::cout << "connecting to the room" << std::endl;
+    while (_network.isInRoom() == false) {}
+    std::cout << "connected to the room" << std::endl;
 
     _sfml.openWindow();
 

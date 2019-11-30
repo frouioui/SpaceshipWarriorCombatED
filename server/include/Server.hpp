@@ -28,7 +28,6 @@ private:
 	void respondToClient(Packet packet);
 	void authClient(Packet packet);
 	void getRooms(Packet packet);
-	void createRoom(Packet packet);
 	void joinRoom(Packet packet);
 
 };

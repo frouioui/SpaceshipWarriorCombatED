@@ -32,6 +32,7 @@ namespace PRTL
         GET_ROOMS,
         CREATE_ROOM,
         INFO_ROOM,
+        READY,
         BOUNDINGBOX,
         INPUT,
         NEWCO,

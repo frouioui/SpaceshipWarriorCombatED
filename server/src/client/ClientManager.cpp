@@ -85,3 +85,13 @@ std::vector<Client> &ClientManager::getAllClients()
 {
     return _clients;
 }
+
+bool ClientManager::isAllReady() const
+{
+    for (auto &&i : _clients) {
+        if (i.isReady() == false) {
+            return false;
+        } 
+    }
+    return true;
+}

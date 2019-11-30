@@ -9,12 +9,14 @@ NetworkManager::NetworkManager(UDPInfo &info) : _udp(info)
 {
     _connected = false;
     _running = false;
+    _in_room = false;
 }
 
 NetworkManager::NetworkManager(UDPInfo &info, const std::string &server_ip, short server_port) : _udp(info), _config(server_ip, server_port)
 {
     _connected = false;
     _running = false;
+    _in_room = false;
 }
 
 NetworkManager::~NetworkManager()
@@ -24,6 +26,11 @@ NetworkManager::~NetworkManager()
 bool NetworkManager::isConnected() const
 {
     return _connected;
+}
+
+bool NetworkManager::isInRoom() const
+{
+    return _in_room;
 }
 
 void NetworkManager::stop()
@@ -95,6 +102,7 @@ void NetworkManager::handleRecieve()
                 if (it->getResponse() == PRTL::Responses::SUCCESS) {
                     _config.setGameServerIp(it->getIp());
                     _config.setGameServerPort(it->getPort());
+                    _in_room = true;
                 }
 
             } else if (it->getAction() == PRTL::Actions::INFO_ROOM) {  
@@ -170,6 +178,16 @@ void NetworkManager::sendInput(input input)
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::INPUT);
     packet.setData(PRTL::INPUT, std::to_string(input));
+    _mutex_send.lock();
+    _udp.send(packet);
+    _mutex_send.unlock();
+}
+
+void NetworkManager::readyToPlay()
+{
+    Packet packet(_config.getGameServerIp(), _config.getGameServerPort());
+    packet.setToken(_auth_token);
+    packet.setAction(PRTL::Actions::READY);
     _mutex_send.lock();
     _udp.send(packet);
     _mutex_send.unlock();

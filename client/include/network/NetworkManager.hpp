@@ -24,6 +24,9 @@ public:
 	void getAvailableRooms();
 	void createAndJoinRoom();
 	void joinRoom(unsigned short id_room);
+	void readyToPlay();
+
+	bool isInRoom() const;
 
 	void sendInput(input input);
 
@@ -37,6 +40,7 @@ private:
 
 	bool _running;
 	bool _connected; // Tells wether or not the client is connected to the server
+	bool _in_room;
 	std::string _auth_token; // The auth token sent by the server
 
 	std::vector<Packet> _queue_send; // The queue of packet to send

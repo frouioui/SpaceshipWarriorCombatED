@@ -57,3 +57,13 @@ unsigned short Client::getPlayerId() const
 {
     return _player_id;
 }
+
+void Client::ready()
+{
+    _ready = true;
+}
+
+bool Client::isReady() const
+{
+    return _ready;
+}
