@@ -22,7 +22,7 @@ Room::Room(Room &&source) : _udp_server(source._udp_server), _game(std::make_uni
 
 Room::Room(UDPInfo info, unsigned short room_id) : _udp_server(info), _game(std::make_unique<Rtype>())
 {
-    std::cout << "salut:" << room_id << std::endl;
+    std::cout << "New room:" << room_id << std::endl;
     _room_id = room_id;
     _running = false;
 }
@@ -80,10 +80,12 @@ void Room::sendInfoBoundingBoxes()
             packetBoundingBox.setData(PRTL::SQUARE_LOWERRIGHT_X, std::to_string(boundingBox.pos[squarePos::LOWERRIGHT].second));
         }
         for (auto &&client : clients) {
-            packetBoundingBox.setAction(PRTL::Actions::BOUNDINGBOX);
-            packetBoundingBox.set(client.getIp());
-            packetBoundingBox.set(client.getPort());
-            _udp_server.send(packetBoundingBox);
+            if (client.isConnected()) {
+                packetBoundingBox.setAction(PRTL::Actions::BOUNDINGBOX);
+                packetBoundingBox.set(client.getIp());
+                packetBoundingBox.set(client.getPort());
+                _udp_server.send(packetBoundingBox);
+            }
         }   
     }
 }
@@ -139,6 +141,11 @@ void Room::managePacket(Packet packet)
 	case PRTL::Actions::INPUT:
         _game->addEvent({_client_manager.getClientByToken(packet.getToken()).getPlayerId() + 1, static_cast<input>(std::stoi(packet.getData(PRTL::INPUT)))});
 		break;
+
+    case PRTL::Actions::GOODBYE:
+        std::cout << "googbye" << std::endl;
+        _client_manager.disconnectClient(packet.getToken());
+        break;
 
 	default:
 		break;

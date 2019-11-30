@@ -24,6 +24,9 @@ public:
 
     bool isAllReady() const;
 
+    bool isClientConnected(const std::string &auth_token);
+    void disconnectClient(const std::string &auth_token);
+
 private:
     std::vector<Client> _clients;
 
