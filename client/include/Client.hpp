@@ -24,6 +24,9 @@ private:
 	bool _running;
 
 	std::vector<boundingBox> getBoundingBox();
+
+	int selectRoomMenu();
+	int readyMenu();
 };
 
 #endif /* !CLIENT_HPP_ */

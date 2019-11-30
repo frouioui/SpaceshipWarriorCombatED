@@ -20,7 +20,6 @@ _clockParallax(), _spriteList(), _ressourcesPath()
     if (std::string::npos != last_slash_idx) {
         projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
     }
-    // projectPath = std::string(std::getenv("PWD"));
     _ressourcesPath = projectPath + "/ressources/";
     sf::RectangleShape box1 = sf::RectangleShape();
     box1.setOutlineThickness(1);
@@ -50,8 +49,8 @@ _clockParallax(), _spriteList(), _ressourcesPath()
         std::cerr << e.what() << e.where() << std::endl;
     }
     // TODO: path to global
-    // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
-    // 	throw std::exception();
+    if (!_font.loadFromFile(_ressourcesPath + "CaviarDreams.ttf"))
+    	throw std::exception();
 }
 
 Sfml::~Sfml()
@@ -310,7 +309,6 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
     _window.draw(*text);
 }
 
-
 input Sfml::getEvent()
 {
     while (_window.pollEvent(_event)) {
@@ -343,6 +341,8 @@ input Sfml::getEvent()
                 return input::BUTTON1;
             if (_event.key.code == sf::Keyboard::X)
                 return input::BUTTON2;
+        } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            return input::CLICK_LEFT;
         }
         if (_event.type == sf::Event::Closed)
             return input::CLOSE;
