@@ -55,6 +55,11 @@ void Asteroid::createObjet(std::pair<int,int> pos)
     gameEngine->setEntitySystem(wall, signwall);
 }
 
+void Asteroid::setGameEngine(std::shared_ptr<GameEngine>& ge)
+{
+    gameEngine = ge;
+}
+
 extern "C"
 {
 	Asteroid *allocatorRandom()

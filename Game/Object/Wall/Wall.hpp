@@ -14,6 +14,7 @@ class Wall : public AObjet{
 		Wall();
 		~Wall();
         void createObjet(std::pair<int,int> pos);
+		void setGameEngine(std::shared_ptr<GameEngine>& ge);
 };
 
 #endif /* !WALL_HPP_ */

@@ -57,6 +57,11 @@ void Wall::createObjet(std::pair<int,int> pos)
     gameEngine->setEntitySystem(wall, signwall);
 }
 
+void Wall::setGameEngine(std::shared_ptr<GameEngine>& ge)
+{
+    gameEngine = ge;
+}
+
 extern "C"
 {
 	Wall *allocatorWall()
