@@ -27,6 +27,7 @@ class Rtype : public AGame {
 		void update();
 	private:
 		void createBorder(int size);
+		void createRandomObject(int nb);
 };
 
 #endif /* !RTYPE_HPP_ */

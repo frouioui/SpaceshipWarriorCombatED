@@ -2,13 +2,22 @@ cmake_minimum_required(VERSION 3.10)
 project(r-type)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g3 -rdynamic")
+
+# Shared Lib
+add_definitions("-fPIC")
+add_library(Wall SHARED ${r-type_SOURCE_DIR}/Game/Object/Wall/Wall.cpp)
+add_library(Asteroid SHARED ${r-type_SOURCE_DIR}/Game/Object/Random/Asteroid.cpp)
+
+set_target_properties(Wall PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Wall/lib)
+set_target_properties(Asteroid PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Random/lib)
 
 include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/GameEngine/Component
                     ${r-type_SOURCE_DIR}/GameEngine/System
                     ${r-type_SOURCE_DIR}/Error
                     ${r-type_SOURCE_DIR}/Sfml
+                    ${r-type_SOURCE_DIR}/Loader
                     ${r-type_SOURCE_DIR}/Game/Rtype
                     ${r-type_SOURCE_DIR}/Game/Enemy
                     ${r-type_SOURCE_DIR}/Game/Object
@@ -32,7 +41,6 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 GameEngine/System/DestroyEntity.cpp
                 Game/AGame.cpp
                 Game/Enemy/AEnemy.cpp
-                Game/Object/Wall/Wall.cpp
                 Game/Player/Player.cpp
                 Game/Rtype/Rtype.cpp
                 server/src/Server.cpp
@@ -43,6 +51,7 @@ set(SERVER_SRC  GameEngine/EntityManager.cpp
                 lib/udp/src/Packet.cpp
                 lib/udp/src/UDP.cpp
                 Error/Error.cpp
+                Loader/Loader.cpp
                 )
 
 # Server main

@@ -36,6 +36,10 @@ _clockParallax(), _spriteList(), _ressourcesPath()
     circle.setOutlineColor(sf::Color::Yellow);
     circle.setOutlineThickness(1);
     _circle.push_back(circle);
+    circle.setFillColor(sf::Color::Transparent);
+    circle.setOutlineColor(sf::Color::Red);
+    circle.setOutlineThickness(1);
+    _circle.push_back(circle);
 
     // _ressourcesPath = projectPath + "/ressources/";
     loadBackground();

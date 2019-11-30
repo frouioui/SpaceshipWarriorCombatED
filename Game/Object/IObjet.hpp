@@ -20,6 +20,7 @@ class IObjet {
 		virtual ~IObjet() = default;
         virtual void createObjet(std::pair<int, int> pos) = 0;
         virtual std::pair<int,int>getSize() = 0;
+        virtual void setGameEngine(std::shared_ptr<GameEngine>& ge) = 0;
 };
 
 #endif /* !IOBJET_HPP_ */

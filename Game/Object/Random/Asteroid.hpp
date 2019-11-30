@@ -2,18 +2,19 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** Wall
+** Asteroid
 */
 
-#ifndef WALL_HPP_
-#define WALL_HPP_
+#ifndef ASTEROID_HPP_
+#define ASTEROID_HPP_
+
 #include "AObjet.hpp"
 
-class Wall : public AObjet{
+class Asteroid : public AObjet {
 	public:
-		Wall();
-		~Wall();
+		Asteroid();
+		~Asteroid();
         void createObjet(std::pair<int,int> pos);
 };
 
-#endif /* !WALL_HPP_ */
+#endif /* !ASTEROID_HPP_ */

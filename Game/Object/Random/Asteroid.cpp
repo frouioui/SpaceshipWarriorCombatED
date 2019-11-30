@@ -2,23 +2,23 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** Wall
+** Asteroid
 */
 
-#include "Wall.hpp"
+#include "Asteroid.hpp"
 
-
-Wall::Wall() : AObjet()
+Asteroid::Asteroid() : AObjet()
 {
-    _size = {15, 20};
+    _size = {0,0};
 }
 
-Wall::~Wall()
+Asteroid::~Asteroid()
 {
 }
 
-void Wall::createObjet(std::pair<int,int> pos)
+void Asteroid::createObjet(std::pair<int,int> pos)
 {
+    int radius = rand() % 15;
     Entity wall = gameEngine->createEntity();
     Signature signwall;
     signwall.set(gameEngine->getComponentID<rendering>());
@@ -31,11 +31,9 @@ void Wall::createObjet(std::pair<int,int> pos)
         {_size.first, _size.second}
     });
     gameEngine->addComponent(wall, boundingBox {
-        SQUARE,
+        CIRCLE,
         {{pos.first, pos.second},
-        {pos.first, pos.second + _size.second},
-        {pos.first + _size.first, pos.second},
-        {pos.first + _size.first, pos.second + _size.second}},
+        {radius, 0}},
         collisionType::COLLIDE_OBJECT
     });
     gameEngine->addComponent(wall, speed {
@@ -45,7 +43,7 @@ void Wall::createObjet(std::pair<int,int> pos)
         false, false
     });
     gameEngine->addComponent(wall, Stats {
-        100,
+        30,
         0,
         0,
         0,
@@ -56,12 +54,12 @@ void Wall::createObjet(std::pair<int,int> pos)
 
 extern "C"
 {
-	Wall *allocatorWall()
+	Asteroid *allocatorRandom()
 	{
-		return new Wall();
+		return new Asteroid();
 	}
 
-	void deleterWall(Wall *ptr)
+	void deleterAsteroidRandom(Asteroid *ptr)
 	{
 		delete ptr;
 	}

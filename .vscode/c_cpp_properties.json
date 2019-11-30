@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/client/include",
-                "${workspaceFolder}/GameEngine"
+                "${workspaceFolder}/GameEngine",
+                "${workspaceFolder}/Loader"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

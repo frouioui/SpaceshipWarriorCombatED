@@ -6,10 +6,9 @@
 */
 
 #include "AGame.hpp"
-#include <iostream>
 
 
-AGame::AGame() : _event(), _enemy(), _objet(), _player(), _stage(0)
+AGame::AGame() : _loader(), _event(), _enemy(), _objet(), _wall(), _player(), _stage(0)
 {
     gameEngine = std::make_shared<GameEngine>();
 }
@@ -38,6 +37,64 @@ std::vector<boundingBox> AGame::getBoundingBox()
 void AGame::loadEnnemy()
 {
 
+}
+
+void AGame::loadRandomObject()
+{
+    std::string projectPath;
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
+
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    std::vector<std::string> pathname;
+    DIR *dir;
+    struct dirent *ent;
+    std::string randomObject = projectPath + "/Game/Object/Random/lib/";
+    if ((dir = opendir(randomObject.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            std::string result = ent->d_name;
+            if (result.find(".so") != std::string::npos)
+                pathname.push_back(result);
+        }
+        closedir(dir);
+    } else
+        throw Error::Error("Impossible to open directory");
+    for (auto x : pathname) {
+        _lib.push_back(_loader.loadLib(randomObject + x));
+        _objet.push_back(_loader.getInstance<IObjet>(_lib.back(), "Random"));
+        _objet.back()->setGameEngine(gameEngine);
+    }
+}
+
+void AGame::loadWallObject()
+{
+    std::string projectPath;
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
+
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    std::vector<std::string> pathname;
+    DIR *dir;
+    struct dirent *ent;
+    std::string WallObject = projectPath + "/Game/Object/Wall/lib/";
+
+
+    if ((dir = opendir(WallObject.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            std::string result = ent->d_name;
+            if (result.find(".so") != std::string::npos)
+                pathname.push_back(result);
+        }
+        closedir(dir);
+    } else
+        throw Error::Error("Impossible to open directory");
+    for (auto x : pathname) {
+        _lib.push_back(_loader.loadLib(WallObject + x));
+        _wall.push_back(_loader.getInstance<IObjet>(_lib.back(), "Wall"));
+        _wall.back()->setGameEngine(gameEngine);
+    }
 }
 
 void AGame::deletePlayer(int id)

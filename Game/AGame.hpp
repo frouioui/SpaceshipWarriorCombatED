@@ -12,6 +12,11 @@
 #include "IEnemy.hpp"
 #include "IPlayer.hpp"
 #include "IObjet.hpp"
+#include "Loader.hpp"
+#include "Error.hpp"
+
+#include <iostream>
+#include <dirent.h>
 
 class AGame : public IGame {
 	public:
@@ -23,13 +28,17 @@ class AGame : public IGame {
         std::vector<rendering> getRendering();
         std::vector<boundingBox> getBoundingBox();
         void loadEnnemy();
-        void loadObject();
+        void loadRandomObject();
+        void loadWallObject();
         void deletePlayer(int id);
         void addPlayer();
 	protected:
+        Loader _loader;
+        std::vector<void *> _lib;
         std::vector<Event> _event;
-        std::vector<std::unique_ptr<IEnemy>> _enemy;
-        std::vector<std::unique_ptr<IObjet>> _objet;
+        std::vector<std::shared_ptr<IEnemy>> _enemy;
+        std::vector<std::shared_ptr<IObjet>> _objet;
+        std::vector<std::shared_ptr<IObjet>> _wall;
         std::vector<std::unique_ptr<IPlayer>> _player;
 		int _stage;
         std::shared_ptr<GameEngine> gameEngine;
