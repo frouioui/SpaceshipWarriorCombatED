@@ -2,6 +2,8 @@
 #define ROOM_HPP
 
 #include <mutex>
+#include <chrono>
+#include <ctime>
 
 #include "UDP.hpp"
 #include "Basic.hpp"
@@ -48,6 +50,8 @@ private:
     std::mutex _mutex;
 
     unsigned short _room_id;
+
+    std::chrono::time_point<std::chrono::system_clock> _clock;
 
     void sendInfoToClient();
     void sendInfoBoundingBoxes();

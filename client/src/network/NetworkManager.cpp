@@ -184,15 +184,23 @@ void NetworkManager::joinRoom(unsigned short id_room)
     _mutex_send.unlock();
 }
 
-void NetworkManager::sendInput(input input)
+void NetworkManager::sendInput(std::vector<input> input)
 {
     Packet packet(_config.getGameServerIp(), _config.getGameServerPort());
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::INPUT);
-    packet.setData(PRTL::INPUT, std::to_string(input));
-    _mutex_send.lock();
-    _udp.send(packet);
-    _mutex_send.unlock();
+    if (input.size() == 0) {
+        packet.setData(PRTL::INPUT, std::to_string(input::NOTHING));
+        _mutex_send.lock();
+        _udp.send(packet);
+        _mutex_send.unlock();
+    }
+    for (auto& x : input) {
+        packet.setData(PRTL::INPUT, std::to_string(x));
+        _mutex_send.lock();
+        _udp.send(packet);
+        _mutex_send.unlock();
+    }
 }
 
 void NetworkManager::readyToPlay()

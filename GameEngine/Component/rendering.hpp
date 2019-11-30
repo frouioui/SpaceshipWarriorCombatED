@@ -15,7 +15,6 @@
 
 struct rendering
 {
-    /* rectangle have to be change with sprite, good luck Cécile */
     Asset::Type type;
     std::string id;
     std::vector<int> pos;

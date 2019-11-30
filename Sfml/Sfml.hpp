@@ -38,7 +38,7 @@ class Sfml {
         void drawObject(std::string name, std::vector<int> pos);
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
         
-        input getEvent();
+        std::vector<input> getEvent();
         std::string getString(std::vector<int> pos);
         void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
         void drawMap(std::map<int, std::vector<int>> map, std::vector<int> pos);
