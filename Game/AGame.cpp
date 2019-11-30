@@ -107,8 +107,13 @@ void AGame::loadWallObject()
     if ((dir = opendir(WallObject.c_str())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             std::string result = ent->d_name;
-            if (result.find(".so") != std::string::npos)
+            #if defined(__APPLE__)
+                if (result.find(".dylib") != std::string::npos)
                 pathname.push_back(result);
+            #else
+                if (result.find(".so") != std::string::npos)
+                pathname.push_back(result);
+            #endif
         }
         closedir(dir);
     } else

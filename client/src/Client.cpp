@@ -137,11 +137,7 @@ int Client::run() throw()
 
         _network.sendInput(counter);
 
-         // SEND LA SHIT AU SERVER
-
         _sfml.updateParallax();
-         // RECUP LES REPONSES DU SERVER
-        // _sfml.updateAllObject(getRendering());
 
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.drawAllObjects();

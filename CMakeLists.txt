@@ -2,7 +2,20 @@ cmake_minimum_required(VERSION 3.10)
 project(r-type)
 
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g3 -rdynamic")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g3")
+set (CMAKE_SHARED_LINKER_FLAGS "-Wl")
+
+set(GAME_ENGINE_LIB GameEngine/EntityManager.cpp
+                    GameEngine/GameEngine.cpp
+                    GameEngine/System/Render.cpp
+                    GameEngine/System/Physic.cpp
+                    GameEngine/System/Collision.cpp
+                    GameEngine/System/DestroyEntity.cpp
+                    )
+add_library(game_engine STATIC ${GAME_ENGINE_LIB})
+
+set(ERROR_LIB Error/Error.cpp)
+add_library(error STATIC ${ERROR_LIB})
 
 # Shared Lib
 add_definitions("-fPIC")
@@ -85,7 +98,18 @@ set(CLIENT_SRC_MAIN client/src/main.cpp ${CLIENT_SRC})
 add_executable(r-type_server ${SERVER_SRC_MAIN})
 add_executable(r-type_client ${CLIENT_SRC_MAIN})
 
+add_dependencies(r-type_server game_engine)
+add_dependencies(r-type_client game_engine)
+add_dependencies(Wall game_engine)
+add_dependencies(Asteroid game_engine)
+add_dependencies(Rusher game_engine)
+
+
 target_link_libraries(r-type_server ${CONAN_LIBS})
 target_link_libraries(r-type_client ${CONAN_LIBS})
+target_link_libraries(Wall -L. game_engine error)
+target_link_libraries(Asteroid -L. game_engine error)
+target_link_libraries(Rusher -L. game_engine error)
+
 
 # mkdir build && cd build && conan install .. --build=missing && cmake .. -G "Unix Makefiles" && cmake --build .
