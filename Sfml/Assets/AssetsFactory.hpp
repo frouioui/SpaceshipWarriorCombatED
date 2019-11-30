@@ -25,7 +25,7 @@ namespace Asset {
 
         private:
             using func_t = std::function<std::unique_ptr<Asset::IAsset>(const std::string &)>;
-            std::map<Asset::Type, func_t> _assetCreator;
+            std::unordered_map<Asset::Type, func_t> _assetCreator;
 
             std::unique_ptr<Asset::IAsset> createPlayer0(const std::string &) const noexcept;
             std::unique_ptr<Asset::IAsset> createPlayer1(const std::string &) const noexcept;
