@@ -31,7 +31,7 @@ class Loader {
 			auto deleteFunc = reinterpret_cast<deleteClass>(
 					dlsym(lib, const_cast<char*>(std::string("deleter" + type).c_str())));
 			if (!allocFunc || !deleteFunc) {
-				throw Error::Error("Impossible to get the instance");
+				throw Error::Error("Impossible to get the instance " + type);
 			}
 			return std::shared_ptr<T>(
 					allocFunc(),

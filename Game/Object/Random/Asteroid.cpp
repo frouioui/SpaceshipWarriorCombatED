@@ -60,7 +60,7 @@ extern "C"
 		return new Asteroid();
 	}
 
-	void deleterAsteroidRandom(Asteroid *ptr)
+	void deleterRandom(Asteroid *ptr)
 	{
 		delete ptr;
 	}
