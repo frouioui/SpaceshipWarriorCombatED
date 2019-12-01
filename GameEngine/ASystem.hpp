@@ -22,7 +22,7 @@ class ASystem {
 		void setSignature(Signature sign) { _signature =  sign;};
 		virtual void init() = 0;
 		virtual void update() = 0;
-		void activate(bool isactivate);
+		void activate(bool isactivate) { _activate = isactivate;};
 		ECS::Signature getSignature() { return _signature;};
         std::set<ECS::Entity> _entities;
 	protected:

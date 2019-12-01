@@ -19,7 +19,8 @@ add_library(error STATIC ${ERROR_LIB})
 
 # Shared Lib
 add_definitions("-fPIC")
-add_library(Wall SHARED ${r-type_SOURCE_DIR}/Game/Object/Wall/Wall.cpp)
+add_library(Wall SHARED ${r-type_SOURCE_DIR}/Game/Object/Wall/Wall.cpp
+                        ${r-type_SOURCE_DIR}/Game/Object/Wall/WallSystem.cpp)
 add_library(Asteroid SHARED ${r-type_SOURCE_DIR}/Game/Object/Random/Asteroid.cpp)
 add_library(Rusher SHARED ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/Rusher.cpp)
 

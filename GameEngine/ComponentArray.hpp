@@ -26,7 +26,7 @@ class ComponentArray : public IComponentArray {
 				_component[_size] = component;
 				_size++;
 			} else
-				throw Error::Error("Impossible to insert Component", "Compnent Array");			
+				throw Error::Error("Impossible to insert Component and entity", "Compnent Array");			
 		}
 		void remove(Entity id) {
 			if (_entityToIndex.find(id) != _entityToIndex.end()) {

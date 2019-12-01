@@ -26,7 +26,7 @@ void DestroyEntity::init()
 
 bool DestroyEntity::isOutside(boundingBox &bb)
 {
-    return (bb.pos[0].first < -30 || bb.pos[0].second < -30 || bb.pos[0].first > MAX_WINDOW + 30 || bb.pos[0].second > MAX_WINDOW + 30);
+    return (bb.pos[0].first < -30 || bb.pos[0].second < -100 || bb.pos[0].first > MAX_WINDOW + 30 || bb.pos[0].second > MAX_WINDOW + 30);
 }
 
 void DestroyEntity::update()

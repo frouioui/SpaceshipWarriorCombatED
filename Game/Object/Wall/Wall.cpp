@@ -7,10 +7,9 @@
 
 #include "Wall.hpp"
 
-
 Wall::Wall() : AObjet()
 {
-    _size = {15, 20};
+    _size = {45, 80};
 }
 
 Wall::~Wall()
@@ -25,6 +24,7 @@ void Wall::createObjet(std::pair<int,int> pos)
     signwall.set(gameEngine->getComponentID<boundingBox>());
     signwall.set(gameEngine->getComponentID<speed>());
     signwall.set(gameEngine->getComponentID<destroyable>());
+    signwall.set(gameEngine->getComponentID<wallComponent>());
     signwall.set(gameEngine->getComponentID<Stats>());
     gameEngine->addComponent(wall,rendering {
         Asset::WALL,
@@ -54,12 +54,17 @@ void Wall::createObjet(std::pair<int,int> pos)
         0,
         InfoStat::OBJET
     });
+    gameEngine->addComponent(wall, wallComponent {
+        1
+    });
     gameEngine->setEntitySystem(wall, signwall);
 }
 
 void Wall::setGameEngine(std::shared_ptr<GameEngine>& ge)
 {
     gameEngine = ge;
+    gameEngine->insertComponent<wallComponent>();
+    gameEngine->insertSystem<WallSystem>(ge);
 }
 
 extern "C"

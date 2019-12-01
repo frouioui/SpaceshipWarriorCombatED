@@ -80,7 +80,7 @@ void Rtype::update()
     //     counter = 0;
     // }
     // counter++;
-    createBorder(1);
+    // createBorder(1);
 }
 
 void Rtype::initGame(int nbplayer, int stage)

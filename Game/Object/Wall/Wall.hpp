@@ -8,6 +8,9 @@
 #ifndef WALL_HPP_
 #define WALL_HPP_
 #include "AObjet.hpp"
+#include "wallComponent.hpp"
+#include "WallSystem.hpp"
+
 
 class Wall : public AObjet{
 	public:

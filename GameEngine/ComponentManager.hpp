@@ -29,7 +29,7 @@ class ComponentManager {
 				_component.insert({name, std::make_shared<ComponentArray<T>>()});
 				_nextID++;
 			} else
-				throw Error::Error("Impossible to insert Component", "Component Manager");
+				throw Error::Error("Impossible to insert Component " + name, "Component Manager");
 		}
 
 		template<typename T>
