@@ -38,9 +38,9 @@ Packet UDP::receive()
         std::string ip =  _endpoint.address().to_string();
         short port = _endpoint.port();
         packet = Packet(ip, port, data);
-            std::cout << "received: ";
-            std::cout << archive_data << " ";
-            std::cout << "from ip: " << ip << " / port: " << port << std::endl;
+            // std::cout << "received: ";
+            // std::cout << archive_data << " ";
+            // std::cout << "from ip: " << ip << " / port: " << port << std::endl;
 
     } catch (std::exception &e) {
         return packet;
@@ -54,9 +54,9 @@ void UDP::send(Packet packet)
     _endpoint.port(packet.getPort());
     try {
         _socket.send_to(boost::asio::buffer(mapToString(packet.getData())), _endpoint);
-            std::cout << "sent: ";
-            std::cout << mapToString(packet.getData()) << " ";
-            std::cout << "to ip: " << packet.getIpAddress() << " / port: " << packet.getPort() << std::endl;
+            // std::cout << "sent: ";
+            // std::cout << mapToString(packet.getData()) << " ";
+            // std::cout << "to ip: " << packet.getIpAddress() << " / port: " << packet.getPort() << std::endl;
 
     } catch (std::exception &e) {
         std::cout << "error in send" << std::endl;

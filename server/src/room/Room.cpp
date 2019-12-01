@@ -144,7 +144,6 @@ void Room::managePacket(Packet packet)
 		break;
 
     case PRTL::Actions::GOODBYE:
-        std::cout << "googbye" << std::endl;
         _client_manager.disconnectClient(packet.getToken());
         break;
 
