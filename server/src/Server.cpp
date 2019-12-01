@@ -4,6 +4,16 @@
 #include "Server.hpp"
 #include "client/Client.hpp"
 
+void catch_error(int num)
+{
+	std::cout << "error" << std::endl;
+}
+
+void init()
+{
+	signal(SIGSEGV, catch_error);
+}
+
 Server::Server(UDPInfo &info) : _udp_server(info)
 {
 	_running = false;
@@ -64,8 +74,6 @@ void Server::authClient(Packet received_packet)
 	Packet packet;
 	Client client;
 
-	char *tp = NULL;
-	tp[1] = 87;
 	std::string token = _client_manager.generateToken();
 
 	packet.setAction(PRTL::Actions::AUTH);
