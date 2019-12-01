@@ -51,38 +51,46 @@ void Player::updatePos(const Event& event)
     if (event.event != NOTHING) {
         if (event.event == KEYDOWN) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
+            auto& render = gameEngine->getComponent<rendering>(_id);
             if (point.pos[LOWERLEFT].first <= MAX_WINDOW - 2) {
                 point.pos[UPPERLEFT].first += stats.speed;
                 point.pos[UPPERRIGHT].first += stats.speed;
                 point.pos[LOWERLEFT].first += stats.speed;
                 point.pos[LOWERRIGHT].first += stats.speed;
+                render.pos[0] += stats.speed;
             }
         }
         if (event.event == KEYUP) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
+            auto& render = gameEngine->getComponent<rendering>(_id);
             if (point.pos[UPPERLEFT].first >= 2) {
                 point.pos[UPPERLEFT].first -= stats.speed;
                 point.pos[UPPERRIGHT].first -= stats.speed;
                 point.pos[LOWERLEFT].first -= stats.speed;
                 point.pos[LOWERRIGHT].first -= stats.speed;
+                render.pos[0] -= stats.speed;
             }
         }
         if (event.event == KEYLEFT) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
+            auto& render = gameEngine->getComponent<rendering>(_id);
             if (point.pos[UPPERLEFT].second >= 2) {
                 point.pos[UPPERLEFT].second -= stats.speed;
                 point.pos[UPPERRIGHT].second -= stats.speed;
                 point.pos[LOWERLEFT].second -= stats.speed;
                 point.pos[LOWERRIGHT].second -= stats.speed;
+                render.pos[1] -= stats.speed;
             }
         }
         if (event.event == KEYRIGTH) {
             auto& point = gameEngine->getComponent<boundingBox>(_id);
+            auto& render = gameEngine->getComponent<rendering>(_id);
             if (point.pos[UPPERRIGHT].second <= MAX_WINDOW - 2) {
                 point.pos[UPPERLEFT].second += stats.speed;
                 point.pos[UPPERRIGHT].second += stats.speed;
                 point.pos[LOWERLEFT].second += stats.speed;
                 point.pos[LOWERRIGHT].second += stats.speed;
+                render.pos[1] += stats.speed;
             }
         }
     }

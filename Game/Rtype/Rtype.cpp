@@ -8,7 +8,7 @@
 #include "Rtype.hpp"
 #include <iostream>
 
-Rtype::Rtype() : AGame()
+Rtype::Rtype() : AGame(), _counter(0)
 {
     gameEngine->insertComponent<rendering>();
     gameEngine->insertComponent<boundingBox>();
@@ -45,7 +45,7 @@ void Rtype::update()
         _clock = now;
     }
     gameEngine->updateSystem();
-    if (_counter == 700) {
+    if (_counter == 100) {
         if (_objet.size() > 0)
             _objet[0]->getSystem()->activate(true,now);
         if (_enemy.size() > 0) {
@@ -53,7 +53,7 @@ void Rtype::update()
             _enemy[random]->getSystem()->activate(true,now);
         }
     }
-    if (_counter == 3000) {
+    if (_counter == 1500) {
         if (_objet.size() > 0)
             _objet[0]->getSystem()->activate(false,now);
         if (_enemy.size() > 0) {
@@ -61,7 +61,7 @@ void Rtype::update()
                 _enemy[i]->getSystem()->activate(true,now);
         }
     }
-    if (_counter == 4000) {
+    if (_counter == 2500) {
         if (_wall.size() > 0)
             _wall[0]->getSystem()->activate(true,now);
         if (_enemy.size() > 0) {
@@ -69,7 +69,7 @@ void Rtype::update()
                 _enemy[i]->getSystem()->activate(true,now);
         }
     }
-    if (_counter == 8000) {
+    if (_counter == 5000) {
         _counter = 0;
         if (_wall.size() > 0)
             _wall[0]->getSystem()->activate(false,now);
@@ -91,5 +91,5 @@ void Rtype::initGame(int nbplayer, int stage)
     try {loadWallObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadRandomObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadEnnemy();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
-
+    _counter = 0;
 }
