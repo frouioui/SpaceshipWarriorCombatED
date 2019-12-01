@@ -15,12 +15,12 @@ _texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _
 _clockParallax(), _spriteList(), _ressourcesPath()
 {
     std::string projectPath;
-    // const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
 
-    // if (std::string::npos != last_slash_idx) {
-    //     projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
-    // }
-        projectPath = std::string(std::getenv("PWD"));
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    // projectPath = std::string(std::getenv("PWD"));
     _ressourcesPath = projectPath + "/ressources/";
     sf::RectangleShape box1 = sf::RectangleShape();
     box1.setOutlineThickness(1);
