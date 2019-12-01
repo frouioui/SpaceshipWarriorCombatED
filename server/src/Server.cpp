@@ -1,9 +1,8 @@
 #include <exception>
+#include <csignal>
 #include <iostream>
 #include "Server.hpp"
 #include "client/Client.hpp"
-
-
 
 Server::Server(UDPInfo &info) : _udp_server(info)
 {
@@ -65,6 +64,8 @@ void Server::authClient(Packet received_packet)
 	Packet packet;
 	Client client;
 
+	char *tp = NULL;
+	tp[1] = 87;
 	std::string token = _client_manager.generateToken();
 
 	packet.setAction(PRTL::Actions::AUTH);

@@ -29,7 +29,6 @@ private:
 	void authClient(Packet packet);
 	void getRooms(Packet packet);
 	void joinRoom(Packet packet);
-
 };
 
 #endif /* !SERVER_HPP_ */
