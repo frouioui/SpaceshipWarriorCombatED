@@ -15,6 +15,7 @@ class Asteroid : public AObjet {
 		Asteroid();
 		~Asteroid();
         void createObjet(std::pair<int,int> pos);
+		void setGameEngine(std::shared_ptr<GameEngine>& ge);
 };
 
 #endif /* !ASTEROID_HPP_ */

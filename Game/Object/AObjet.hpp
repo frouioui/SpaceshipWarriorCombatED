@@ -14,7 +14,7 @@ class AObjet : public IObjet {
 	public:
 		AObjet() : gameEngine(), _size() {};
 		~AObjet() {};
-                void setGameEngine(std::shared_ptr<GameEngine>& ge) { gameEngine = ge;};
+                virtual void setGameEngine(std::shared_ptr<GameEngine>& ge) = 0;
                 void setSize(std::pair<int,int> size) { _size = size;};
                 virtual void createObjet(std::pair<int,int> pos) = 0;
                 std::pair<int,int> getSize() {return _size;};
