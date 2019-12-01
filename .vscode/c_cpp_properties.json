@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/GameEngine"
+                "${workspaceFolder}/client/include",
+                "${workspaceFolder}/GameEngine",
+                "${workspaceFolder}/Loader"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

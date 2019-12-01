@@ -29,3 +29,13 @@ void GameEngine::destroyEntity(Entity id)
     _systems->destroyEntity(id);
     _components->destroyEntity(id);
 }
+
+void GameEngine::setEntitySystem(Entity id, Signature sign) { 
+    _entities->setSignature(id, sign);
+    _systems->changeSignatureFromEntity(id, sign);
+};
+
+void GameEngine::updateSystem()
+{
+    _systems->updateSystem();
+};

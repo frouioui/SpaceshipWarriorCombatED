@@ -2,6 +2,7 @@
 #define CLIENT_HPP_
 
 #include "network/NetworkManager.hpp"
+#include "Sfml.hpp"
 
 class Client {
 public:
@@ -11,13 +12,22 @@ public:
 	~Client();
 
 	int run() throw();
+	void stop();
 
 protected:
 
 private:
 	NetworkManager _network;
 
+	Sfml _sfml;
+
 	bool _running;
+
+	std::vector<boundingBox> getBoundingBox();
+    std::vector<rendering> getRendering();
+
+	int selectRoomMenu();
+	int readyMenu();
 };
 
 #endif /* !CLIENT_HPP_ */

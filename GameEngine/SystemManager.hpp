@@ -21,19 +21,21 @@ class SystemManager {
 		~SystemManager() {};
 
         template<typename T>
-        void insertSystem() {
+        void insertSystem(std::shared_ptr<GameEngine>& ge) {
             std::string name = typeid(T).name();
             if (_systems.find(name) == _systems.end()) {
                 _systems.insert({name, std::make_shared<T>()});
+                _systems[name]->setGameEngine(ge);
+                _systems[name]->init();
             } else
-                throw std::exception();
+                throw Error::Error("Impossible to insert System " + name, "System Manager");
         }
 
         template<typename T>
         std::shared_ptr<ASystem> getSystem() {
             std::string name = typeid(T).name();
             if (_systems.find(name) == _systems.end())
-                throw std::exception();
+                throw Error::Error("Impossible to get System " + name, "System Manager");
             return _systems[name];
         }
 
@@ -44,6 +46,12 @@ class SystemManager {
                 else
                     x.second->_entities.erase(id);
             }
+        }
+
+        void updateSystem() {
+            std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
+            for (auto &x : _systems)
+                x.second->update(now);
         }
 
         void destroyEntity(Entity id) {

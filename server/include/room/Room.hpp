@@ -2,11 +2,15 @@
 #define ROOM_HPP
 
 #include <mutex>
+#include <chrono>
+#include <ctime>
 
 #include "UDP.hpp"
 #include "Basic.hpp"
 #include "Packet.hpp"
 #include "client/ClientManager.hpp"
+#include "Rtype.hpp"
+
 
 class Room
 {
@@ -39,13 +43,19 @@ private:
 
     UDP _udp_server;
 
-    // game object
+    std::unique_ptr<IGame> _game;
 
     bool _running;
 
     std::mutex _mutex;
 
     unsigned short _room_id;
+
+    std::chrono::time_point<std::chrono::system_clock> _clock;
+
+    void sendInfoToClient();
+    void sendInfoBoundingBoxes();
+    void waitForReady();
 };
 
 

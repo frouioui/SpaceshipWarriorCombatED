@@ -20,19 +20,19 @@ class ComponentArray : public IComponentArray {
 		ComponentArray() : _component(), _entityToIndex(), _indexToEntity(), _size(0){};
 		~ComponentArray() {};
 		void insert(Entity id, T component) {
-			if (_entityToIndex.find(id) != _entityToIndex.end()) {
+			if (_entityToIndex.find(id) == _entityToIndex.end()) {
 				_entityToIndex[id] = _size;
 				_indexToEntity[_size] = id;
 				_component[_size] = component;
 				_size++;
 			} else
-				throw std::exception();			
+				throw Error::Error("Impossible to insert Component and entity", "Compnent Array");			
 		}
 		void remove(Entity id) {
 			if (_entityToIndex.find(id) != _entityToIndex.end()) {
-				std::size_t removedIndex = _entityToIndex[id];
 				_size--;
-				_component[_size] = _component[removedIndex];
+				std::size_t removedIndex = _entityToIndex[id];
+				_component[removedIndex] = _component[_size];
 				Entity idLast = _indexToEntity[_size];
 				_entityToIndex[idLast] = removedIndex;
 				_indexToEntity[removedIndex] = idLast;
@@ -42,11 +42,25 @@ class ComponentArray : public IComponentArray {
 		}
 		T& getComponent(Entity id) {
 			if (_entityToIndex.find(id) == _entityToIndex.end())
-				throw std::exception();
+				throw Error::Error(std::string("Impossible to get Component ") + std::string(typeid(T).name()), "Compnent Array");
 			return _component[_entityToIndex[id]];
 		}
 		void destroyEntity(Entity id) override {
 			remove(id);
+		}
+		std::vector<T> listedComponent()
+		{
+			std::vector<T> result;
+			for (std::size_t i = 0; i < _size; i++)
+				result.push_back(_component[i]);
+			return result;
+		}
+
+		Entity getRandomId()
+		{
+			if (_size == 0)
+				return 0;
+			return _indexToEntity[rand () % _size];
 		}
 	private:
 		std::array<T, MAX_ENTITY> _component;

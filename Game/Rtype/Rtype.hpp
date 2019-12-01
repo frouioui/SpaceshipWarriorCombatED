@@ -12,6 +12,13 @@
 #include "Component/rendering.hpp"
 #include "System/Render.hpp"
 #include "AGame.hpp"
+#include "Physic.hpp"
+#include "speed.hpp"
+#include "Collision.hpp"
+#include "DestroyEntity.hpp"
+#include "Component/destroyable.hpp"
+#include "Component/playerComponent.hpp"
+#include "IPlayer.hpp"
 
 class Rtype : public AGame {
 	public:
@@ -20,8 +27,7 @@ class Rtype : public AGame {
 		void initGame(int nbPlayer, int stage = 0);
 		void update();
 	private:
-		int _player;
-		int _stage;
+		int _counter;
 };
 
 #endif /* !RTYPE_HPP_ */

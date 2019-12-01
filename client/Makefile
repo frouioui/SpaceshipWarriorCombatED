@@ -8,7 +8,8 @@
 
 SRC =	./src/Client.cpp \
 		./src/network/NetworkManager.cpp \
-		./src/network/NetworkConfig.cpp
+		./src/network/NetworkConfig.cpp \
+		./src/network/player/Player.cpp
 
 UT_SRC = 	
 

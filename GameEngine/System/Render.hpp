@@ -16,10 +16,11 @@ class Render : public ASystem {
 	public:
 		Render();
 		~Render();
+		void init();
 		void showMenu();
 		void showCinematic();
 		void showGame();
-		void update();
+		void update(const std::chrono::time_point<std::chrono::system_clock>& now);	
 	protected:
 	private:
 

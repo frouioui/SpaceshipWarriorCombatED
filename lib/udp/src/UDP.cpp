@@ -30,18 +30,21 @@ void UDP::finish()
 
 Packet UDP::receive()
 {
+    Packet packet;
     std::string archive_data(1024, 0);
-    _socket.receive_from(boost::asio::buffer(archive_data), _endpoint);
-    dataPacket data = stringToMap(archive_data);
-    std::string ip =  _endpoint.address().to_string();
-    short port = _endpoint.port();
-    Packet packet(ip, port, data);
+    try {
+        _socket.receive_from(boost::asio::buffer(archive_data), _endpoint);
+        dataPacket data = stringToMap(archive_data);
+        std::string ip =  _endpoint.address().to_string();
+        short port = _endpoint.port();
+        packet = Packet(ip, port, data);
+            // std::cout << "received: ";
+            // std::cout << archive_data << " ";
+            // std::cout << "from ip: " << ip << " / port: " << port << std::endl;
 
-    // debug
-    std::cout << "received: ";
-    std::cout << archive_data << " ";
-    std::cout << "from ip: " << ip << " / port: " << port << std::endl;
-
+    } catch (std::exception &e) {
+        return packet;
+    }
     return packet;
 }
 
@@ -49,11 +52,15 @@ void UDP::send(Packet packet)
 {
     _endpoint.address(packet.getIpAddress());
     _endpoint.port(packet.getPort());
-    _socket.send_to(boost::asio::buffer(mapToString(packet.getData())), _endpoint);
+    try {
+        _socket.send_to(boost::asio::buffer(mapToString(packet.getData())), _endpoint);
+            // std::cout << "sent: ";
+            // std::cout << mapToString(packet.getData()) << " ";
+            // std::cout << "to ip: " << packet.getIpAddress() << " / port: " << packet.getPort() << std::endl;
 
-    std::cout << "sent: ";
-    std::cout << mapToString(packet.getData()) << " ";
-    std::cout << "to ip: " << packet.getIpAddress() << " / port: " << packet.getPort() << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "error in send" << std::endl;
+    }
 }
 
 dataPacket UDP::stringToMap(std::string str) const

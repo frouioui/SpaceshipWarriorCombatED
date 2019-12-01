@@ -1,15 +1,18 @@
 /*
 ** EPITECH PROJECT, 2019
-** OOP_arcade_2018
+** R-Type
+
 ** File description:
 ** Sfml
 */
 
 #include <iostream>
 #include "Sfml.hpp"
+#include "Error.hpp"
 
-Sfml::Sfml() : _window(), _box(), _title(), _event(),
-_texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _clock()
+Sfml::Sfml() : _window(), _box(), _circle(), _title(), _event(),
+_texture(), _enemy(), _wall(), _objet(), _objects(), _character(), _posMenu(), _Objmap(), _clockObject(),
+_clockParallax(), _spriteList(), _ressourcesPath()
 {
     std::string projectPath;
     const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
@@ -17,53 +20,160 @@ _texture(), _enemy(), _wall(), _objet(), _character(), _posMenu(), _Objmap(), _c
     if (std::string::npos != last_slash_idx) {
         projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
     }
-        // projectPath = std::string(std::getenv("PWD"));
-    _assetsPath = projectPath + "/ressources/";
-    // sf::RectangleShape box1 = sf::RectangleShape();
-    // box1.setOutlineThickness(1);
-    // box1.setOutlineColor(sf::Color::Green);
-    // box1.setFillColor(sf::Color::Transparent);
-    // _box.push_back(box1);
-    // TODO: path to global
-    // if (!_font.loadFromFile("../../ressources/CaviarDreams.ttf"))
-    // 	throw std::exception();
+    _ressourcesPath = projectPath + "/ressources/";
+    sf::RectangleShape box1 = sf::RectangleShape();
+    box1.setOutlineThickness(1);
+    box1.setOutlineColor(sf::Color::Green);
+    box1.setFillColor(sf::Color::Transparent);
+    _box.push_back(box1);
+    box1.setOutlineThickness(1);
+    box1.setOutlineColor(sf::Color::Red);
+    box1.setFillColor(sf::Color::Transparent);
+    _box.push_back(box1);
+    sf::CircleShape circle;
+    circle.setFillColor(sf::Color::Transparent);
+    circle.setOutlineColor(sf::Color::Yellow);
+    circle.setOutlineThickness(1);
+    _circle.push_back(circle);
+    circle.setFillColor(sf::Color::Transparent);
+    circle.setOutlineColor(sf::Color::Red);
+    circle.setOutlineThickness(1);
+    _circle.push_back(circle);
 
-    /* POSITION MENU */
-
-    // _posMenu.emplace("posTitle", std::vector<int>({0,17}));
-    // _posMenu.emplace("posName", std::vector<int>({63, 33}));
-    // _posMenu.emplace("posBoxname", std::vector<int>({60, 29}));
-    // _posMenu.emplace("posUndertitle", std::vector<int>({33,19}));
-    // _posMenu.emplace("sizeBoxname", std::vector<int>({10,40}));
-    // _posMenu.emplace("posQuestion", std::vector<int>({55, 43}));
-    // _posMenu.emplace("posBoxGame", std::vector<int>({40, 10}));
-    // _posMenu.emplace("sizeBoxGame", std::vector<int>({40, 30}));
-    // _posMenu.emplace("posGame", std::vector<int>({45, 15}));
-    // _posMenu.emplace("posExit", std::vector<int>({85, 47}));
-    // _posMenu.emplace("posBoxLib", std::vector<int>({40, 60}));
-    // _posMenu.emplace("sizeBoxLib", std::vector<int>({40, 30}));
-    // _posMenu.emplace("posLib", std::vector<int>({45, 65}));
-    // _posMenu.emplace("posTitleScore", std::vector<int>({65, 85}));
-    // _posMenu.emplace("posScore", std::vector<int>({75, 85}));
-    // _posMenu.emplace("posBoxScore", std::vector<int>({74, 84}));
-    // _posMenu.emplace("sizeBoxScore", std::vector<int>({5, 10}));
-    // _posMenu.emplace("posMap", std::vector<int>({40, 3}));
+    loadBackground();
+    try {
+        loadMusic();
+    } catch (Error::Sfml::SfmlError &e) {
+        std::cerr << e.what() << e.where() << std::endl;
+    }
+    if (!_font.loadFromFile(_ressourcesPath + "CaviarDreams.ttf"))
+    	throw std::exception();
 }
 
 Sfml::~Sfml()
 {
+    stopMusic();
 }
 
 void Sfml::openWindow()
 {
     _window.create(sf::VideoMode(1920, 1200), "SpaceshipWarriorCombatED");
     _window.setFramerateLimit(60);
-
 }
 
 void Sfml::closeWindow()
 {
     _window.close();
+}
+
+// void Sfml::updateWindow()
+// {
+//     // sf::Time time = _clock.getElapsedTime();
+//     // float elapsed = time.asMicroseconds();
+//     Asset::object_t obj0 = {
+//         .id = "player0",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(10, 10)
+//     };
+
+//     Asset::object_t obj1 = {
+//         .id = "player1",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(20, 20)
+//     };
+
+//     Asset::object_t obj2 = {
+//         .id = "player2",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(30, 30)
+//     };
+
+//     Asset::object_t obj3 = {
+//         .id = "player3",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(40, 40)
+//     };
+
+//     Asset::object_t obj4 = {
+//         .id = "playerdie",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(50, 50)
+//     };
+
+//     Asset::object_t obj5 = {
+//         .id = "playershoot0",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(60, 60)
+//     };
+
+
+//     Asset::object_t obj6 = {
+//         .id = "playershoot1",
+//         .state = Asset::ENABLE,
+//         .pos = std::vector<float>(70, 70)
+//     };
+//     while (_window.isOpen()) {
+//         if (getEvent() == input::CLOSE)
+//             closeWindow();
+//         // while (elapsed < 5000000) {
+//         //     elapsed = _clock.getElapsedTime().asMicroseconds();
+//         // }
+//         if (_clockParallax.getElapsedTime().asMicroseconds() > 10000) {
+//             _window.clear();
+//             updateParallax();
+//             if (_clockObject.getElapsedTime().asMicroseconds() > 200000) {
+//                 updateObject(obj0);
+//                 updateObject(obj1);
+//                 updateObject(obj2);
+//                 updateObject(obj3);
+//                 updateObject(obj4);
+//                 updateObject(obj5);
+//                 updateObject(obj6);
+//                 obj5.pos[1] += 1;
+//                 obj6.pos[1] += 1;
+//                 _clockObject.restart();
+//             }
+//             drawAllObjects();
+//             _window.display();
+//             _clockParallax.restart();
+//         }
+//     }
+// }
+
+void Sfml::loadPlayer(Asset::Type type, const std::string &id)
+{
+    switch (type)
+    {
+    case Asset::PLAYER0:
+        _objects[id] = _factory.createAsset(Asset::PLAYER0, _ressourcesPath);
+        break;
+    case Asset::PLAYER1:
+        _objects[id] = _factory.createAsset(Asset::PLAYER1, _ressourcesPath);
+        break;
+    case Asset::PLAYER2:
+        _objects[id] = _factory.createAsset(Asset::PLAYER2, _ressourcesPath);
+        break;
+    case Asset::PLAYER3:
+        _objects[id] = _factory.createAsset(Asset::PLAYER3, _ressourcesPath);
+        break;
+    default:
+        break;
+    }
+}
+
+void Sfml::loadPlayerDie(const std::string &id)
+{
+    _objects[id] = _factory.createAsset(Asset::PLAYERDIE, _ressourcesPath);
+}
+
+void Sfml::loadPlayerShoot0(const std::string &id)
+{
+    _objects[id] = _factory.createAsset(Asset::PLAYERSHOOT0, _ressourcesPath);
+}
+
+void Sfml::loadPlayerShoot1(const std::string &id)
+{
+    _objects[id] = _factory.createAsset(Asset::PLAYERSHOOT1, _ressourcesPath);
 }
 
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
@@ -74,19 +184,27 @@ void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
     _window.draw(box);
 }
 
+void Sfml::drawCircle(std::vector<int> pos, int radius, int type)
+{
+    sf::CircleShape box = sf::CircleShape(_circle[type]);
+    box.setPosition((float)TRANSX(pos[1], (int)_window.getSize().x), (float)TRANSY(pos[0], (int)_window.getSize().y));
+    box.setRadius((float)TRANSY(radius, (int)_window.getSize().y));
+    _window.draw(box);
+}
+
 void Sfml::loadBackground()
 {
     sf::Texture texture;
-    std::string texturePath1 = _assetsPath + "parallax1.jpg";
-    std::string texturePath2 = _assetsPath + "parallax2.jpg";
+    std::string texturePath1 = _ressourcesPath + "parallax1.jpg";
+    std::string texturePath2 = _ressourcesPath + "parallax2.jpg";
 
     if (!texture.loadFromFile(texturePath1)) {
-        throw std::exception();
+        throw Error::Sfml::SfmlError("Failed to load parallax1.jpg", "Sfml::loadBackground");
     }
     _texture[texturePath1] = sf::Texture(texture);
     _backgnd["parallax1"].setTexture(_texture[texturePath1]);
     if (!texture.loadFromFile(texturePath2)) {
-        throw std::exception();
+        throw Error::Sfml::SfmlError("Failed to load parallax2.jpg", "Sfml::loadBackground");
     }
     _texture[texturePath2] = sf::Texture(texture);
     _backgnd["parallax2"].setTexture(_texture[texturePath2]);
@@ -109,22 +227,61 @@ void Sfml::updateParallax()
     _window.draw(_backgnd["parallax2"]);
 }
 
-void Sfml::drawObject(std::string name, std::vector<int> pos)
+void Sfml::drawAllObjects() noexcept
 {
-    // (void)pos;
-    // (void)name;
-    // sf::Sprite sprite;
-    // sf::Texture texture;
-    std::string path = _assetsPath + "r-typesheet" + name + ".gif";
-    // if(texture.loadFromFile("./lib/sfml/" + name + ".png")) {
-    //     sprite.setTexture(texture);
-    //     sprite.setPosition((float)TRANSCOORD(pos[1], (int)_window.getSize().x), (float)TRANSCOORD(pos[0], (int)_window.getSize().y));
-    //     _window.draw(sprite);
-    // }
-    // else
-    //     throw std::exception();
-    _objet[path].setPosition(1000, 100);
-    _window.draw(_objet[path]);
+    for (auto it = _objects.begin(); it != _objects.end(); it++) {
+        _window.draw(it->second->getSprite());
+    }
+}
+
+void Sfml::drawObject(const std::string &name) noexcept
+{
+    _window.draw(_objects[name]->getSprite());
+}
+
+void Sfml::updateAllObject(const std::vector<rendering> &objects)
+{
+    _objects.clear();
+    for (auto it = objects.begin(); it != objects.end(); it++) {
+        updateObject(*it);
+    }
+}
+
+void Sfml::updateObject(const rendering &object)
+{
+    switch (object.type)
+    {
+    case Asset::PLAYER0:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER1:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER2:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYER3:
+        loadPlayer(object.type, object.id);
+        break;
+    case Asset::PLAYERDIE:
+        loadPlayerDie(object.id);
+        break;
+    case Asset::PLAYERSHOOT0:
+        loadPlayerShoot0(object.id);
+        break;
+    case Asset::PLAYERSHOOT1:
+        loadPlayerShoot0(object.id);
+        break;
+    default:
+        break;
+    }
+    auto it = _objects.find(object.id);
+
+    if (it == _objects.end())
+        return
+    _objects[object.id]->updateSprite((float)TRANSCOORD(object.pos[1], (int)_window.getSize().x),
+        (float)TRANSCOORD(object.pos[0], (int)_window.getSize().y));
+    _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
 }
 
 void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur)
@@ -148,47 +305,46 @@ void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const 
     _window.draw(*text);
 }
 
-
-input Sfml::getEvent()
+std::vector<input> Sfml::getEvent()
 {
-    // sf::Event event;
-
+    std::vector<input> result;
     while (_window.pollEvent(_event)) {
         if (_event.type == sf::Event::KeyPressed) {
             if (_event.key.code == sf::Keyboard::Escape)
-                return input::ECHAP;
+                result.push_back(input::ECHAP);
             if (_event.key.code == sf::Keyboard::Up)
-                return input::KEYUP;
+                result.push_back(input::KEYUP);
             if (_event.key.code == sf::Keyboard::Right)
-                return input::KEYRIGTH;
+                result.push_back(input::KEYRIGTH);
             if (_event.key.code == sf::Keyboard::Left)
-                return input::KEYLEFT;
+                result.push_back(input::KEYLEFT);
             if (_event.key.code == sf::Keyboard::Down)
-                return input::KEYDOWN;
+                result.push_back(input::KEYDOWN);
             if (_event.key.code == sf::Keyboard::Enter)
-                return input::ENTER;
+                result.push_back(input::ENTER);
             if (_event.key.code == sf::Keyboard::Space)
-                return input::SPACE;
+                result.push_back(input::SPACE);
             if (_event.key.code == sf::Keyboard::L)
-                return input::CHEAT5;
+                result.push_back(input::CHEAT5);
             if (_event.key.code == sf::Keyboard::Y)
-                return input::CHEAT2;
+                result.push_back(input::CHEAT2);
             if (_event.key.code == sf::Keyboard::C)
-                return input::CHEAT1;
+                result.push_back(input::CHEAT1);
             if (_event.key.code == sf::Keyboard::I)
-                return input::CHEAT4;
+                result.push_back(input::CHEAT4);
             if (_event.key.code == sf::Keyboard::R)
-                return input::CHEAT3;
+                result.push_back(input::CHEAT3);
             if (_event.key.code == sf::Keyboard::W)
-                return input::BUTTON1;
+                result.push_back(input::BUTTON1);
             if (_event.key.code == sf::Keyboard::X)
-                return input::BUTTON2;
+                result.push_back(input::BUTTON2);
+        } else if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            result.push_back(input::CLICK_LEFT);
         }
         if (_event.type == sf::Event::Closed)
-            return input::CLOSE;
-        return input::NOTHING;
+            result.push_back(input::CLOSE);
     }
-    return input::NOTHING;
+    return result;
 }
 
 std::string Sfml::getString(std::vector<int> pos)
@@ -227,87 +383,29 @@ void Sfml::drawCharacter(std::vector<std::vector<int>> charater, std::vector<int
     }
 }
 
+
 void Sfml::updateWindow()
 {
     sf::Time time = _clock.getElapsedTime();
-    float elapsed = time.asMicroseconds();
+    static float elapsed = time.asMicroseconds();
     std::vector<int> pos;
 
-    pos.push_back(1000);
-    pos.push_back(1000);
-    while (_window.isOpen()) {
-        if (getEvent() == input::CLOSE)
-            closeWindow();
-        while (elapsed < 100000) {
-            elapsed = _clock.getElapsedTime().asMicroseconds();
-        }
-        _window.clear();
-        updateParallax();
-        drawObject("1", pos);
-        _window.display();
-        _clock.restart();
-    }
-}
+    // pos.push_back(1000);
+    // pos.push_back(1000);
+    // while (_window.isOpen()) {
+    //     if (getEvent() == input::CLOSE)
+    //         closeWindow();
+	if (elapsed < 10000) {
+	    elapsed = _clock.getElapsedTime().asMicroseconds();
+		return;
+	}
+	// updateParallax();
 
-void Sfml::loadAsset()
-{
-//     _character.clear();
-//     _enemy.clear();
-    // _wall.clear();
-    // _Objmap.clear();
-    // _texture.clear();
-
-    sf::Texture texture;
-    sf::Sprite sprite;
-    std::string path;
-    int i = 1;
-
-    _objet.clear();
-    while (std::ifstream(_assetsPath + "r-typesheet" + std::to_string(i) + ".gif")) {
-        path = _assetsPath + "r-typesheet" + std::to_string(i) + ".gif";
-        if (!texture.loadFromFile(path))
-            throw std::exception();
-        _texture[path] = sf::Texture(texture);
-        sprite.setTexture(_texture[path]);
-        // sprite.setScale(0.5f, 0.5f);
-        _objet[path] = sf::Sprite(sprite);
-        i++;
-    }
-    // i = 0;
-    // if (_character.size() > 0)
-    //     _Objmap.emplace("character", _character);
-    // while (std::ifstream("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png")) {
-    //     texture.loadFromFile("./lib/sfml/" + name + "/objet" + std::to_string(i) + ".png");
-    //     _texture.push_back(sf::Texture(texture));
-    //     sprite.setTexture(_texture.back());
-    //     sprite.setScale(0.5f, 0.5f);
-    //     _objet.push_back(sf::Sprite(sprite));
-    //     i++;
+	// drawObject("1", pos);
+	_window.display();
+	_window.clear();
+	_clock.restart();
     // }
-    // i = 0;
-    // if (_objet.size() > 0)
-    //     _Objmap.emplace("objet", _objet);
-    // while (std::ifstream("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png")) {
-    //     texture.loadFromFile("./lib/sfml/" + name + "/wall" + std::to_string(i) + ".png");
-    //     _texture.push_back(sf::Texture(texture));
-    //     sprite.setTexture(_texture.back());
-    //     sprite.setScale(0.5f, 0.5f);
-    //     _wall.push_back(sf::Sprite(sprite));
-    //     i++;
-    // }
-    // i = 0;
-    // if (_wall.size() > 0)
-    //     _Objmap.emplace("wall", _wall);
-    // while (std::ifstream("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png")) {
-    //     texture.loadFromFile("./lib/sfml/" + name + "/enemy" + std::to_string(i) + ".png");
-    //     _texture.push_back(sf::Texture(texture));
-    //     sprite.setTexture(_texture.back());
-    //     sprite.setScale(0.5f, 0.5f);
-    //     _enemy.push_back(sf::Sprite(sprite));
-    //     i++;
-    // }
-    // if (_enemy.size() > 0)
-    //     _Objmap.emplace("enemy", _enemy);
 }
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)
@@ -360,4 +458,37 @@ void Sfml::drawSpriteListe()
     for (auto x:_spriteList) {
         _window.draw(x.second);
     }
+}
+
+void Sfml::drawBoundingBox(std::vector<boundingBox> list)
+{
+	for (auto x : list) {
+		if (x.type == SQUARE) {
+			drawBox({x.pos[UPPERLEFT].first, x.pos[UPPERLEFT].second},
+					{x.pos[LOWERLEFT].first - x.pos[UPPERLEFT].first,
+					x.pos[UPPERRIGHT].second - x.pos[UPPERLEFT].second
+					});
+		}
+        if (x.type == CIRCLE) {
+			drawCircle({x.pos[0].first, x.pos[0].second}, x.pos[1].first);
+		}
+	}
+}
+
+void Sfml::loadMusic()
+{
+    if (!_music.openFromFile(_ressourcesPath + "r-type_music.ogg"))
+        throw Error::Sfml::SfmlError("Failed to load music", "Sfml::loadMusic");
+    _music.setLoop(true);
+    // _music.play();
+}
+
+void Sfml::startMusic() noexcept
+{
+    _music.play();
+}
+
+void Sfml::stopMusic() noexcept
+{
+    _music.stop();
 }

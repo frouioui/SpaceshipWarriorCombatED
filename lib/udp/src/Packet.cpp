@@ -1,6 +1,6 @@
 #include "Packet.hpp"
 
-Packet::Packet()
+Packet::Packet() : _data(30)
 {
     
 }
@@ -86,34 +86,34 @@ void Packet::setData(const std::string &key, const std::string &value)
 
 void Packet::setAction(PRTL::Actions action)
 {
-    _data["act"] = std::to_string(static_cast<unsigned int>(action));
+    _data[std::to_string(static_cast<unsigned int>(PRTL::Data::ACTION))] = std::to_string(static_cast<unsigned int>(action));
 }
 
 PRTL::Actions Packet::getAction() const
 {
-    if (_data.find("act") != _data.end())
-        return (static_cast<PRTL::Actions>(std::stoi(_data.at("act"))));
+    if (_data.find(std::to_string(static_cast<unsigned int>(PRTL::Data::ACTION))) != _data.end())
+        return (static_cast<PRTL::Actions>(std::stoi(_data.at(std::to_string(static_cast<unsigned int>(PRTL::Data::ACTION))))));
     return (PRTL::Actions::UNKNOWN);
 }
 
 void Packet::setResponse(PRTL::Responses resp)
 {
-    _data["rsp"] = std::to_string(static_cast<unsigned int>(resp));
+    _data[std::to_string(static_cast<unsigned int>(PRTL::Data::RESPONSE))] = std::to_string(static_cast<unsigned int>(resp));
 }
 
 PRTL::Responses Packet::getResponse() const
 {
-    if (_data.find("rsp") != _data.end())
-        return (static_cast<PRTL::Responses>(std::stoi(_data.at("rsp"))));
+    if (_data.find(std::to_string(static_cast<unsigned int>(PRTL::Data::RESPONSE))) != _data.end())
+        return (static_cast<PRTL::Responses>(std::stoi(_data.at(std::to_string(static_cast<unsigned int>(PRTL::Data::RESPONSE))))));
     return (PRTL::Responses::UNKNOWN);
 }
 
 void Packet::setToken(const std::string &token)
 {
-    _data["token"] = token;
+    _data[std::to_string(static_cast<unsigned int>(PRTL::Data::TOKEN))] = token;
 }
 
 const std::string &Packet::getToken()
 {
-    return _data["token"];
+    return _data[std::to_string(static_cast<unsigned int>(PRTL::Data::TOKEN))];
 }

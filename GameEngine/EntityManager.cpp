@@ -7,9 +7,9 @@
 
 #include "EntityManager.hpp"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager() : _availableID(), _SignatureList(), _entityNumber(1)
 {
-    for (Entity id = 1; id < MAX_ENTITY; id++)
+    for (Entity id = 0; id < MAX_ENTITY; id++)
         _availableID.push(id);
 }
 
@@ -20,7 +20,7 @@ EntityManager::~EntityManager()
 Entity EntityManager::createEntity()
 {
     if (_entityNumber >= MAX_ENTITY)
-        throw std::exception();
+        throw Error::Error("Impossible to create Entity", "Entity Manager");
     _entityNumber++;
     Entity id = _availableID.front();
     _availableID.pop();
@@ -34,7 +34,7 @@ void EntityManager::destroyEntity(Entity id)
         _SignatureList[id].reset();
         _availableID.push(id);
     } else
-        throw std::exception();
+        throw Error::Error("Impossible to destroy Entity", "Entity Manager");
 }
 
 void EntityManager::setSignature(Entity id, Signature sign)
@@ -42,12 +42,12 @@ void EntityManager::setSignature(Entity id, Signature sign)
     if (id < MAX_ENTITY) {
         _SignatureList[id] = sign;
     } else
-        throw std::exception();
+        throw Error::Error("Impossible to set Signature");
 }
 
 Signature EntityManager::getSignature(Entity id)
 {
     if (id >= MAX_ENTITY)
-        throw std::exception();
+        throw Error::Error("Impossible to get Signature from entity", "Game Engine");
     return _SignatureList[id];
 }

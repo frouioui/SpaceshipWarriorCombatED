@@ -44,7 +44,7 @@ std::string ClientManager::generateOneToken() const
     std::string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ/=+()-?!$&abcdefghijklmnopqrstuvwxyz";
 
     for (int i = 0; i < 10; ++i) {
-        token[i] = chars[rand() % (chars.length() - 1)];
+        token[i] = chars[std::rand() % (chars.length() - 1)];
     }
     return token;
 }
@@ -79,4 +79,33 @@ Client &ClientManager::getClientByToken(const std::string &token)
         }
     }
     return client;
+}
+
+std::vector<Client> &ClientManager::getAllClients()
+{
+    return _clients;
+}
+
+bool ClientManager::isAllReady() const
+{
+    for (size_t i = 0; i < _clients.size(); i++) {
+        if (_clients[i].isConnected()) {
+            if (_clients[i].isReady() == false) {
+                return false;
+            } 
+        }
+    }
+    return true;
+}
+
+bool ClientManager::isClientConnected(const std::string &auth_token)
+{
+    if (getClientByToken(auth_token).isConnected() == true)
+        return true;
+    return false;
+}
+
+void ClientManager::disconnectClient(const std::string &auth_token)
+{
+    getClientByToken(auth_token).disconnect();
 }

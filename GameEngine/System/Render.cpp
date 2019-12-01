@@ -9,22 +9,23 @@
 
 Render::Render() : ASystem()
 {
-    Signature sign;
-    sign.set(gameEngine.getComponentID<rendering>());
-    setSignature(sign);
-    
 }
 
 Render::~Render()
 {
-    
 }
 
-void Render::update()
+void Render::init()
 {
-    
-    // for (auto const& x :_entities) {
-        // rendering entity = gameEngine.getComponent<rendering>(x);
-        // gameEngine.getSfml()->drawBox(entity.pos, entity.size);
-    // }
+    Signature sign;
+    sign.set(gameEngine->getComponentID<rendering>());
+    setSignature(sign);
+}
+
+void Render::update(const std::chrono::time_point<std::chrono::system_clock>& now)
+{
+    for (auto const& x :_entities) {
+        auto& entity = gameEngine->getComponent<rendering>(x);
+        // TODO: NICO: la je ne sais pas quoi faire
+    }
 }

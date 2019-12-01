@@ -8,12 +8,15 @@
 #ifndef RENDERING_HPP_
 #define RENDERING_HPP_
 
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <iostream>
+#include <vector>
+#include "State.hpp"
+#include "Type.hpp"
 
 struct rendering
 {
-    /* rectangle have to be change with sprite, good luck Cécile */
-    
+    Asset::Type type;
+    std::string id;
     std::vector<int> pos;
     std::vector<int> size;
 };

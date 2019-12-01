@@ -14,12 +14,17 @@ public:
     void setToken(const std::string &token);
     void setUsername(const std::string &username);
     void setPlayerId(unsigned short player_id);
+    void disconnect();
+
+    void ready();
+    bool isReady() const;
 
     const std::string &getIp() const;
     short getPort() const;
     const std::string &getToken() const;
     const std::string &getUsername() const;
     unsigned short getPlayerId() const;
+    bool isConnected() const;
 
 private:
     std::string _ip;
@@ -27,6 +32,8 @@ private:
     std::string _token;
     std::string _username;
     unsigned short _player_id;
+    bool _ready;
+    bool _connected;
 };
 
 #endif // CLIENT_HPP
