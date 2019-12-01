@@ -55,6 +55,13 @@ class ComponentArray : public IComponentArray {
 				result.push_back(_component[i]);
 			return result;
 		}
+
+		Entity getRandomId()
+		{
+			if (_size == 0)
+				return 0;
+			return _indexToEntity[rand () % _size];
+		}
 	private:
 		std::array<T, MAX_ENTITY> _component;
 		std::unordered_map<Entity, std::size_t> _entityToIndex;

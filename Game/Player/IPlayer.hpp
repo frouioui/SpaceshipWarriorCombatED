@@ -14,6 +14,7 @@
 #include "speed.hpp"
 #include "boundingBox.hpp"
 #include "effect.hpp"
+#include "Component/playerComponent.hpp"
 #include "Component/stats.hpp"
 #include "fromPlayer.hpp"
 #include "GameEngine.hpp"

@@ -8,7 +8,8 @@
 #include "AGame.hpp"
 
 
-AGame::AGame() : _loader(), _event(), _enemy(), _objet(), _wall(), _player(), _stage(0)
+AGame::AGame() : _loader(), _event(), _enemy(),
+_objet(), _wall(), _player(), _stage(0), _clock()
 {
     gameEngine = std::make_shared<GameEngine>();
 }
@@ -58,7 +59,7 @@ void AGame::loadEnnemy()
     for (auto x : pathname) {
         _lib.push_back(_loader.loadLib(enemyObject + x));
         _enemy.push_back(_loader.getInstance<IObjet>(_lib.back(), "Enemy"));
-        _enemy.back()->setGameEngine(gameEngine);
+        try {_enemy.back()->setGameEngine(gameEngine);} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     }
 }
 

@@ -21,9 +21,9 @@ class WallSystem : public ASystem {
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
         void activate(bool);
 	private:
-        std::chrono::time_point<std::chrono::system_clock> _clock;
-        std::unique_ptr<IObjet> _wall;
-        int _size;
+                std::chrono::time_point<std::chrono::system_clock> _clock;
+                std::unique_ptr<IObjet> _wall;
+                int _size;
 };
 
 #endif /* !WALLSYSTEM_HPP_ */

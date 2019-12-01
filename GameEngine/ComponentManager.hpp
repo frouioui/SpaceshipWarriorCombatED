@@ -50,6 +50,10 @@ class ComponentManager {
 		T& getToArray(Entity id) { return GetComponentArray<T>()->getComponent(id);}
 
 		template<typename T>
+		Entity getRandomEntity() { return GetComponentArray<T>()->getRandomId();}
+
+
+		template<typename T>
 		std::shared_ptr<ComponentArray<T>> GetComponentArray()
 		{
 			std::string name = typeid(T).name();

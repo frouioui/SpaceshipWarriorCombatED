@@ -2,32 +2,32 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** RusherSystem
+** ShooterSystem
 */
 
-#ifndef RUSHERSYSTEM_HPP_
-#define RUSHERSYSTEM_HPP_
+#ifndef SHOOTERSYSTEM_HPP_
+#define SHOOTERSYSTEM_HPP_
 
 #include <chrono>
 #include <ctime>
-#include<memory>
 
-#include "Rusher.hpp"
+#include "Shooter.hpp"
 
-class RusherSystem : public ASystem {
+class ShooterSystem : public ASystem {
 	public:
-		RusherSystem();
-		~RusherSystem();
+		ShooterSystem();
+		~ShooterSystem();
         void init();
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
         void activate(bool);
 	private:
         std::chrono::time_point<std::chrono::system_clock> _clock;
-        std::shared_ptr<IObjet> _objet;
+        std::unique_ptr<IObjet> _objet;
         int _size;
         int _counter;
         int _spawn;
         int _y;
+        void shoot(std::pair<int,int> pos, std::pair<int,int> cible);
 };
 
-#endif /* !RUSHERSYSTEM_HPP_ */
+#endif /* !SHOOTERSYSTEM_HPP_ */

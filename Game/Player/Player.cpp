@@ -164,6 +164,7 @@ void Player::createEntity()
     // sign.set(gameEngine->getComponentID<speed>());
     sign.set(gameEngine->getComponentID<destroyable>());
     sign.set(gameEngine->getComponentID<Stats>());
+    sign.set(gameEngine->getComponentID<playerComponent>());
     gameEngine->addComponent(player,rendering {
         Asset::PLAYER0,
         "player",

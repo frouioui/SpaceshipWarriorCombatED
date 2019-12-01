@@ -28,9 +28,13 @@ add_library(Asteroid SHARED ${r-type_SOURCE_DIR}/Game/Object/Random/Asteroid.cpp
 add_library(Rusher SHARED ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/Rusher.cpp
                            ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/RusherSystem.cpp)
 
+add_library(Shooter SHARED ${r-type_SOURCE_DIR}/Game/Enemy/Shooter/Shooter.cpp
+                           ${r-type_SOURCE_DIR}/Game/Enemy/Shooter/ShooterSystem.cpp)
+
 set_target_properties(Wall PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Wall/lib)
 set_target_properties(Asteroid PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Random/lib)
 set_target_properties(Rusher PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Enemy/lib)
+set_target_properties(Shooter PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Enemy/lib)
 
 include_directories(${r-type_SOURCE_DIR}/GameEngine
                     ${r-type_SOURCE_DIR}/GameEngine/Component
@@ -108,6 +112,7 @@ add_dependencies(r-type_client game_engine)
 add_dependencies(Wall game_engine)
 add_dependencies(Asteroid game_engine)
 add_dependencies(Rusher game_engine)
+add_dependencies(Shooter game_engine)
 
 
 target_link_libraries(r-type_server ${CONAN_LIBS})
@@ -115,6 +120,7 @@ target_link_libraries(r-type_client ${CONAN_LIBS})
 target_link_libraries(Wall -L. game_engine error)
 target_link_libraries(Asteroid -L. game_engine error)
 target_link_libraries(Rusher -L. game_engine error)
+target_link_libraries(Shooter -L. game_engine error)
 
 
 # mkdir build && cd build && conan install .. --build=missing && cmake .. -G "Unix Makefiles" && cmake --build .

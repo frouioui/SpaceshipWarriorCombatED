@@ -10,7 +10,7 @@
 
 Rusher::Rusher() : AObjet()
 {
-    _size = {10,0};
+    _size = {5,0};
 }
 
 Rusher::~Rusher()
@@ -43,7 +43,7 @@ void Rusher::createObjet(std::pair<int, int> pos)
     gameEngine->addComponent(rusher, speed {
         -1,
         [] (int x) {
-            return 1/2 * cos(x);
+            return 0;
         }
     });
     gameEngine->addComponent(rusher, destroyable {

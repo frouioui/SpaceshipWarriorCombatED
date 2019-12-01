@@ -44,7 +44,7 @@ void WallSystem::update(const std::chrono::time_point<std::chrono::system_clock>
     }
     if (counter % (_wall->getSize().second + 1) == 0) {
         counter = 0;
-        std::pair<int, int> size_obj = _wall->getSize();
+        std::pair<int,int> size_obj = _wall->getSize();
         for (int i = 0; i < _size; i++) {
             int spesize = i * size_obj.first;
             _wall->createObjet({0 + spesize, MAX_WINDOW});

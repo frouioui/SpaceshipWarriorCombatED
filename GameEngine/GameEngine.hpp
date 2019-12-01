@@ -44,6 +44,11 @@ class GameEngine {
                 template<typename T>
                 std::shared_ptr<ASystem> getSystem() const {return _systems->getSystem<T>();};
 
+                template<typename T>
+                Entity getRandomComponent() const {
+                        return _components->getRandomEntity<T>();
+                }
+
                 void setEntitySystem(Entity id, Signature sign);
 
                 void updateSystem();
@@ -60,6 +65,7 @@ class GameEngine {
                                 return true;
                         return false;
                 }
+                
         private:
                 std::unique_ptr<EntityManager> _entities;
                 std::unique_ptr<SystemManager> _systems;

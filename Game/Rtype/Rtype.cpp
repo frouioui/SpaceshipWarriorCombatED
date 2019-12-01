@@ -17,6 +17,7 @@ Rtype::Rtype() : AGame()
     gameEngine->insertComponent<destroyable>();
     gameEngine->insertComponent<Effect>();
     gameEngine->insertComponent<Stats>();
+    gameEngine->insertComponent<playerComponent>();
     gameEngine->insertComponent<fromPlayer>();
     gameEngine->insertSystem<Physic>(gameEngine);
     gameEngine->insertSystem<Collision>(gameEngine);
@@ -91,6 +92,8 @@ void Rtype::initGame(int nbplayer, int stage)
     try {loadWallObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadRandomObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadEnnemy();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
-    if (_enemy.size() > 0)
+    if (_enemy.size() > 0) {
         _enemy[0]->getSystem()->activate(true);
+        _enemy[1]->getSystem()->activate(true);
+    }
 }

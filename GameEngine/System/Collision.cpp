@@ -145,7 +145,7 @@ void Collision::checkEffect(Entity one, Entity two)
         effec.type == Type::DAMMAGE ? stats.life -= effec.data : 0;
         effec.type == Type::SCORE ? stats.score += effec.data : 0;
         effec.type == Type::SPEED ? stats.speed += effec.data : 0;
-    } else if (gameEngine->isEntityHave<Effect>(two) && gameEngine->isEntityHave<Stats>(two)) {
+    } else if (gameEngine->isEntityHave<Effect>(two) && gameEngine->isEntityHave<Stats>(one)) {
         auto &effec = gameEngine->getComponent<Effect>(two);
         auto &stats = gameEngine->getComponent<Stats>(one);
         effec.type == Type::DAMMAGE ? stats.life -= effec.data : 0;
@@ -163,12 +163,14 @@ void Collision::checkScore(Entity one, Entity two)
             auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
             statsplayer.score += stats.score;
         } 
-    } else if (gameEngine->isEntityHave<fromPlayer>(two) && gameEngine->isEntityHave<Stats>(two)) {
-        auto &id = gameEngine->getComponent<fromPlayer>(one);
-        auto &stats = gameEngine->getComponent<Stats>(two);
+    } else if (gameEngine->isEntityHave<fromPlayer>(two) && gameEngine->isEntityHave<Stats>(one)) {
+        auto &id = gameEngine->getComponent<fromPlayer>(two);
+        auto &stats = gameEngine->getComponent<Stats>(one);
         if (stats.life <= 0) {
+            if (gameEngine->isEntityHave<Stats>(id.id)) {
             auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
             statsplayer.score += stats.score;
+            }
         }
     }
 }

@@ -16,6 +16,8 @@
 
 #include <iostream>
 #include <dirent.h>
+#include <chrono>
+#include <ctime>
 
 class AGame : public IGame {
 	public:
@@ -41,6 +43,7 @@ class AGame : public IGame {
         std::vector<std::unique_ptr<IPlayer>> _player;
 		int _stage;
         std::shared_ptr<GameEngine> gameEngine;
+        std::chrono::time_point<std::chrono::system_clock> _clock;
 };
 
 #endif /* !AGAME_HPP_ */
