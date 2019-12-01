@@ -31,6 +31,7 @@ public:
 	void sendInput(std::vector<input> input);
 
 	std::vector<Packet> transfertQueueBoundingBoxes();
+	std::vector<Packet> transfertQueueRenderings();
 	void handleRecieve();
 
 // attributes
@@ -48,10 +49,12 @@ private:
 	std::vector<Player> _players;
 
 	std::vector<Packet> _bounding_boxes;
+	std::vector<Packet> _renderings;
 
 	std::mutex _mutex_send;
 	std::mutex _mutex_receive;
 	std::mutex _mutex_data;
+	std::mutex _mutex_rendering;
 
 	void authToServer(); // Loop that will authentificate the client to the server
 	void receive();

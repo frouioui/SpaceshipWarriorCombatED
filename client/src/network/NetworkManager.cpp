@@ -133,6 +133,11 @@ void NetworkManager::handleRecieve()
                 _mutex_data.lock();
                 _bounding_boxes.push_back(*(it));
                 _mutex_data.unlock();
+
+            } else if (it->getAction() == PRTL::Actions::RENDERING) {
+                _mutex_rendering.lock();
+                _renderings.push_back(*(it));
+                _mutex_rendering.unlock();
             }
 
             _mutex_data.lock();
@@ -151,6 +156,15 @@ std::vector<Packet> NetworkManager::transfertQueueBoundingBoxes()
     _bounding_boxes.erase(_bounding_boxes.cbegin(), _bounding_boxes.cend());
     _mutex_data.unlock();
     return bdboxes;
+}
+
+std::vector<Packet> NetworkManager::transfertQueueRenderings()
+{
+    _mutex_rendering.lock();
+    std::vector<Packet> renderings = _renderings;
+    _renderings.erase(_renderings.cbegin(), _renderings.cend());
+    _mutex_rendering.unlock();
+    return renderings;
 }
 
 void NetworkManager::getAvailableRooms()
