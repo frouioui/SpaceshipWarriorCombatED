@@ -16,8 +16,6 @@ namespace Asset {
             PlayerDie(const std::string &);
             ~PlayerDie() = default;
 
-            void updateSprite(float x, float y) noexcept final;
-
         private:
             void loadAsset() final;
             void setSprite() noexcept final;

@@ -37,11 +37,3 @@ void Asset::PlayerShoot0::setSprite() noexcept
     _sprite.setScale(3, 3);
     _sprite.setTextureRect(_tiles.at(_tileIndex));
 }
-
-void Asset::PlayerShoot0::updateSprite(float x, float y) noexcept
-{
-    if (_tileIndex != _nbTiles - 1)
-        _tileIndex += 1;
-    _sprite.setTextureRect(_tiles.at(_tileIndex));
-    _sprite.setPosition(x, y);
-}

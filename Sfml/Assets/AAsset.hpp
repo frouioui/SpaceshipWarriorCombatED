@@ -16,7 +16,7 @@ namespace Asset {
             AAsset(const std::string &ressourcesPath, const std::string &assetPath);
             ~AAsset() = default;
 
-            void updateSprite(float x, float y) noexcept override;
+            void updateSprite(float x, float y) noexcept final;
             const sf::Sprite &getSprite() const noexcept final;
 
         protected:

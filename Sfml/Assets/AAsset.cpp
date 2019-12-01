@@ -16,11 +16,6 @@ _ressourcesPath(ressourcesPath), _assetPath(assetPath)
 
 void Asset::AAsset::updateSprite(float x, float y) noexcept
 {
-    if (_tileIndex == _nbTiles - 1)
-        _tileIndex = 0;
-    else
-        _tileIndex += 1;
-    _sprite.setTextureRect(_tiles.at(_tileIndex));
     _sprite.setPosition(x, y);
 }
 

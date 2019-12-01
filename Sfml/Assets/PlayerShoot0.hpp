@@ -16,8 +16,6 @@ namespace Asset {
             PlayerShoot0(const std::string &);
             ~PlayerShoot0() = default;
 
-            void updateSprite(float x, float y) noexcept final;
-
         private:
             void loadAsset() final;
             void setSprite() noexcept final;

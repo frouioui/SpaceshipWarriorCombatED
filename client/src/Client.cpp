@@ -148,7 +148,7 @@ int Client::run() throw()
         _network.sendInput(counter);
 
         _sfml.updateParallax();
-        // _sfml.updateAllObject(getRendering());
+        _sfml.updateAllObject(getRendering());
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.drawAllObjects();
         _sfml.updateWindow();

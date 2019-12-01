@@ -195,18 +195,18 @@ void Sfml::updateObject(const rendering &object)
     case Asset::PLAYER3:
         loadPlayer(object.type, object.id);
         break;
-    case Asset::PLAYERDIE:
-        loadPlayerDie(object.id);
-        break;
-    case Asset::PLAYERSHOOT0:
-        loadPlayerShoot0(object.id);
-        break;
-    case Asset::PLAYERSHOOT1:
-        loadPlayerShoot0(object.id);
-        break;
-    case Asset::ENNEMY0:
-        loadEnemy(object.id, object.path, object.height, object.width);
-        break;
+    // case Asset::PLAYERDIE:
+    //     loadPlayerDie(object.id);
+    //     break;
+    // case Asset::PLAYERSHOOT0:
+    //     loadPlayerShoot0(object.id);
+    //     break;
+    // case Asset::PLAYERSHOOT1:
+    //     loadPlayerShoot0(object.id);
+    //     break;
+    // case Asset::ENNEMY0:
+    //     loadEnemy(object.id, object.path, object.height, object.width);
+    //     break;
     default:
         return;
     }
