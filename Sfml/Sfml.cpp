@@ -176,6 +176,11 @@ void Sfml::loadPlayerShoot1(const std::string &id)
     _objects[id] = _factory.createAsset(Asset::PLAYERSHOOT1, _ressourcesPath);
 }
 
+void Sfml::loadEnemy(const std::string &id, const std::string &path, int height, int width)
+{
+    _objects[id] = _factory.createAsset(Asset::ENNEMY0, path, height, width);
+}
+
 void Sfml::drawBox(std::vector<int> pos, std::vector<int> size, int type)
 {
     sf::RectangleShape box = sf::RectangleShape(_box[type]);
@@ -271,6 +276,9 @@ void Sfml::updateObject(const rendering &object)
         break;
     case Asset::PLAYERSHOOT1:
         loadPlayerShoot0(object.id);
+        break;
+    case Asset::ENNEMY0:
+        // loadEnemy(object.id, object.path, object.height, object.width);
         break;
     default:
         break;
@@ -388,24 +396,14 @@ void Sfml::updateWindow()
 {
     sf::Time time = _clock.getElapsedTime();
     static float elapsed = time.asMicroseconds();
-    std::vector<int> pos;
 
-    // pos.push_back(1000);
-    // pos.push_back(1000);
-    // while (_window.isOpen()) {
-    //     if (getEvent() == input::CLOSE)
-    //         closeWindow();
 	if (elapsed < 10000) {
 	    elapsed = _clock.getElapsedTime().asMicroseconds();
 		return;
 	}
-	// updateParallax();
-
-	// drawObject("1", pos);
 	_window.display();
 	_window.clear();
 	_clock.restart();
-    // }
 }
 
 void Sfml::drawObjMap(const std::string &type, int id, std::vector<int> pos)

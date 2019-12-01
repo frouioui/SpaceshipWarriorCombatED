@@ -37,7 +37,7 @@ class Sfml {
         void drawCircle(std::vector<int> pos, int radius, int type = 0);
         void drawObject(std::string name, std::vector<int> pos);
         void drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur = "green");
-        
+
         std::vector<input> getEvent();
         std::string getString(std::vector<int> pos);
         void drawCharacter(std::vector<std::vector<int>> charater, std::vector<int> pos);
@@ -58,6 +58,7 @@ class Sfml {
         void loadPlayerDie(const std::string &id);
         void loadPlayerShoot0(const std::string &id);
         void loadPlayerShoot1(const std::string &id);
+        void loadEnemy(const std::string &id, const std::string &path, int height, int width);
         void loadBackground();
 
         void updateParallax();
