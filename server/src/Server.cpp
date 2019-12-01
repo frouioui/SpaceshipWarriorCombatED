@@ -12,11 +12,13 @@ void catch_error(int num)
 void init()
 {
 	signal(SIGSEGV, catch_error);
+	signal(SIGABRT, catch_error);
 }
 
 Server::Server(UDPInfo &info) : _udp_server(info)
 {
 	_running = false;
+	init();
 }
 
 Server::~Server()
