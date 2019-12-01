@@ -39,6 +39,7 @@ struct boundingBox
     shapeType type;
     std::vector<std::pair<int, int>> pos;
     collisionType collideType;
+    int counter;
 };
 
 #endif /* !BOUNDINGBOX_HPP_ */
