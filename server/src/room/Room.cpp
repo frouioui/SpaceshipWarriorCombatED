@@ -75,7 +75,7 @@ void Room::sendInfoRendering()
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING)), std::to_string(rendering.width));
         for (auto &&client : clients) {
             if (client.isConnected()) {
-                packet.setAction(PRTL::Actions::BOUNDINGBOX);
+                packet.setAction(PRTL::Actions::RENDERING);
                 packet.set(client.getIp());
                 packet.set(client.getPort());
                 _udp_server.send(packet);
