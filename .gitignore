@@ -30,3 +30,16 @@
 *.exe
 *.out
 *.app
+
+# Build directory
+build
+debug
+# Dev
+
+.vscode
+.DS_store
+
+r-type_server
+r-type_client
+
+build

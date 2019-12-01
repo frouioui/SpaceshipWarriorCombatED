@@ -1,0 +1,136 @@
+SpaceShipWarriorCombatED                                     F. Poinsard
+                                                         Toulouse, 31000
+                                                                 Epitech
+                                                           November 2019
+
+
+                Instructions RFC SpaceShipWarriorCombatED
+
+1. INTRODUCTION
+
+Our protocol is made simple so everyone can use it. It is mainly used
+by the server and client of the game "SpaceShipWarriorCombatED".
+
+2. BASIC INFORMATIONS
+
+Each paquet MUST be composed of an Action. The Action defines the command
+or request that is sent.
+Paquets COULD contain Data (one or more), Token (to auth the user),
+Response (is the type of response).
+
+3. ACTIONS
+
+Here is the list of all the Actions:
+
+
+3.1 AUTH
+
+Value: 0
+
+Allows the client to login to the sever. The request MUST contain 2 Data
+(USER and PASSWORD).
+
+
+3.2 JOIN_ROOM
+
+Value: 1
+
+Allow the client to join a room, request MUST contain ID_ROOM, and MUST
+contain a TOKEN.
+
+
+3.3 GET_ROOMS
+
+Value: 2
+
+Get all the information of the rooms.
+
+
+3.4 CREATE_ROOM
+
+Value: 3
+
+Create and join a room. MUST contain a TOKEN.
+
+
+3.5 INFO_ROOM
+
+Value: 4
+
+Get the information about one room. MUST contain a TOKEN and
+ID_ROOM.
+
+
+3.6 READY
+
+Value: 5
+
+Tells the server that the client is ready to play. MUST contain
+a TOKEN.
+
+
+3.7 BOUNDINGBOX
+
+Value: 6
+
+Tells the server that the client wants bounding box information. The
+request MUST contain TOKEN.
+
+The response COULD contain the following Data:
+- CONTENT
+- CIRCLE
+- CIRCLE_POS_CENTER_Y
+- CIRCLE_POS_CENTER_X
+- CIRCLE_POS_RADIUS
+- SQUARE
+- SQUARE_UPPERLEFT_Y
+- SQUARE_UPPERLEFT_X
+- SQUARE_UPPERRIGHT_Y
+- SQUARE_UPPERRIGHT_X
+- SQUARE_LOWERLEFT_Y
+- SQUARE_LOWERLEFT_X
+- SQUARE_LOWERRIGHT_Y
+- SQUARE_LOWERRIGHT_X
+
+
+3.8 RENDERING
+
+Value: 7
+
+Tells the server that the client wants rending information.
+The request MUST contain TOKEN.
+
+And MUST contain the following Data:
+- TYPE_RENDERING
+- ID_RENDERING
+- POS_X_RENDERING
+- POS_Y_RENDERING
+- SIZE_X_RENDERING
+- SIZE_Y_RENDERING
+- PATH_RENDERING
+- HIGH_RENDERING
+- WIDTH_RENDERING
+
+
+3.9 INPUT
+
+Value: 8
+
+Send an input to the server. The request MUST contain TOKEN.
+
+
+3.10 NEWCO
+
+Value: 9
+
+Tells the client information about the new game server.
+
+The request MUST contain a TOKEN.
+
+
+3.11 UNKNOWN
+
+Value: 10
+
+To send when the command is unknown.
+The request COULD contain a TOKEN.
