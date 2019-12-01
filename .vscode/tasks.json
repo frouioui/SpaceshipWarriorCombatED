@@ -6,7 +6,8 @@
         {
             "label": "debug",
             "type": "shell",
-            "command": "rm -rf debug && mkdir debug && cd debug && conan install .. --build=missing && cmake -DCMAKE_BUILD_TYPE=Debug .. && make",
+            // "command": "rm -rf debug && mkdir debug && cd debug && conan install .. --build=missing && cmake -DCMAKE_BUILD_TYPE=Debug .. && make",
+            "command": "cd debug && cmake -DCMAKE_BUILD_TYPE=Debug .. && make",
             "group": "build",
             "presentation": {
                 // Reveal the output only if unrecognized errors occur.

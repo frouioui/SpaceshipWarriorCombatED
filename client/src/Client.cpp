@@ -137,6 +137,8 @@ int Client::run() throw()
     }
     _network.readyToPlay();
 
+    _sfml.startMusic();
+
     while (_running && !loopblock) {
         counter = _sfml.getEvent();
         for (auto &x: counter) {

@@ -205,18 +205,13 @@ void Sfml::updateObject(const rendering &object)
         loadPlayerShoot0(object.id);
         break;
     case Asset::ENNEMY0:
-        // loadEnemy(object.id, object.path, object.height, object.width);
+        loadEnemy(object.id, object.path, object.height, object.width);
         break;
     default:
-        break;
+        return;
     }
-    auto it = _objects.find(object.id);
-
-    if (it == _objects.end())
-        return
     _objects[object.id]->updateSprite((float)TRANSCOORD(object.pos[1], (int)_window.getSize().x),
         (float)TRANSCOORD(object.pos[0], (int)_window.getSize().y));
-    _objects[object.id]->updateSprite(object.pos[0], object.pos[1]);
 }
 
 void Sfml::drawText(std::vector<int> pos, int fontSize, std::string str,  const std::string &couleur)
@@ -405,7 +400,6 @@ void Sfml::loadMusic()
     if (!_music.openFromFile(_ressourcesPath + "r-type_music.ogg"))
         throw Error::Sfml::SfmlError("Failed to load music", "Sfml::loadMusic");
     _music.setLoop(true);
-    startMusic();
 }
 
 void Sfml::startMusic() noexcept

@@ -63,12 +63,12 @@ class Sfml {
 
         void updateParallax();
         void drawBoundingBox(std::vector<boundingBox>);
+        void startMusic() noexcept;
 
     private:
         void drawObject(const std::string &name) noexcept;
         void updateObject(const rendering &object);
         void loadMusic();
-        void startMusic() noexcept;
         void stopMusic() noexcept;
 
         sf::RenderWindow _window;
