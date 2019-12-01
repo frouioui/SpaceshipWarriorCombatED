@@ -67,10 +67,10 @@ void Room::sendInfoRendering()
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)), std::to_string(static_cast<unsigned int>(rendering.type)));
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)), rendering.id);
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)), rendering.path);
-        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)), std::to_string(rendering.pos[0]));
-        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)), std::to_string(rendering.pos[1]));
-        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)), std::to_string(rendering.size[0]));
-        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)), std::to_string(rendering.size[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)), std::to_string(rendering.pos[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)), std::to_string(rendering.pos[0]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)), std::to_string(rendering.size[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)), std::to_string(rendering.size[0]));
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING)), std::to_string(rendering.height));
         packet.setData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING)), std::to_string(rendering.width));
         for (auto &&client : clients) {

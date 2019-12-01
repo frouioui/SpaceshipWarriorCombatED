@@ -200,18 +200,16 @@ std::vector<rendering> Client::getRendering()
 
     for (auto &&p : packet) {
         rendering render;
-        if (static_cast<PRTL::Data>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CONTENT))))) == PRTL::Data::CIRCLE) {
-            render.type = static_cast<Asset::Type>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)))));
-            render.pos[0] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING))));
-            render.pos[1] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING))));
-            render.size[0] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING))));
-            render.size[1] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING))));
-            render.height = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING))));
-            render.width = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING))));
-            render.id = p.getData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)));
-            render.path = p.getData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)));
-            renderings.push_back(render);
-        }
+        render.type = static_cast<Asset::Type>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)))));
+        render.pos.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)))));
+        render.pos.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)))));
+        render.size.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)))));
+        render.size.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)))));
+        render.height = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING))));
+        render.width = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING))));
+        render.id = p.getData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)));
+        render.path = p.getData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)));
+        renderings.push_back(render);
     }
     return renderings;
 }

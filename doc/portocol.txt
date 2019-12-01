@@ -1,0 +1,13 @@
+SpaceShipWarriorCombatED                                     F. Poinsard
+                                                         Toulouse, 31000
+                                                                 Epitech
+                                                           November 2019
+
+
+                Instructions RFC SpaceShipWarriorCombatED
+
+1. INTRODUCTION
+
+Our protocol is made simple so everyone can use it. It is mainly used
+by the server and client of the game "SpaceShipWarriorCombatED".
+
