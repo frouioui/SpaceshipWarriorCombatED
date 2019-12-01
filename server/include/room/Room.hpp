@@ -55,6 +55,7 @@ private:
 
     void sendInfoToClient();
     void sendInfoBoundingBoxes();
+    void sendInfoRendering();
     void waitForReady();
 };
 

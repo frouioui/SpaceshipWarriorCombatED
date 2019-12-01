@@ -58,6 +58,33 @@ void Room::sendServerInfo(unsigned short player_id)
     _udp_server.send(packet);
 }
 
+void Room::sendInfoRendering()
+{
+    Packet packet;
+    std::vector<rendering> renderings = _game->getRendering();
+    for (auto &&rendering : renderings) {
+        std::vector<Client> clients = _client_manager.getAllClients();
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)), std::to_string(static_cast<unsigned int>(rendering.type)));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)), rendering.id);
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)), rendering.path);
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)), std::to_string(rendering.pos[0]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)), std::to_string(rendering.pos[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)), std::to_string(rendering.size[0]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)), std::to_string(rendering.size[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING)), std::to_string(rendering.high));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING)), std::to_string(rendering.width));
+        for (auto &&client : clients) {
+            if (client.isConnected()) {
+                packet.setAction(PRTL::Actions::BOUNDINGBOX);
+                packet.set(client.getIp());
+                packet.set(client.getPort());
+                _udp_server.send(packet);
+            }
+        }  
+
+    }
+}
+
 void Room::sendInfoBoundingBoxes()
 {
     Packet packetBoundingBox;
@@ -95,6 +122,7 @@ void Room::sendInfoToClient()
 {
     while (true) {
         sendInfoBoundingBoxes();
+        sendInfoRendering();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000/ 60));
     }
 }
