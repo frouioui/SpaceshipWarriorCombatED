@@ -22,11 +22,14 @@ class Player : public IPlayer {
                 void updatePos(const Event&);
                 void isDestroyed();
                 void shoot();
+                void shootspe();
                 std::pair<int, int> _pos;
                 std::pair<int, int> _size;
                 int _playerID;
                 bool _isAlive;
                 Entity _id;
+
+                std::chrono::time_point<std::chrono::system_clock> _clock;
 
                 std::shared_ptr<GameEngine> gameEngine;
 };

@@ -19,6 +19,9 @@ struct rendering
     std::string id;
     std::vector<int> pos;
     std::vector<int> size;
+    std::string path;
+    int height;
+    int width;
 };
 
 

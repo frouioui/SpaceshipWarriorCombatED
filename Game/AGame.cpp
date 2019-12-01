@@ -50,8 +50,13 @@ void AGame::loadEnnemy()
     if ((dir = opendir(enemyObject.c_str())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             std::string result = ent->d_name;
-            if (result.find(".so") != std::string::npos)
+            #if defined(__APPLE__)
+                if (result.find(".dylib") != std::string::npos)
                 pathname.push_back(result);
+            #else
+                if (result.find(".so") != std::string::npos)
+                    pathname.push_back(result);
+            # endif
         }
         closedir(dir);
     } else
@@ -78,8 +83,13 @@ void AGame::loadRandomObject()
     if ((dir = opendir(randomObject.c_str())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             std::string result = ent->d_name;
-            if (result.find(".so") != std::string::npos)
+            #if defined(__APPLE__)
+                if (result.find(".dylib") != std::string::npos)
                 pathname.push_back(result);
+            #else
+                if (result.find(".so") != std::string::npos)
+                    pathname.push_back(result);
+            # endif
         }
         closedir(dir);
     } else

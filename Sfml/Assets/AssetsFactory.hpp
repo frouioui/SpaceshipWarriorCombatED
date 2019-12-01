@@ -21,19 +21,20 @@ namespace Asset {
             ~AssetsFactory() = default;
 
             std::unique_ptr<Asset::IAsset> createAsset(const Asset::Type &type,
-            const std::string &ressourcesPath);
+            const std::string &ressourcesPath, int height = 0, int width = 0);
 
         private:
-            using func_t = std::function<std::unique_ptr<Asset::IAsset>(const std::string &)>;
+            using func_t = std::function<std::unique_ptr<Asset::IAsset>(const std::string &, int, int)>;
             std::unordered_map<Asset::Type, func_t> _assetCreator;
 
-            std::unique_ptr<Asset::IAsset> createPlayer0(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayer1(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayer2(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayer3(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayerDie(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayerShoot0(const std::string &) const noexcept;
-            std::unique_ptr<Asset::IAsset> createPlayerShoot1(const std::string &) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayer0(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayer1(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayer2(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayer3(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayerDie(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayerShoot0(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createPlayerShoot1(const std::string &ressourcesPath, int height, int width) const noexcept;
+            std::unique_ptr<Asset::IAsset> createEnemy(const std::string &ressourcesPath, int height, int width) const noexcept;
     }; /* !AssetsFactory*/
 } /* !Asset */
 

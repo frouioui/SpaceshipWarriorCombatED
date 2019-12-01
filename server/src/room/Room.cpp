@@ -58,6 +58,33 @@ void Room::sendServerInfo(unsigned short player_id)
     _udp_server.send(packet);
 }
 
+void Room::sendInfoRendering()
+{
+    Packet packet;
+    std::vector<rendering> renderings = _game->getRendering();
+    for (auto &&rendering : renderings) {
+        std::vector<Client> clients = _client_manager.getAllClients();
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)), std::to_string(static_cast<unsigned int>(rendering.type)));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)), rendering.id);
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)), rendering.path);
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)), std::to_string(rendering.pos[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)), std::to_string(rendering.pos[0]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)), std::to_string(rendering.size[1]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)), std::to_string(rendering.size[0]));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING)), std::to_string(rendering.height));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING)), std::to_string(rendering.width));
+        for (auto &&client : clients) {
+            if (client.isConnected()) {
+                packet.setAction(PRTL::Actions::RENDERING);
+                packet.set(client.getIp());
+                packet.set(client.getPort());
+                _udp_server.send(packet);
+            }
+        }
+
+    }
+}
+
 void Room::sendInfoBoundingBoxes()
 {
     Packet packetBoundingBox;
@@ -69,8 +96,10 @@ void Room::sendInfoBoundingBoxes()
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_X)), std::to_string(boundingBox.pos[circlePos::CENTER].second));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_Y)), std::to_string(boundingBox.pos[circlePos::CENTER].first));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS)), std::to_string(boundingBox.pos[circlePos::RADIUS].first));
+            //packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)), std::to_string(static_cast<int>(boundingBox.collideType)));
         } else if (boundingBox.type == shapeType::SQUARE) {
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CONTENT)), std::to_string(static_cast<int>(PRTL::Data::SQUARE)));
+            //packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)), std::to_string(static_cast<int>(boundingBox.collideType)));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_Y)), std::to_string(boundingBox.pos[squarePos::UPPERLEFT].first));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_X)), std::to_string(boundingBox.pos[squarePos::UPPERLEFT].second));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERRIGHT_Y)), std::to_string(boundingBox.pos[squarePos::UPPERRIGHT].first));
@@ -87,7 +116,7 @@ void Room::sendInfoBoundingBoxes()
                 packetBoundingBox.set(client.getPort());
                 _udp_server.send(packetBoundingBox);
             }
-        }  
+        }
     }
 }
 
@@ -95,6 +124,7 @@ void Room::sendInfoToClient()
 {
     while (true) {
         sendInfoBoundingBoxes();
+        sendInfoRendering();
         std::this_thread::sleep_for(std::chrono::milliseconds(1000/ 60));
     }
 }

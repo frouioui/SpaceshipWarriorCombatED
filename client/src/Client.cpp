@@ -146,7 +146,7 @@ int Client::run() throw()
         _network.sendInput(counter);
 
         _sfml.updateParallax();
-
+        // _sfml.updateAllObject(getRendering());
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.drawAllObjects();
         _sfml.updateWindow();
@@ -172,9 +172,11 @@ std::vector<boundingBox> Client::getBoundingBox()
             pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS))));
             pos.second = 0;
             box.pos.push_back(pos);
+            // box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
         } else if (static_cast<PRTL::Data>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CONTENT))))) == PRTL::Data::SQUARE) {
             box.type = shapeType::SQUARE;
             std::pair<int, int> pos;
+            // box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
             pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_Y))));
             pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_X))));
             box.pos.push_back(pos);
@@ -195,8 +197,21 @@ std::vector<boundingBox> Client::getBoundingBox()
 
 std::vector<rendering> Client::getRendering()
 {
-    std::vector<rendering> rendering;
+    std::vector<Packet> packet = _network.transfertQueueRenderings();
+    std::vector<rendering> renderings;
 
-    //TODO: NICO: desobscrurcir le cote obscure de la force
-    return rendering;
+    for (auto &&p : packet) {
+        rendering render;
+        render.type = static_cast<Asset::Type>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::TYPE_RENDERING)))));
+        render.pos.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING)))));
+        render.pos.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_X_RENDERING)))));
+        render.size.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING)))));
+        render.size.push_back(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING)))));
+        render.height = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING))));
+        render.width = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING))));
+        render.id = p.getData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)));
+        render.path = p.getData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)));
+        renderings.push_back(render);
+    }
+    return renderings;
 }

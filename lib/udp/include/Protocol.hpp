@@ -16,6 +16,7 @@ namespace PRTL
         CIRCLE_POS_CENTER_Y,
         CIRCLE_POS_CENTER_X,
         CIRCLE_POS_RADIUS,
+        COLLIDE_TYPE,
         SQUARE,
         SQUARE_UPPERLEFT_Y,
         SQUARE_UPPERLEFT_X,
@@ -25,7 +26,16 @@ namespace PRTL
         SQUARE_LOWERLEFT_X,
         SQUARE_LOWERRIGHT_Y,
         SQUARE_LOWERRIGHT_X,
-        INPUT
+        INPUT,
+        TYPE_RENDERING,
+        ID_RENDERING,
+        POS_X_RENDERING,
+        POS_Y_RENDERING,
+        SIZE_X_RENDERING,
+        SIZE_Y_RENDERING,
+        PATH_RENDERING,
+        HIGH_RENDERING,
+        WIDTH_RENDERING
     };
 
     enum class Actions {
@@ -36,6 +46,7 @@ namespace PRTL
         INFO_ROOM,
         READY,
         BOUNDINGBOX,
+        RENDERING,
         INPUT,
         NEWCO,
         GOODBYE,

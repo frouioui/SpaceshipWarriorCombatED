@@ -8,7 +8,7 @@
 #include "Rtype.hpp"
 #include <iostream>
 
-Rtype::Rtype() : AGame()
+Rtype::Rtype() : AGame(), _counter(0)
 {
     gameEngine->insertComponent<rendering>();
     gameEngine->insertComponent<boundingBox>();
@@ -45,6 +45,41 @@ void Rtype::update()
         _clock = now;
     }
     gameEngine->updateSystem();
+    if (_counter == 100) {
+        if (_objet.size() > 0)
+            _objet[0]->getSystem()->activate(true,now);
+        if (_enemy.size() > 0) {
+            int random = std::rand() % _enemy.size();
+            _enemy[random]->getSystem()->activate(true,now);
+        }
+    }
+    if (_counter == 1500) {
+        if (_objet.size() > 0)
+            _objet[0]->getSystem()->activate(false,now);
+        if (_enemy.size() > 0) {
+            for (unsigned int i = 0; i < _enemy.size(); i++)
+                _enemy[i]->getSystem()->activate(true,now);
+        }
+    }
+    if (_counter == 2500) {
+        if (_wall.size() > 0)
+            _wall[0]->getSystem()->activate(true,now);
+        if (_enemy.size() > 0) {
+            for (unsigned int i = 0; i < _enemy.size(); i++)
+                _enemy[i]->getSystem()->activate(true,now);
+        }
+    }
+    if (_counter == 5000) {
+        _counter = 0;
+        if (_wall.size() > 0)
+            _wall[0]->getSystem()->activate(false,now);
+        if (_objet.size() > 0)
+            _objet[0]->getSystem()->activate(false,now);
+        if (_enemy.size() > 0) {
+            for (unsigned int i = 0; i < _enemy.size(); i++)
+                _enemy[i]->getSystem()->activate(false,now);
+        }
+    }
 }
 
 void Rtype::initGame(int nbplayer, int stage)
@@ -56,8 +91,5 @@ void Rtype::initGame(int nbplayer, int stage)
     try {loadWallObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadRandomObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadEnnemy();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
-    _wall[0]->getSystem()->activate(true,_clock);
-    _objet[0]->getSystem()->activate(true,_clock);
-    _enemy[0]->getSystem()->activate(true,_clock);
-    _enemy[1]->getSystem()->activate(true,_clock);
+    _counter = 0;
 }
