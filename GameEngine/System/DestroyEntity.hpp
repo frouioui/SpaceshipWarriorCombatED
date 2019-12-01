@@ -17,7 +17,7 @@ class DestroyEntity : public ASystem {
 	public:
 		DestroyEntity();
 		~DestroyEntity();
-        void update();
+        void update(const std::chrono::time_point<std::chrono::system_clock>& now);
         void init();
 	private:
         bool isOutside(boundingBox&);

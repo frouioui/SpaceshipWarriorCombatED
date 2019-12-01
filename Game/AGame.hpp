@@ -9,7 +9,6 @@
 #define AGAME_HPP_
 
 #include "IGame.hpp"
-#include "IEnemy.hpp"
 #include "IPlayer.hpp"
 #include "IObjet.hpp"
 #include "Loader.hpp"
@@ -36,7 +35,7 @@ class AGame : public IGame {
         Loader _loader;
         std::vector<void *> _lib;
         std::vector<Event> _event;
-        std::vector<std::shared_ptr<IEnemy>> _enemy;
+        std::vector<std::shared_ptr<IObjet>> _enemy;
         std::vector<std::shared_ptr<IObjet>> _objet;
         std::vector<std::shared_ptr<IObjet>> _wall;
         std::vector<std::unique_ptr<IPlayer>> _player;

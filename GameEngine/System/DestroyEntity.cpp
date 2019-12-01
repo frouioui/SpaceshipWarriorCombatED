@@ -29,7 +29,7 @@ bool DestroyEntity::isOutside(boundingBox &bb)
     return (bb.pos[0].first < -30 || bb.pos[0].second < -100 || bb.pos[0].first > MAX_WINDOW + 30 || bb.pos[0].second > MAX_WINDOW + 30);
 }
 
-void DestroyEntity::update()
+void DestroyEntity::update(const std::chrono::time_point<std::chrono::system_clock>& now)
 {
     std::vector<Entity> tmp;
     for (auto x : _entities) {

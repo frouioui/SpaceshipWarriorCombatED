@@ -57,7 +57,7 @@ void AGame::loadEnnemy()
         throw Error::Error("Impossible to open directory");
     for (auto x : pathname) {
         _lib.push_back(_loader.loadLib(enemyObject + x));
-        _enemy.push_back(_loader.getInstance<IEnemy>(_lib.back(), "Enemy"));
+        _enemy.push_back(_loader.getInstance<IObjet>(_lib.back(), "Enemy"));
         _enemy.back()->setGameEngine(gameEngine);
     }
 }

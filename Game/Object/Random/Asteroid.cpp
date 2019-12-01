@@ -16,9 +16,9 @@ Asteroid::~Asteroid()
 {
 }
 
-void Asteroid::createObjet(std::pair<int,int> pos)
+void Asteroid::createObjet(std::pair<int, int> pos)
 {
-    int radius = rand() % 15;
+    int radius = rand() % 15 + 2;
     Entity wall = gameEngine->createEntity();
     Signature signwall;
     signwall.set(gameEngine->getComponentID<rendering>());
@@ -58,6 +58,12 @@ void Asteroid::createObjet(std::pair<int,int> pos)
 void Asteroid::setGameEngine(std::shared_ptr<GameEngine>& ge)
 {
     gameEngine = ge;
+    gameEngine->insertSystem<RandomSystem>(ge);
+}
+
+std::shared_ptr<ASystem> Asteroid::getSystem()
+{
+    return gameEngine->getSystem<RandomSystem>();
 }
 
 extern "C"

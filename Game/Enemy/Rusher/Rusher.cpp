@@ -8,16 +8,17 @@
 #include "Rusher.hpp"
 #include <math.h>
 
-Rusher::Rusher() : gameEngine()
+Rusher::Rusher() : AObjet()
 {
-    _size = {5,5};
+    _size = {10,0};
 }
 
 Rusher::~Rusher()
 {
 }
 
-void Rusher::createEnemy(std::pair<int, int> pos)
+
+void Rusher::createObjet(std::pair<int, int> pos)
 {
     Entity rusher = gameEngine->createEntity();
     Signature signrusher;
@@ -36,14 +37,17 @@ void Rusher::createEnemy(std::pair<int, int> pos)
     gameEngine->addComponent(rusher, boundingBox {
         CIRCLE,
         {{pos.first, pos.second},
-        {5, 0}},
+        {_size.first, _size.second}},
         collisionType::COLLIDE_ENEMY
     });
     gameEngine->addComponent(rusher, speed {
         -1,
         [] (int x) {
-            return 5 * cos(x);
+            return 1/2 * cos(x);
         }
+    });
+    gameEngine->addComponent(rusher, destroyable {
+        false, false
     });
     gameEngine->addComponent(rusher, Stats {
         30,
@@ -58,6 +62,12 @@ void Rusher::createEnemy(std::pair<int, int> pos)
 void Rusher::setGameEngine(std::shared_ptr<GameEngine>& ge)
 {
     gameEngine = ge;
+    gameEngine->insertSystem<RusherSystem>(ge);
+}
+
+std::shared_ptr<ASystem> Rusher::getSystem()
+{
+    return gameEngine->getSystem<RusherSystem>();
 }
 
 extern "C"

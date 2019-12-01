@@ -7,18 +7,19 @@
 
 #ifndef RUSHER_HPP_
 #define RUSHER_HPP_
-#include "IEnemy.hpp"
 
-class Rusher : public IEnemy {
+#include "AObjet.hpp"
+#include "RusherSystem.hpp"
+
+class Rusher : public AObjet {
 	public:
 		Rusher();
 		~Rusher();
-        void createEnemy(std::pair<int, int> pos);
+        void createObjet(std::pair<int, int> pos);
         void setGameEngine(std::shared_ptr<GameEngine>& ge);
+		std::shared_ptr<ASystem> getSystem();
 	protected:
 	private:
-        std::shared_ptr<GameEngine> gameEngine;
-        std::pair<int,int> _size;
 };
 
 #endif /* !RUSHER_HPP_ */

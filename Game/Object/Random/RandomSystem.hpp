@@ -2,28 +2,25 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** WallSystem
+** RandomSystem
 */
 
-#ifndef WALLSYSTEM_HPP_
-#define WALLSYSTEM_HPP_
+#ifndef RANDOMSYSTEM_HPP_
+#define RANDOMSYSTEM_HPP_
 
-#include <chrono>
-#include <ctime>
+#include "Asteroid.hpp"
 
-#include "Wall.hpp"
-
-class WallSystem : public ASystem {
+class RandomSystem : public ASystem {
 	public:
-		WallSystem();
-		~WallSystem();
+		RandomSystem();
+		~RandomSystem();
         void init();
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
         void activate(bool);
 	private:
         std::chrono::time_point<std::chrono::system_clock> _clock;
-        std::unique_ptr<IObjet> _wall;
+        std::unique_ptr<IObjet> _objet;
         int _size;
 };
 
-#endif /* !WALLSYSTEM_HPP_ */
+#endif /* !RANDOMSYSTEM_HPP_ */

@@ -20,7 +20,7 @@ class Collision : public ASystem {
 	public:
 		Collision();
 		~Collision();
-        void update();
+        void update(const std::chrono::time_point<std::chrono::system_clock>& now);
         void init();
     private:
         bool isCollide(boundingBox&, boundingBox&);

@@ -49,8 +49,9 @@ class SystemManager {
         }
 
         void updateSystem() {
+            std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
             for (auto &x : _systems)
-                x.second->update();
+                x.second->update(now);
         }
 
         void destroyEntity(Entity id) {

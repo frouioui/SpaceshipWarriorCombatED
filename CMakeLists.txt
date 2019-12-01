@@ -21,8 +21,12 @@ add_library(error STATIC ${ERROR_LIB})
 add_definitions("-fPIC")
 add_library(Wall SHARED ${r-type_SOURCE_DIR}/Game/Object/Wall/Wall.cpp
                         ${r-type_SOURCE_DIR}/Game/Object/Wall/WallSystem.cpp)
-add_library(Asteroid SHARED ${r-type_SOURCE_DIR}/Game/Object/Random/Asteroid.cpp)
-add_library(Rusher SHARED ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/Rusher.cpp)
+
+add_library(Asteroid SHARED ${r-type_SOURCE_DIR}/Game/Object/Random/Asteroid.cpp
+                            ${r-type_SOURCE_DIR}/Game/Object/Random/RandomSystem.cpp)
+
+add_library(Rusher SHARED ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/Rusher.cpp
+                           ${r-type_SOURCE_DIR}/Game/Enemy/Rusher/RusherSystem.cpp)
 
 set_target_properties(Wall PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Wall/lib)
 set_target_properties(Asteroid PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${r-type_SOURCE_DIR}/Game/Object/Random/lib)

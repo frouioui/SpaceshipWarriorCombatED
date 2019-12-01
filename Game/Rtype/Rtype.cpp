@@ -33,7 +33,7 @@ void Rtype::createBorder(int size)
         return;
     static int counter = 0;
     static int random = rand() % _wall.size();
-    std::pair<int,int> size_obj = _wall[random]->getSize();
+    std::pair<int, int> size_obj = _wall[random]->getSize();
     if (counter % (size_obj.second + 1) == 0) {
         random = rand() % _wall.size();
         for (int i = 0; i < size; i++) {
@@ -91,4 +91,6 @@ void Rtype::initGame(int nbplayer, int stage)
     try {loadWallObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadRandomObject();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
     try {loadEnnemy();} catch (std::exception &e) {std::cout << e.what() << std::endl;}
+    if (_enemy.size() > 0)
+        _enemy[0]->getSystem()->activate(true);
 }

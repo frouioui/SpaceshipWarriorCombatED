@@ -19,23 +19,32 @@ WallSystem::~WallSystem()
 void WallSystem::init()
 {
     _wall->setGameEngine(gameEngine);
-    Signature sign;
-    sign.set(gameEngine->getComponentID<wallComponent>());
-    _clock = std::chrono::system_clock::now();
-    _size = 1;
-    setSignature(sign);
-    activate(true);
+    _activate = false;
 }
 
-void WallSystem::update()
+void WallSystem::activate(bool isActivated)
 {
+    if (isActivated) {
+        _clock = std::chrono::system_clock::now();
+        _size = 1;
+        _activate = true;
+    } else
+        _activate = false;
+}
+
+void WallSystem::update(const std::chrono::time_point<std::chrono::system_clock>& now)
+{
+    static int counter = 0;
     if (!_activate)
         return;
-    std::chrono::time_point<std::chrono::system_clock> now = std::chrono::system_clock::now();
     long long elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now-_clock).count();
-    if (elapsed > (1000 / 60) * (_wall->getSize().second + 1)) {
+    if (elapsed > (1000 / 60)) {
         _clock = now;
-        std::pair<int,int> size_obj = _wall->getSize();
+        counter++;
+    }
+    if (counter % (_wall->getSize().second + 1) == 0) {
+        counter = 0;
+        std::pair<int, int> size_obj = _wall->getSize();
         for (int i = 0; i < _size; i++) {
             int spesize = i * size_obj.first;
             _wall->createObjet({0 + spesize, MAX_WINDOW});

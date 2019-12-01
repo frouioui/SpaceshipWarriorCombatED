@@ -2,28 +2,29 @@
 ** EPITECH PROJECT, 2019
 ** SpaceshipWarriorCombatED
 ** File description:
-** WallSystem
+** RusherSystem
 */
 
-#ifndef WALLSYSTEM_HPP_
-#define WALLSYSTEM_HPP_
+#ifndef RUSHERSYSTEM_HPP_
+#define RUSHERSYSTEM_HPP_
 
 #include <chrono>
 #include <ctime>
+#include<memory>
 
-#include "Wall.hpp"
+#include "Rusher.hpp"
 
-class WallSystem : public ASystem {
+class RusherSystem : public ASystem {
 	public:
-		WallSystem();
-		~WallSystem();
+		RusherSystem();
+		~RusherSystem();
         void init();
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
         void activate(bool);
 	private:
         std::chrono::time_point<std::chrono::system_clock> _clock;
-        std::unique_ptr<IObjet> _wall;
+        std::shared_ptr<IObjet> _objet;
         int _size;
 };
 
-#endif /* !WALLSYSTEM_HPP_ */
+#endif /* !RUSHERSYSTEM_HPP_ */

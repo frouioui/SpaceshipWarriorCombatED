@@ -173,7 +173,7 @@ void Collision::checkScore(Entity one, Entity two)
     }
 }
 
-void Collision::update()
+void Collision::update(const std::chrono::time_point<std::chrono::system_clock>& now)
 {
     for (auto const & x : _entities) {
          for (auto const & y : _entities) {
