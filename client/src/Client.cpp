@@ -172,11 +172,11 @@ std::vector<boundingBox> Client::getBoundingBox()
             pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS))));
             pos.second = 0;
             box.pos.push_back(pos);
-            box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
+            // box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
         } else if (static_cast<PRTL::Data>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CONTENT))))) == PRTL::Data::SQUARE) {
             box.type = shapeType::SQUARE;
             std::pair<int, int> pos;
-            box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
+            // box.collideType = static_cast<collisionType>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)))));
             pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_Y))));
             pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_X))));
             box.pos.push_back(pos);
