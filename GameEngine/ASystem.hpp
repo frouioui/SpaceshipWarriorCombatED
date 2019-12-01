@@ -24,13 +24,14 @@ class ASystem {
 		void setSignature(Signature sign) { _signature =  sign;};
 		virtual void init() = 0;
 		virtual void update(const std::chrono::time_point<std::chrono::system_clock>& now) = 0;
-		virtual void activate(bool isactivate) { _activate = isactivate;};
+		virtual void activate(bool isactivate, const std::chrono::time_point<std::chrono::system_clock>& now) {};
 		ECS::Signature getSignature() { return _signature;};
         std::set<ECS::Entity> _entities;
 	protected:
 		ECS::Signature _signature;
 		std::shared_ptr<GameEngine> gameEngine;
 		bool _activate;
+		std::chrono::time_point<std::chrono::system_clock> _clock;
 };
 
 #endif /* !ASYSTEM_HPP_ */

@@ -160,16 +160,18 @@ void Collision::checkScore(Entity one, Entity two)
         auto &id = gameEngine->getComponent<fromPlayer>(one);
         auto &stats = gameEngine->getComponent<Stats>(two);
         if (stats.life <= 0) {
-            auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
-            statsplayer.score += stats.score;
+            if (gameEngine->isEntityHave<Stats>(id.id)) {
+                auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
+                statsplayer.score += stats.score;
+            }
         } 
     } else if (gameEngine->isEntityHave<fromPlayer>(two) && gameEngine->isEntityHave<Stats>(one)) {
         auto &id = gameEngine->getComponent<fromPlayer>(two);
         auto &stats = gameEngine->getComponent<Stats>(one);
         if (stats.life <= 0) {
             if (gameEngine->isEntityHave<Stats>(id.id)) {
-            auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
-            statsplayer.score += stats.score;
+                auto &statsplayer = gameEngine->getComponent<Stats>(id.id);
+                statsplayer.score += stats.score;
             }
         }
     }

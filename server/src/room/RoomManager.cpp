@@ -63,7 +63,7 @@ unsigned short RoomManager::getNewId() const
     unsigned short id = 0;
 
     while (done == false) {
-        id = rand() % 9999;
+        id = std::rand() % 9999;
         current = false;
         for (size_t i = 0; i < _rooms.size() && current == false; i++) {
             if (_rooms[i]->getRoomId() == id)

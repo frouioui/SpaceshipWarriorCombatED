@@ -6,6 +6,7 @@ int main(int ac, char **argv)
 {
     (void)ac;
     (void)argv;
+    std::srand(std::time(nullptr)); 
     try {
         boost::asio::io_context io_context;
         UDPInfo info = {io_context, 2000};

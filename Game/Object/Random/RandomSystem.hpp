@@ -16,9 +16,8 @@ class RandomSystem : public ASystem {
 		~RandomSystem();
         void init();
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
-        void activate(bool);
+        void activate(bool, const std::chrono::time_point<std::chrono::system_clock>& now);
 	private:
-        std::chrono::time_point<std::chrono::system_clock> _clock;
         std::unique_ptr<IObjet> _objet;
         int _size;
 };

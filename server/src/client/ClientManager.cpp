@@ -44,7 +44,7 @@ std::string ClientManager::generateOneToken() const
     std::string chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ/=+()-?!$&abcdefghijklmnopqrstuvwxyz";
 
     for (int i = 0; i < 10; ++i) {
-        token[i] = chars[rand() % (chars.length() - 1)];
+        token[i] = chars[std::rand() % (chars.length() - 1)];
     }
     return token;
 }

@@ -45,6 +45,8 @@ Player::~Player()
 
 void Player::updatePos(const Event& event)
 {
+    if (!gameEngine->isEntityHave<Stats>(_id))
+        return;
     auto& stats = gameEngine->getComponent<Stats>(_id);
     if (event.event != NOTHING) {
         if (event.event == KEYDOWN) {
@@ -130,11 +132,18 @@ void Player::shoot()
 void Player::isDestroyed()
 {
     if (_isAlive) {
+        if (gameEngine->isEntityHave<destroyable>(_id)) {
         auto &destroy = gameEngine->getComponent<destroyable>(_id);
-        if (destroy.isDestroy) {
-            gameEngine->destroyEntity(_id);
+            if (destroy.isDestroy) {
+                gameEngine->destroyEntity(_id);
+                _isAlive = false;
+            }
+        } else
+        {
             _isAlive = false;
         }
+        
+
     }
 }
 

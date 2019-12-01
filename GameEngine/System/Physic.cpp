@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Physic.hpp"
 
-Physic::Physic() : ASystem(), _clock()
+Physic::Physic() : ASystem()
 {
 }
 

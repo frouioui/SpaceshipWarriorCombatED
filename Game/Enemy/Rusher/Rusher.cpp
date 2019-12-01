@@ -41,7 +41,7 @@ void Rusher::createObjet(std::pair<int, int> pos)
         collisionType::COLLIDE_ENEMY
     });
     gameEngine->addComponent(rusher, speed {
-        -1,
+        -2,
         [] (int x) {
             return 0;
         }

@@ -7,7 +7,7 @@
 
 #include "RusherSystem.hpp"
 
-RusherSystem::RusherSystem() : ASystem(), _clock(), _objet(std::make_unique<Rusher>()), _size(1), _counter(0), _spawn(0), _y(0)
+RusherSystem::RusherSystem() : ASystem(), _objet(std::make_unique<Rusher>()), _size(1), _counter(0), _spawn(0), _y(0)
 {
 }
 
@@ -21,10 +21,10 @@ void RusherSystem::init()
     _activate = false;
 }
 
-void RusherSystem::activate(bool isActivated)
+void RusherSystem::activate(bool isActivated, const std::chrono::time_point<std::chrono::system_clock>& now)
 {
     if (isActivated) {
-        _clock = std::chrono::system_clock::now();
+        _clock = now;
         _size = 1;
         _activate = true;
     } else
@@ -40,7 +40,7 @@ void RusherSystem::update(const std::chrono::time_point<std::chrono::system_cloc
         _clock = now;
         _counter++;
         if (_counter % 150 == 0) {
-            _y = rand() % 100 + 75;
+            _y = std::rand() % 100 + 75;
             _spawn++;
             _objet->createObjet({_y, MAX_WINDOW});
             _counter = 0;

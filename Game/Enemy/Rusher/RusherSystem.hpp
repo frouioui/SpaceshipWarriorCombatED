@@ -20,9 +20,8 @@ class RusherSystem : public ASystem {
 		~RusherSystem();
         void init();
         void update(const std::chrono::time_point<std::chrono::system_clock>&);
-        void activate(bool);
+        void activate(bool, const std::chrono::time_point<std::chrono::system_clock>&);
 	private:
-        std::chrono::time_point<std::chrono::system_clock> _clock;
         std::shared_ptr<IObjet> _objet;
         int _size;
         int _counter;

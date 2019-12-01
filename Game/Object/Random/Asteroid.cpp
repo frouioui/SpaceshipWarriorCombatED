@@ -18,7 +18,7 @@ Asteroid::~Asteroid()
 
 void Asteroid::createObjet(std::pair<int, int> pos)
 {
-    int radius = rand() % 15 + 2;
+    int radius = std::rand() % 15 + 2;
     Entity wall = gameEngine->createEntity();
     Signature signwall;
     signwall.set(gameEngine->getComponentID<rendering>());

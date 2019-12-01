@@ -24,7 +24,6 @@ class Physic : public ASystem {
 		void update(const std::chrono::time_point<std::chrono::system_clock>& now);
 	protected:
 	private:
-		std::chrono::time_point<std::chrono::system_clock> _clock;
 };
 
 #endif /* !PHYSIC_HPP_ */

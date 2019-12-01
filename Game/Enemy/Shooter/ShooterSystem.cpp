@@ -7,7 +7,7 @@
 
 #include "ShooterSystem.hpp"
 
-ShooterSystem::ShooterSystem() : ASystem(), _clock(), _objet(std::make_unique<Shooter>()), _size(1), _counter(0), _spawn(0), _y(0)
+ShooterSystem::ShooterSystem() : ASystem(), _objet(std::make_unique<Shooter>()), _size(1), _counter(0), _spawn(0), _y(0)
 {
 }
 
@@ -25,10 +25,10 @@ void ShooterSystem::init()
     _activate = false;
 }
 
-void ShooterSystem::activate(bool isActivated)
+void ShooterSystem::activate(bool isActivated, const std::chrono::time_point<std::chrono::system_clock>& now)
 {
     if (isActivated) {
-        _clock = std::chrono::system_clock::now();
+        _clock = now;
         _size = 1;
         _activate = true;
     } else
@@ -82,7 +82,7 @@ void ShooterSystem::update(const std::chrono::time_point<std::chrono::system_clo
         _clock = now;
         _counter++;
         if (_counter % 100 == 0) {
-            _y = rand() % 100 + 75;
+            _y = std::rand() % 100 + 75;
             _spawn++;
             _objet->createObjet({_y, MAX_WINDOW});
             _counter = 0;
@@ -103,7 +103,7 @@ void ShooterSystem::update(const std::chrono::time_point<std::chrono::system_clo
                 cible.cible = gameEngine->getRandomComponent<playerComponent>();
             else {
                 auto& posCible = gameEngine->getComponent<boundingBox>(cible.cible).pos[LOWERRIGHT];
-                if (rand() % 200 == 0)
+                if (std::rand() % 200 == 0)
                     shoot(pos.pos[UPPERLEFT], posCible);
             }
             if (pos.pos[UPPERLEFT].first < 70) {

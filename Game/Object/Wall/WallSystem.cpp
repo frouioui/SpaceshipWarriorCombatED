@@ -7,7 +7,7 @@
 
 #include "WallSystem.hpp"
 
-WallSystem::WallSystem() : ASystem(), _clock(), _wall(std::make_unique<Wall>()), _size(1)
+WallSystem::WallSystem() : ASystem(), _wall(std::make_unique<Wall>()), _size(1)
 {
 }
 
@@ -22,10 +22,10 @@ void WallSystem::init()
     _activate = false;
 }
 
-void WallSystem::activate(bool isActivated)
+void WallSystem::activate(bool isActivated, const std::chrono::time_point<std::chrono::system_clock>& now)
 {
     if (isActivated) {
-        _clock = std::chrono::system_clock::now();
+        _clock = now;
         _size = 1;
         _activate = true;
     } else
