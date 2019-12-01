@@ -163,29 +163,29 @@ std::vector<boundingBox> Client::getBoundingBox()
 
     for (auto &&p : packet) {
         boundingBox box;
-        if (p.getData(PRTL::CONTENT) == PRTL::CIRCLE) {
+        if (static_cast<PRTL::Data>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CONTENT))))) == PRTL::Data::CIRCLE) {
             box.type = shapeType::CIRCLE;
             std::pair<int, int> pos;
-            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_Y));
-            pos.second = std::stoi(p.getData(PRTL::CIRCLE_POS_CENTER_X));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_Y))));
+            pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_X))));
             box.pos.push_back(pos);
-            pos.first = std::stoi(p.getData(PRTL::CIRCLE_POS_RADIUS));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS))));
             pos.second = 0;
             box.pos.push_back(pos);
-        } else if (p.getData(PRTL::CONTENT) == PRTL::SQUARE) {
+        } else if (static_cast<PRTL::Data>(std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::CONTENT))))) == PRTL::Data::SQUARE) {
             box.type = shapeType::SQUARE;
             std::pair<int, int> pos;
-            pos.first = std::stoi(p.getData(PRTL::SQUARE_UPPERLEFT_Y));
-            pos.second = std::stoi(p.getData(PRTL::SQUARE_UPPERLEFT_X));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_Y))));
+            pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_X))));
             box.pos.push_back(pos);
-            pos.first = std::stoi(p.getData(PRTL::SQUARE_UPPERRIGHT_Y));
-            pos.second = std::stoi(p.getData(PRTL::SQUARE_UPPERRIGHT_X));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERRIGHT_Y))));
+            pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERRIGHT_X))));
             box.pos.push_back(pos);
-            pos.first = std::stoi(p.getData(PRTL::SQUARE_LOWERLEFT_Y));
-            pos.second = std::stoi(p.getData(PRTL::SQUARE_LOWERLEFT_X));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_LOWERLEFT_Y))));
+            pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_LOWERLEFT_X))));
             box.pos.push_back(pos);
-            pos.first = std::stoi(p.getData(PRTL::SQUARE_LOWERRIGHT_Y));
-            pos.second = std::stoi(p.getData(PRTL::SQUARE_LOWERRIGHT_X));
+            pos.first = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_LOWERRIGHT_Y))));
+            pos.second = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_LOWERRIGHT_X))));
             box.pos.push_back(pos);
         }
         boundingbox.push_back(box);

@@ -74,7 +74,7 @@ void Server::authClient(Packet received_packet)
 	packet.set(received_packet.getPort());
 	client.setIp(received_packet.getIp());
 	client.setPort(received_packet.getPort());
-	client.setUsername(received_packet.getData(PRTL::USER));
+	client.setUsername(received_packet.getData(std::to_string(static_cast<int>(PRTL::Data::USER))));
 	client.setToken(token);
 	_client_manager.addClient(client);
 	respondToClient(packet);
@@ -101,9 +101,9 @@ void Server::getRooms(Packet received_packet)
 	packet.setAction(PRTL::Actions::GET_ROOMS);
 	packet.set(received_packet.getIp());
 	packet.set(received_packet.getPort());
-	packet.setData(PRTL::NB_ROOM, std::to_string(nb_rooms));
+	packet.setData(std::to_string(static_cast<int>(PRTL::Data::NB_ROOM)), std::to_string(nb_rooms));
 	for (size_t i = 0; i < nb_rooms; i++) {
-		std::string room_name = PRTL::ID_ROOM + std::to_string(i);
+		std::string room_name = std::to_string(static_cast<int>(PRTL::Data::ID_ROOM)) + std::to_string(i);
 		packet.setData(room_name, std::to_string(rooms[i]->getRoomId()));
 	}
 	respondToClient(packet);
@@ -124,7 +124,7 @@ void Server::joinRoom(Packet received_packet)
 	}
 
 	dataPacket data = received_packet.getData();
-	unsigned short requested_room_id = static_cast<unsigned short>(std::atoi(data[PRTL::ID_ROOM].c_str()));
+	unsigned short requested_room_id = static_cast<unsigned short>(std::atoi(data[std::to_string(static_cast<int>(PRTL::Data::ID_ROOM))].c_str()));
 	
 	_room_manager.getRoomById(requested_room_id)->addClient(client);
 }

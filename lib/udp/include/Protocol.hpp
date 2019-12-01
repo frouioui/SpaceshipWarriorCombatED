@@ -3,28 +3,30 @@
 
 namespace PRTL
 {
-    const std::string USER = "usr";
-    const std::string PASSWORD = "pwd";
-    const std::string NB_ROOM = "nbroom";
-    const std::string ID_ROOM = "id_room";
-    const std::string CONTENT = "content";
-
-    const std::string CIRCLE = "circle";
-    const std::string CIRCLE_POS_CENTER_Y = "circle_center_y";
-    const std::string CIRCLE_POS_CENTER_X = "circle_center_x";
-    const std::string CIRCLE_POS_RADIUS = "circle_radius";
-
-    const std::string SQUARE = "square";
-    const std::string SQUARE_UPPERLEFT_Y = "square_upperleft_y";
-    const std::string SQUARE_UPPERLEFT_X = "square_upperleft_x";
-    const std::string SQUARE_UPPERRIGHT_Y = "square_upperight_y";
-    const std::string SQUARE_UPPERRIGHT_X = "square_upperight_x";
-    const std::string SQUARE_LOWERLEFT_Y = "square_lowerleft_y";
-    const std::string SQUARE_LOWERLEFT_X = "square_lowerleft_x";
-    const std::string SQUARE_LOWERRIGHT_Y = "square_lowerright_y";
-    const std::string SQUARE_LOWERRIGHT_X = "square_lowerright_x";
-
-    const std::string INPUT = "input";
+    enum class Data {
+        ACTION,
+        RESPONSE,
+        TOKEN,
+        USER,
+        PASSWORD,
+        NB_ROOM,
+        ID_ROOM,
+        CONTENT,
+        CIRCLE,
+        CIRCLE_POS_CENTER_Y,
+        CIRCLE_POS_CENTER_X,
+        CIRCLE_POS_RADIUS,
+        SQUARE,
+        SQUARE_UPPERLEFT_Y,
+        SQUARE_UPPERLEFT_X,
+        SQUARE_UPPERRIGHT_Y,
+        SQUARE_UPPERRIGHT_X,
+        SQUARE_LOWERLEFT_Y,
+        SQUARE_LOWERLEFT_X,
+        SQUARE_LOWERRIGHT_Y,
+        SQUARE_LOWERRIGHT_X,
+        INPUT
+    };
 
     enum class Actions {
         AUTH,

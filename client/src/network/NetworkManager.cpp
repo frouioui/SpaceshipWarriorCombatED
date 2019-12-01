@@ -63,8 +63,8 @@ void NetworkManager::authToServer()
     while (_connected == false && _running == true) {
         Packet packet(_config.getServerIp(), _config.getServerPort());
         packet.setAction(PRTL::Actions::AUTH);
-        packet.setData(PRTL::USER, "rtype");
-        packet.setData(PRTL::PASSWORD, "rtype");
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::USER)), "rtype");
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::PASSWORD)), "rtype");
         _mutex_send.lock();
         _udp.send(packet);
         _mutex_send.unlock();
@@ -80,7 +80,7 @@ void NetworkManager::receive()
         _mutex_receive.unlock();
 
         if (packet.getAction() == PRTL::Actions::AUTH && packet.getResponse() == PRTL::Responses::SUCCESS) {
-            _auth_token = packet.getData("token");
+            _auth_token = packet.getData(std::to_string(static_cast<int>(PRTL::Data::TOKEN)));
             _connected = true;
             std::cout << "logged in with token: " << _auth_token << std::endl;
         } else if (packet.getAction() == PRTL::Actions::AUTH && packet.getResponse() == PRTL::Responses::FAILURE) {
@@ -108,7 +108,7 @@ void NetworkManager::handleRecieve()
         
             } else if (it->getAction() == PRTL::Actions::GET_ROOMS) {
                 dataPacket data = it->getData();
-                std::cout << "Number of rooms: " << data[PRTL::NB_ROOM] << std::endl;
+                std::cout << "Number of rooms: " << data[std::to_string(static_cast<int>(PRTL::Data::NB_ROOM))] << std::endl;
         
             } else if (it->getAction() == PRTL::Actions::NEWCO) {
                 if (it->getResponse() == PRTL::Responses::SUCCESS) {
@@ -119,7 +119,7 @@ void NetworkManager::handleRecieve()
 
             } else if (it->getAction() == PRTL::Actions::INFO_ROOM) {  
                 dataPacket data = it->getData();
-                std::string username = data[PRTL::USER];
+                std::string username = data[std::to_string(static_cast<int>(PRTL::Data::USER))];
                 Player player;
                 player.setUsername(username);
                 _players.push_back(player);
@@ -178,7 +178,7 @@ void NetworkManager::joinRoom(unsigned short id_room)
     Packet packet(_config.getServerIp(), _config.getServerPort());
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::JOIN_ROOM);
-    packet.setData(PRTL::ID_ROOM, std::to_string(id_room));
+    packet.setData(std::to_string(static_cast<int>(PRTL::Data::ID_ROOM)), std::to_string(id_room));
     _mutex_send.lock();
     _udp.send(packet);
     _mutex_send.unlock();
@@ -190,13 +190,13 @@ void NetworkManager::sendInput(std::vector<input> input)
     packet.setToken(_auth_token);
     packet.setAction(PRTL::Actions::INPUT);
     if (input.size() == 0) {
-        packet.setData(PRTL::INPUT, std::to_string(input::NOTHING));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::INPUT)), std::to_string(input::NOTHING));
         _mutex_send.lock();
         _udp.send(packet);
         _mutex_send.unlock();
     }
     for (auto& x : input) {
-        packet.setData(PRTL::INPUT, std::to_string(x));
+        packet.setData(std::to_string(static_cast<int>(PRTL::Data::INPUT)), std::to_string(x));
         _mutex_send.lock();
         _udp.send(packet);
         _mutex_send.unlock();
