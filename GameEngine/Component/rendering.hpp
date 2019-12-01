@@ -20,7 +20,7 @@ struct rendering
     std::vector<int> pos;
     std::vector<int> size;
     std::string path;
-    int high;
+    int height;
     int width;
 };
 

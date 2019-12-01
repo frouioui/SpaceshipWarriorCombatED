@@ -9,7 +9,18 @@
 
 Shooter::Shooter() : AObjet()
 {
+    std::string projectPath;
+    std::string ressourcesPath;
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
+
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    ressourcesPath = projectPath + "/ressources/";
+    _path = ressourcesPath + "r-typesheet5.gif";
     _size = {10,20};
+    _height = 36;
+    _width = 36;
 }
 
 Shooter::~Shooter()
@@ -32,7 +43,10 @@ void Shooter::createObjet(std::pair<int, int> pos)
         Asset::ENNEMY0,
         "shooter" + std::to_string(shooter),
         {pos.first, pos.second},
-        {_size.first, _size.second}
+        {_size.first, _size.second},
+        _path,
+        _height,
+        _width
     });
     gameEngine->addComponent(shooter, boundingBox {
         SQUARE,

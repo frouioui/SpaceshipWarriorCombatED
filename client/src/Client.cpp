@@ -146,7 +146,7 @@ int Client::run() throw()
         _network.sendInput(counter);
 
         _sfml.updateParallax();
-
+        _sfml.updateAllObject(getRendering());
         _sfml.drawBoundingBox(getBoundingBox());
         _sfml.drawAllObjects();
         _sfml.updateWindow();
@@ -206,7 +206,7 @@ std::vector<rendering> Client::getRendering()
             render.pos[1] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::POS_Y_RENDERING))));
             render.size[0] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_X_RENDERING))));
             render.size[1] = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::SIZE_Y_RENDERING))));
-            render.high = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING))));
+            render.height = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::HIGH_RENDERING))));
             render.width = std::stoi(p.getData(std::to_string(static_cast<int>(PRTL::Data::WIDTH_RENDERING))));
             render.id = p.getData(std::to_string(static_cast<int>(PRTL::Data::ID_RENDERING)));
             render.path = p.getData(std::to_string(static_cast<int>(PRTL::Data::PATH_RENDERING)));

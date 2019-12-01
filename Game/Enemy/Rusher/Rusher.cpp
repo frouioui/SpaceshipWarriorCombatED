@@ -10,7 +10,18 @@
 
 Rusher::Rusher() : AObjet()
 {
+    std::string projectPath;
+    std::string ressourcesPath;
+    const size_t last_slash_idx = std::string(std::getenv("PWD")).rfind('/');
+
+    if (std::string::npos != last_slash_idx) {
+        projectPath = std::string(std::getenv("PWD")).substr(0, last_slash_idx);
+    }
+    ressourcesPath = projectPath + "/ressources/";
+    _path = ressourcesPath + "r-typesheet8.gif";
     _size = {5,0};
+    _height = 34;
+    _width = 34;
 }
 
 Rusher::~Rusher()
@@ -32,7 +43,10 @@ void Rusher::createObjet(std::pair<int, int> pos)
         Asset::ENNEMY0,
         "rusher" + std::to_string(rusher),
         {pos.first, pos.second},
-        {_size.first, _size.second}
+        {_size.first, _size.second},
+        _path,
+        _height,
+        _width
     });
     gameEngine->addComponent(rusher, boundingBox {
         CIRCLE,

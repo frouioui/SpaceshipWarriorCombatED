@@ -21,6 +21,9 @@ class Shooter : public AObjet {
 		std::shared_ptr<ASystem> getSystem();
 	protected:
 	private:
+        std::string _path;
+        int _height;
+        int _width;
 };
 
 #endif /* !SHOOTER_HPP_ */

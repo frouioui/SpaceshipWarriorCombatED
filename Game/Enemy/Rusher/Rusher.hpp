@@ -20,6 +20,9 @@ class Rusher : public AObjet {
 		std::shared_ptr<ASystem> getSystem();
 	protected:
 	private:
+        std::string _path;
+        int _height;
+        int _width;
 };
 
 #endif /* !RUSHER_HPP_ */
