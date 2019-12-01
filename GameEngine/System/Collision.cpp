@@ -104,7 +104,8 @@ bool Collision::collideCircle(boundingBox& c1, boundingBox& c2)
     std::pair<int, int> center2 = {c2.pos[CENTER].first, c2.pos[CENTER].second};
     int radius1 = c1.pos[RADIUS].first;
     int radius2 = c2.pos[RADIUS].first;
-    if (calculDistance(center1,center2) <= radius1 + radius2)
+    if (calculDistance({center1.first + radius1, center1.second + radius1},
+                        {center2.first + radius2, center2.second + radius2}) <= radius1 + radius2)
         return true;
     return false;
 }
