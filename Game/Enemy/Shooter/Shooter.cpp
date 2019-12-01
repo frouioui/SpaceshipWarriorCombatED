@@ -20,6 +20,7 @@ void Shooter::createObjet(std::pair<int, int> pos)
 {
     Entity shooter = gameEngine->createEntity();
     Signature signshooter;
+    int counter =  std::rand() % 2== 1 ? 1:-1;
 
     signshooter.set(gameEngine->getComponentID<rendering>());
     signshooter.set(gameEngine->getComponentID<boundingBox>());
@@ -45,8 +46,8 @@ void Shooter::createObjet(std::pair<int, int> pos)
     });
     gameEngine->addComponent(shooter, speed {
         -1,
-        [] (int x) {
-            return 1;
+        [counter] (int x) {
+            return counter;
         }
     });
     gameEngine->addComponent(shooter, destroyable {
