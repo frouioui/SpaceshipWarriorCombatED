@@ -96,9 +96,10 @@ void Room::sendInfoBoundingBoxes()
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_X)), std::to_string(boundingBox.pos[circlePos::CENTER].second));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_CENTER_Y)), std::to_string(boundingBox.pos[circlePos::CENTER].first));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS)), std::to_string(boundingBox.pos[circlePos::RADIUS].first));
-            packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CIRCLE_POS_RADIUS)), std::to_string(static_cast<int>(boundingBox.collideType)));
+            packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)), std::to_string(static_cast<int>(boundingBox.collideType)));
         } else if (boundingBox.type == shapeType::SQUARE) {
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::CONTENT)), std::to_string(static_cast<int>(PRTL::Data::SQUARE)));
+            packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::COLLIDE_TYPE)), std::to_string(static_cast<int>(boundingBox.collideType)));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_Y)), std::to_string(boundingBox.pos[squarePos::UPPERLEFT].first));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERLEFT_X)), std::to_string(boundingBox.pos[squarePos::UPPERLEFT].second));
             packetBoundingBox.setData(std::to_string(static_cast<int>(PRTL::Data::SQUARE_UPPERRIGHT_Y)), std::to_string(boundingBox.pos[squarePos::UPPERRIGHT].first));

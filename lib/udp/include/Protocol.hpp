@@ -16,6 +16,7 @@ namespace PRTL
         CIRCLE_POS_CENTER_Y,
         CIRCLE_POS_CENTER_X,
         CIRCLE_POS_RADIUS,
+        COLLIDE_TYPE,
         SQUARE,
         SQUARE_UPPERLEFT_Y,
         SQUARE_UPPERLEFT_X,
